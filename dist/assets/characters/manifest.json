@@ -1,0 +1,768 @@
+{
+  "schemaVersion": 1,
+  "characters": {
+    "nyaruru": {
+      "pixel": {
+        "src": "assets/characters/nyaruru-pixel.png",
+        "width": 44,
+        "height": 52
+      },
+      "portrait": {
+        "src": "assets/characters/nyaruru-portrait.png",
+        "width": 606,
+        "height": 620
+      },
+      "pixelEvidence": {
+        "actor": 1,
+        "battleObject": 0,
+        "animation": ";toru_standing",
+        "resource": "img/characters/;toru_standing.png",
+        "grid": [
+          9,
+          1
+        ],
+        "frame": 0,
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 48,
+          "height": 54
+        },
+        "trim": {
+          "x": 3,
+          "y": 2,
+          "width": 44,
+          "height": 52
+        }
+      },
+      "portraitEvidence": {
+        "actor": 1,
+        "alias": "Nyarutoru",
+        "resource": "img/artwork/Nyarutoru/normal.png"
+      }
+    },
+    "berries": {
+      "pixel": {
+        "src": "assets/characters/berries-pixel.png",
+        "width": 42,
+        "height": 54
+      },
+      "portrait": {
+        "src": "assets/characters/berries-portrait.png",
+        "width": 508,
+        "height": 620
+      },
+      "pixelEvidence": {
+        "actor": 2,
+        "battleObject": 11,
+        "animation": ";berries_standing",
+        "resource": "img/characters/;berries_standing.png",
+        "grid": [
+          6,
+          1
+        ],
+        "frame": 0,
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 45,
+          "height": 55
+        },
+        "trim": {
+          "x": 2,
+          "y": 1,
+          "width": 42,
+          "height": 54
+        }
+      },
+      "portraitEvidence": {
+        "actor": 2,
+        "alias": "Berries",
+        "resource": "img/artwork/Berries/normal.png"
+      }
+    },
+    "lily": {
+      "pixel": {
+        "src": "assets/characters/lily-pixel.png",
+        "width": 48,
+        "height": 52
+      },
+      "portrait": {
+        "src": "assets/characters/lily-portrait.png",
+        "width": 598,
+        "height": 640
+      },
+      "pixelEvidence": {
+        "actor": 3,
+        "battleObject": 34,
+        "animation": ";lily_standing",
+        "resource": "img/characters/;lily_standing.png",
+        "grid": [
+          6,
+          1
+        ],
+        "frame": 0,
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 48,
+          "height": 54
+        },
+        "trim": {
+          "x": 0,
+          "y": 2,
+          "width": 48,
+          "height": 52
+        }
+      },
+      "portraitEvidence": {
+        "actor": 3,
+        "alias": "Lily",
+        "resource": "img/artwork/Lily/normal.png"
+      }
+    },
+    "sakura": {
+      "pixel": {
+        "src": "assets/characters/sakura-pixel.png",
+        "width": 45,
+        "height": 50
+      },
+      "portrait": {
+        "src": "assets/characters/sakura-portrait.png",
+        "width": 344,
+        "height": 660
+      },
+      "pixelEvidence": {
+        "actor": 13,
+        "battleObject": 438,
+        "animation": ";sakura_standing",
+        "resource": "img/characters/;sakura_standing.png",
+        "grid": [
+          6,
+          1
+        ],
+        "frame": 0,
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 53,
+          "height": 51
+        },
+        "trim": {
+          "x": 3,
+          "y": 1,
+          "width": 45,
+          "height": 50
+        }
+      },
+      "portraitEvidence": {
+        "actor": 13,
+        "alias": "Sakura",
+        "resource": "img/artwork/Sakura/normal.png"
+      }
+    },
+    "lianne": {
+      "pixel": {
+        "src": "assets/characters/lianne-pixel.png",
+        "width": 39,
+        "height": 54
+      },
+      "portrait": {
+        "src": "assets/characters/lianne-portrait.png",
+        "width": 440,
+        "height": 622
+      },
+      "pixelEvidence": {
+        "actor": 17,
+        "battleObject": 176,
+        "animation": ";laine_stand",
+        "resource": "img/characters/;laine_stand.png",
+        "grid": [
+          6,
+          1
+        ],
+        "frame": 0,
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 45,
+          "height": 54
+        },
+        "trim": {
+          "x": 5,
+          "y": 0,
+          "width": 39,
+          "height": 54
+        }
+      },
+      "portraitEvidence": {
+        "actor": 17,
+        "alias": "Laine",
+        "resource": "img/artwork/Laine/normal.png"
+      }
+    },
+    "eliza": {
+      "pixel": {
+        "src": "assets/characters/eliza-pixel.png",
+        "width": 54,
+        "height": 57
+      },
+      "portrait": {
+        "src": "assets/characters/eliza-portrait.png",
+        "width": 580,
+        "height": 620
+      },
+      "pixelEvidence": {
+        "actor": 18,
+        "battleObject": 277,
+        "animation": ";heart_stand",
+        "resource": "img/characters/;heart_stand.png",
+        "grid": [
+          8,
+          1
+        ],
+        "frame": 0,
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 62,
+          "height": 76
+        },
+        "trim": {
+          "x": 2,
+          "y": 4,
+          "width": 54,
+          "height": 57
+        }
+      },
+      "portraitEvidence": {
+        "actor": 18,
+        "alias": "Heart",
+        "resource": "img/artwork/Heart/normal.png"
+      }
+    },
+    "dracula": {
+      "pixel": {
+        "src": "assets/characters/dracula-pixel.png",
+        "width": 82,
+        "height": 60
+      },
+      "portrait": {
+        "src": "assets/characters/dracula-portrait.png",
+        "width": 684,
+        "height": 680
+      },
+      "pixelEvidence": {
+        "actor": 16,
+        "battleObject": 220,
+        "animation": ";dracula_stand",
+        "resource": "img/characters/;dracula_stand.png",
+        "grid": [
+          6,
+          1
+        ],
+        "frame": 0,
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 93,
+          "height": 73
+        },
+        "trim": {
+          "x": 7,
+          "y": 2,
+          "width": 82,
+          "height": 60
+        }
+      },
+      "portraitEvidence": {
+        "actor": 16,
+        "alias": "Dracula",
+        "resource": "img/artwork/Dracula/normal.png"
+      }
+    },
+    "theia": {
+      "pixel": {
+        "src": "assets/characters/theia-pixel.png",
+        "width": 53,
+        "height": 58
+      },
+      "portrait": {
+        "src": "assets/characters/theia-portrait.png",
+        "width": 653,
+        "height": 620
+      },
+      "pixelEvidence": {
+        "actor": 22,
+        "battleObject": 368,
+        "animation": ";tiya_standing",
+        "resource": "img/characters/;tiya_standing.png",
+        "grid": [
+          6,
+          1
+        ],
+        "frame": 0,
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 60,
+          "height": 70
+        },
+        "trim": {
+          "x": 6,
+          "y": 5,
+          "width": 53,
+          "height": 58
+        }
+      },
+      "portraitEvidence": {
+        "actor": 22,
+        "alias": "Theia",
+        "resource": "img/artwork/Theia/normal.png"
+      }
+    },
+    "nyakori": {
+      "pixel": {
+        "src": "assets/characters/nyakori-pixel.png",
+        "width": 49,
+        "height": 50
+      },
+      "portrait": {
+        "src": "assets/characters/nyakori-portrait.png",
+        "width": 642,
+        "height": 640
+      },
+      "pixelEvidence": {
+        "actor": 10,
+        "battleObject": 254,
+        "animation": ";kori_stand",
+        "resource": "img/characters/;kori_stand.png",
+        "grid": [
+          6,
+          1
+        ],
+        "frame": 0,
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 57,
+          "height": 51
+        },
+        "trim": {
+          "x": 5,
+          "y": 1,
+          "width": 49,
+          "height": 50
+        }
+      },
+      "portraitEvidence": {
+        "actor": 10,
+        "alias": "Nyakori",
+        "resource": "img/artwork/Nyakori/normal.png"
+      }
+    },
+    "yuri": {
+      "pixel": {
+        "src": "assets/characters/yuri-pixel.png",
+        "width": 35,
+        "height": 54
+      },
+      "portrait": {
+        "src": "assets/characters/yuri-portrait.png",
+        "width": 614,
+        "height": 620
+      },
+      "pixelEvidence": {
+        "actor": 11,
+        "battleObject": 252,
+        "animation": ";liei_stand",
+        "resource": "img/characters/;liei_stand.png",
+        "grid": [
+          6,
+          1
+        ],
+        "frame": 0,
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 42,
+          "height": 55
+        },
+        "trim": {
+          "x": 4,
+          "y": 1,
+          "width": 35,
+          "height": 54
+        }
+      },
+      "portraitEvidence": {
+        "actor": 11,
+        "alias": "Yuri",
+        "resource": "img/artwork/Yuri/normal.png"
+      }
+    },
+    "irin": {
+      "pixel": {
+        "src": "assets/characters/irin-pixel.png",
+        "width": 60,
+        "height": 53
+      },
+      "portrait": {
+        "src": "assets/characters/irin-portrait.png",
+        "width": 625,
+        "height": 650
+      },
+      "pixelEvidence": {
+        "actor": 15,
+        "battleObject": 436,
+        "animation": ";irin_standing",
+        "resource": "img/characters/;irin.png",
+        "grid": [
+          8,
+          4
+        ],
+        "frame": 0,
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 77,
+          "height": 62
+        },
+        "trim": {
+          "x": 12,
+          "y": 2,
+          "width": 60,
+          "height": 53
+        }
+      },
+      "portraitEvidence": {
+        "actor": 15,
+        "alias": "Irin",
+        "resource": "img/artwork/Irin/normal.png"
+      }
+    },
+    "plague-witch": {
+      "pixel": {
+        "src": "assets/characters/plague-witch-pixel.png",
+        "width": 60,
+        "height": 53
+      },
+      "portrait": {
+        "src": "assets/characters/plague-witch-portrait.png",
+        "width": 800,
+        "height": 650
+      },
+      "pixelEvidence": {
+        "actor": 23,
+        "battleObject": 405,
+        "animation": ";irin2_standing",
+        "resource": "img/characters/;irin2.png",
+        "grid": [
+          8,
+          6
+        ],
+        "frame": 0,
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 71,
+          "height": 64
+        },
+        "trim": {
+          "x": 6,
+          "y": 2,
+          "width": 60,
+          "height": 53
+        }
+      },
+      "portraitEvidence": {
+        "actor": 23,
+        "alias": "Irin2",
+        "resource": "img/artwork/Irin2/normal.png"
+      }
+    },
+    "nyarutoru": {
+      "pixel": {
+        "src": "assets/characters/nyarutoru-pixel.png",
+        "width": 44,
+        "height": 52
+      },
+      "portrait": {
+        "src": "assets/characters/nyarutoru-portrait.png",
+        "width": 669,
+        "height": 650
+      },
+      "pixelEvidence": {
+        "actor": 19,
+        "battleObject": 149,
+        "animation": ";toruc_standing",
+        "resource": "img/characters/;toruc_standing.png",
+        "grid": [
+          9,
+          1
+        ],
+        "frame": 0,
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 48,
+          "height": 54
+        },
+        "trim": {
+          "x": 3,
+          "y": 2,
+          "width": 44,
+          "height": 52
+        }
+      },
+      "portraitEvidence": {
+        "actor": 19,
+        "alias": "Nyarutoru2",
+        "resource": "img/artwork/Nyarutoru2/normal.png"
+      }
+    },
+    "strange-creature": {
+      "pixel": {
+        "src": "assets/characters/strange-creature-pixel.png",
+        "width": 47,
+        "height": 35
+      },
+      "portrait": null,
+      "pixelEvidence": {
+        "actor": 12,
+        "battleObject": 27,
+        "animation": ";author",
+        "resource": "img/characters/;author.png",
+        "grid": [
+          3,
+          1
+        ],
+        "frame": 0,
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 49,
+          "height": 36
+        },
+        "trim": {
+          "x": 1,
+          "y": 1,
+          "width": 47,
+          "height": 35
+        }
+      }
+    },
+    "orange-flower": {
+      "pixel": {
+        "src": "assets/characters/orange-flower-pixel.png",
+        "width": 77,
+        "height": 99
+      },
+      "portrait": null,
+      "pixelEvidence": {
+        "actor": 14,
+        "battleObject": 61,
+        "animation": ";orange_cat_stand",
+        "resource": "img/characters/;orange_cat_stand.png",
+        "grid": [
+          6,
+          1
+        ],
+        "frame": 0,
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 87,
+          "height": 100
+        },
+        "trim": {
+          "x": 10,
+          "y": 1,
+          "width": 77,
+          "height": 99
+        }
+      }
+    },
+    "lilong": {
+      "pixel": null,
+      "portrait": null,
+      "note": "鏈彂鐜板彲鏍稿疄鐨勭嫭绔嬪師鐗堢礌鏉愶紝涓嶄互鍏朵粬浜虹墿绱犳潗鏇夸唬銆�"
+    }
+  },
+  "source": {
+    "name": "銆婂捀楸煎柕鍠点€嬫湰鍦板師鐗堟父鎴忕礌鏉�",
+    "rights": "娓告垙鍥剧墖鏉冨埄褰掕丹鐬冲ぇ鐧界尗銆佺尗灏惧反鍒朵綔缁勭瓑鍚勮嚜鏉冨埄浜猴紱鏂囧瓧鐨� CC BY-NC-SA 4.0 涓嶉€傜敤浜庤繖浜涘浘鐗囥€傚鍑轰笉浠ｈ〃鍙栧緱鍐嶅垎鍙戣鍙€�",
+    "binarySha256": "cd1a802662043ced03567bd58570be78f9523c3730eacb53c9b4d59677009e96",
+    "mapping": "story-schinese.xlsx #actor + nya_game_system.js + iframe.xlsx ImageFrame",
+    "resources": [
+      {
+        "name": "img/characters/;toru_standing.png",
+        "width": 432,
+        "height": 54,
+        "sha256": "e639ccb9799e0ab9c0eb0b3ead6f1a04ab2d0715295005f0271c21cb6638150c"
+      },
+      {
+        "name": "img/artwork/Nyarutoru/normal.png",
+        "width": 606,
+        "height": 620,
+        "sha256": "38c33f742ad0250f34722df2d247a57d864b6f1f2a193a8a5d71f76fd2f7ec61"
+      },
+      {
+        "name": "img/characters/;berries_standing.png",
+        "width": 270,
+        "height": 55,
+        "sha256": "a9799237cfeecdcce731ee3b1cbddc64704ba12107765f129423a14516ad399a"
+      },
+      {
+        "name": "img/artwork/Berries/normal.png",
+        "width": 508,
+        "height": 620,
+        "sha256": "3391ccc1b88394dabbcc65f8d064033393be4679f9efb2b04c61057d12d00d9d"
+      },
+      {
+        "name": "img/characters/;lily_standing.png",
+        "width": 288,
+        "height": 54,
+        "sha256": "46e0ad1c802fb7cfdb0e75ddedbf66e2bd54d87d962486059f8c38ae42bf1f83"
+      },
+      {
+        "name": "img/artwork/Lily/normal.png",
+        "width": 598,
+        "height": 640,
+        "sha256": "ee4f6b6698ebb84eb7734858319c8d8c4e00b3cd5ce4968286a1e6cd71d5e935"
+      },
+      {
+        "name": "img/characters/;sakura_standing.png",
+        "width": 318,
+        "height": 51,
+        "sha256": "ae356a1b416b22345033da336b091268ed68707932465fa51e5715b58a4c3ee5"
+      },
+      {
+        "name": "img/artwork/Sakura/normal.png",
+        "width": 344,
+        "height": 660,
+        "sha256": "3e36de2cba6e936ca066b711bc12d01042be41c294873dc30f82555250a18de8"
+      },
+      {
+        "name": "img/characters/;laine_stand.png",
+        "width": 270,
+        "height": 54,
+        "sha256": "192c7726fc93299a93ef07ee95b2e86e5f42cdcc4e3421ef20e9ab5c219af2a5"
+      },
+      {
+        "name": "img/artwork/Laine/normal.png",
+        "width": 440,
+        "height": 622,
+        "sha256": "e3ebe1417f932cc47566ae3126461814782770ef8bbd7d353d745dbbc303074a"
+      },
+      {
+        "name": "img/characters/;heart_stand.png",
+        "width": 496,
+        "height": 76,
+        "sha256": "a9748629de773bb406e75367416440a4fc8200fd84b63fdbab2bfa1ff7acc2c7"
+      },
+      {
+        "name": "img/artwork/Heart/normal.png",
+        "width": 580,
+        "height": 620,
+        "sha256": "431dc54edc48651d9fc940130cf5b8c22503300a66f733e3811205dae735805c"
+      },
+      {
+        "name": "img/characters/;dracula_stand.png",
+        "width": 558,
+        "height": 73,
+        "sha256": "240137403d38b96525025a724f65cfb269044a57483b705a26b1a8de37df22f2"
+      },
+      {
+        "name": "img/artwork/Dracula/normal.png",
+        "width": 684,
+        "height": 680,
+        "sha256": "eef168df6880e2021ce993cd5b571d5b078367b095975e1a93d2ebc1576740b5"
+      },
+      {
+        "name": "img/characters/;tiya_standing.png",
+        "width": 360,
+        "height": 70,
+        "sha256": "e9dc35857e1fb5c10b25c3b17756a5e4dedf071c619a3d5018ab9f0d210e713f"
+      },
+      {
+        "name": "img/artwork/Theia/normal.png",
+        "width": 653,
+        "height": 620,
+        "sha256": "d3a1086a640bf835dffb9ba19b21ff6ebec758ac0242ce7471a7ec971ed7e6e6"
+      },
+      {
+        "name": "img/characters/;kori_stand.png",
+        "width": 342,
+        "height": 51,
+        "sha256": "4a6625975c9aa1491c6125e15ed9d6ab358f055caf29818ced08937c017dcdb7"
+      },
+      {
+        "name": "img/artwork/Nyakori/normal.png",
+        "width": 642,
+        "height": 640,
+        "sha256": "9df502850373badbfdfc1521977e9d5a2c6102872afc7f8751c40346a9fd2d8a"
+      },
+      {
+        "name": "img/characters/;liei_stand.png",
+        "width": 252,
+        "height": 55,
+        "sha256": "8d0f5f3d391ff5a120b437392d7766ee79d8a7eea9e30990a942db068b302eac"
+      },
+      {
+        "name": "img/artwork/Yuri/normal.png",
+        "width": 614,
+        "height": 620,
+        "sha256": "2d21fcee78874aef4f27e522e7b3d5819cd10a5d69fed20ea126afe2f8b757f5"
+      },
+      {
+        "name": "img/characters/;irin.png",
+        "width": 616,
+        "height": 248,
+        "sha256": "e5be6a87c9809a44b87ed7d031ba94dd66b817ae2355fb0dc6542a49b39cd0b0"
+      },
+      {
+        "name": "img/artwork/Irin/normal.png",
+        "width": 625,
+        "height": 650,
+        "sha256": "e4d1cfcb2ea43dbc45946d9e595dc343b006155b458fdd7feb742e2d39a5e559"
+      },
+      {
+        "name": "img/characters/;irin2.png",
+        "width": 568,
+        "height": 384,
+        "sha256": "b360b22db66bdde2d4ce69981a10b33e753d067d9e4bafec1e88281a01ab4d0c"
+      },
+      {
+        "name": "img/artwork/Irin2/normal.png",
+        "width": 800,
+        "height": 650,
+        "sha256": "0675a65bf48807b684c728cf137d4d815593a8f23cc1b63a6a9b291f53475873"
+      },
+      {
+        "name": "img/characters/;toruc_standing.png",
+        "width": 432,
+        "height": 54,
+        "sha256": "d3109865d8a5d0b8aa675cdd89e41ec0b87d62eb24bc7f85d0d081b6ade111a6"
+      },
+      {
+        "name": "img/artwork/Nyarutoru2/normal.png",
+        "width": 669,
+        "height": 650,
+        "sha256": "c95698b98da9425beb1ecd38ddd4c41d4c50233c453091bfa8c73020401b7aff"
+      },
+      {
+        "name": "img/characters/;author.png",
+        "width": 147,
+        "height": 36,
+        "sha256": "ef11a946d80fe32317d68f15aacbe4bf1b35acd0f1bba09828077b1d4638c27c"
+      },
+      {
+        "name": "img/characters/;orange_cat_stand.png",
+        "width": 522,
+        "height": 100,
+        "sha256": "7a8ce1ee09abfab334be6181f8ee79d10937ed800995adab9eb9bf8ff4944376"
+      }
+    ]
+  }
+}

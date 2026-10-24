@@ -1,0 +1,11 @@
+.qa/
+.history/
+*.log
+node_modules/
+.env
+.env.*
+.venv/
+*.rmmzsave
+UserGameStats_*.bin
+Thumbs.db
+.DS_Store

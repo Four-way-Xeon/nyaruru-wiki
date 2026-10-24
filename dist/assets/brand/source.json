@@ -1,0 +1,27 @@
+{
+  "appId": 1478160,
+  "source": "Steam 官方客户端本地 librarycache 缓存，中文游戏 Logo、宽幅封面与应用鱼图标",
+  "rights": "原游戏品牌图像归相应权利人",
+  "files": [
+    {
+      "file": "logo.png",
+      "steamCacheFile": "logo_schinese.png",
+      "sha256": "3351ad9acb4f7af050c41fab9b2d707b9234d4cd2eaa5931e00c752dfe481b4e",
+      "bytes": 250212
+    },
+    {
+      "file": "icon.jpg",
+      "steamCacheFile": "2307bb46b427759e14114e702e5c3fc96ed03118.jpg",
+      "sha256": "bf165bf78c07c80f681d166e4b2c90df4feb53ed09a088e2280b718141084cc9",
+      "bytes": 1304
+    },
+    {
+      "file": "header.jpg",
+      "steamCacheFile": "header_schinese.jpg",
+      "sha256": "a72c6f509a78c166d9820aae89c834a36a079f4042919e0f831d5d1d179d05de",
+      "bytes": 58301,
+      "width": 460,
+      "height": 215
+    }
+  ]
+}

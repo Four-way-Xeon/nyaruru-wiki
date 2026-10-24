@@ -1,0 +1,14 @@
+{
+  "name": "nyaruru-player-wiki",
+  "version": "0.5.0",
+  "private": true,
+  "description": "咸鱼喵喵 Wiki 第五版：人物与剧情、成就手册、本地存档分析与全收集地图",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "preview": "node scripts/preview-server.js",
+    "check": "node scripts/check-project.js",
+    "test:browser": "node scripts/qa-browser.js"
+  }
+}

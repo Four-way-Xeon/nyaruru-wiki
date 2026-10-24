@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#23685a">
+  <meta name="description" content="咸鱼喵喵非官方百科：物品图鉴、全收集地图、人物与剧情、结局触发方式、成就手册与本地存档分析，由爱好者维护。">
+  <title>咸鱼喵喵 Wiki · 旅行手记</title>
+  <link rel="icon" href="assets/brand/icon.jpg" type="image/jpeg">
+  <link rel="stylesheet" href="styles.css">
+  <script src="data.js" defer></script>
+  <script src="characters.js" defer></script>
+  <script src="endings.js" defer></script>
+  <script src="achievements.js" defer></script>
+  <script src="icons.js" defer></script>
+  <script src="world-overview.js" defer></script>
+  <script src="save-parser.js" defer></script>
+  <script src="achievement-parser.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <svg class="svg-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <symbol id="icon-map" viewBox="0 0 24 24"><path d="m3 5 6-2 6 2 6-2v16l-6 2-6-2-6 2ZM9 3v16m6-14v16"/></symbol>
+      <symbol id="icon-box" viewBox="0 0 24 24"><path d="m3 7 9-4 9 4-9 4ZM3 7v10l9 4 9-4V7M12 11v10"/></symbol>
+      <symbol id="icon-check" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="m8 12 3 3 5-6"/></symbol>
+      <symbol id="icon-cat" viewBox="0 0 24 24"><path d="m4 10-1-7 7 4h4l7-4-1 7c5 12-21 12-16 0Z"/><path d="M8 12h.01M16 12h.01m-6 4 2 1 2-1"/></symbol>
+      <symbol id="icon-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 10v7m0-11v1"/></symbol>
+      <symbol id="icon-sword" viewBox="0 0 24 24"><path d="m7 17 12-14 2 1-1 4L8 19m-4-6 7 7m-5-3-3 4"/></symbol>
+      <symbol id="icon-ring" viewBox="0 0 24 24"><path d="m8 5 4-3 4 3-4 5Z"/><path d="M8 8a7 7 0 1 0 8 0"/></symbol>
+      <symbol id="icon-bottle" viewBox="0 0 24 24"><path d="M9 3h6m-5 0v6l-5 7a3 3 0 0 0 3 5h8a3 3 0 0 0 3-5l-5-7V3M7 15h10"/></symbol>
+      <symbol id="icon-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M14 8h-3a2 2 0 0 0 0 4h2a2 2 0 0 1 0 4h-3m2-10v12"/></symbol>
+      <symbol id="icon-bell" viewBox="0 0 24 24"><path d="M5 17h14l-2-4V9a5 5 0 0 0-10 0v4Zm5 3h4M12 2v2"/></symbol>
+      <symbol id="icon-pin" viewBox="0 0 24 24"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 0 1 14 0Z"/><circle cx="12" cy="10" r="2"/></symbol>
+      <symbol id="icon-search" viewBox="0 0 24 24"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></symbol>
+      <symbol id="icon-food" viewBox="0 0 24 24"><path d="M4 12h16a8 8 0 0 1-16 0Zm3-3c-3-3 3-3 0-6m5 6c-3-3 3-3 0-6m5 6c-3-3 3-3 0-6M8 21h8"/></symbol>
+      <symbol id="icon-gem" viewBox="0 0 24 24"><path d="m3 8 4-5h10l4 5-9 13ZM3 8h18M7 3l5 18 5-18"/></symbol>
+      <symbol id="icon-wand" viewBox="0 0 24 24"><path d="m4 21 10-10M14 3l2 4 5 1-4 3v5l-4-3-5 1 2-5-2-4Z"/></symbol>
+      <symbol id="icon-board" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="3"/><path d="m8 8 3-2m-3 7 8-5m-8 10 8-5m-3 5 3-2"/></symbol>
+    </defs>
+  </svg>
+  <aside class="sidebar">
+    <a class="brand" href="#map" aria-label="咸鱼喵喵 Wiki 首页"><img class="brand-logo" src="assets/brand/logo.png" width="612" height="359" alt="咸鱼喵喵"><span class="brand-sub">NYARURU WIKI</span><span class="brand-note">非官方百科，由爱好者维护</span></a>
+    <div class="sidebar-label">旅 行 手 记</div>
+    <nav aria-label="主要导航">
+      <a href="#map" data-nav="map"><svg class="icon"><use href="#icon-map"/></svg>世界地图<span class="nav-arrow">↗</span></a>
+      <a href="#items" data-nav="items"><svg class="icon"><use href="#icon-box"/></svg>物品图鉴</a>
+      <a href="#collection" data-nav="collection"><svg class="icon"><use href="#icon-check"/></svg>全收集清单<span id="nav-count" class="nav-count">0</span></a>
+      <a href="#characters" data-nav="characters"><svg class="icon"><use href="#icon-cat"/></svg>人物与剧情</a>
+      <a href="#achievements" data-nav="achievements"><svg class="icon"><use href="#icon-gem"/></svg>成就手册</a>
+      <a href="#assistant" data-nav="assistant"><svg class="icon"><use href="#icon-wand"/></svg>全能助手</a>
+      <a href="#save" data-nav="save"><svg class="icon"><use href="#icon-board"/></svg>存档分析</a>
+      <a href="#about" data-nav="about"><svg class="icon"><use href="#icon-info"/></svg>关于</a>
+    </nav>
+    <div class="sidebar-bottom"><span class="status-dot"></span> 独立玩家资料站<p>一张地图，一份清单。<br>把每一次发现，慢慢记下来。</p><span class="edition">第五版 · 故事余韵</span></div>
+  </aside>
+  <div class="workspace">
+    <header class="topbar"><span>玩家资料库 <span class="slash">/</span> <span id="breadcrumb">世界地图</span></span><span class="local-badge"><span class="status-dot"></span>进度仅存本机</span></header>
+    <main id="main" tabindex="-1">
+      <div id="data-error" class="notice" hidden>资料文件未加载。请将 index.html、styles.css、app.js、data.js、characters.js、icons.js 和 world-overview.js 放在同一目录，再打开页面。</div>
+      <section class="page" id="page-map" aria-labelledby="map-title">
+        <div class="hero"><div><p class="eyebrow">EXPLORE AT YOUR OWN PACE</p><h1 id="map-title">下一站，去哪里？</h1><p class="lead">展开世界地图，找到藏在角落里的小小惊喜。</p><div class="hero-tags"><span>房间结构示意</span><span>收集点定位</span><span>本地进度记录</span></div></div><div class="hero-art" aria-hidden="true"><svg viewBox="0 0 210 150"><path d="m20 34 55-17 61 15 53-16v105l-53 17-61-15-55 17Z" fill="#e6ede0" stroke="#769888" stroke-width="2"/><path d="M75 17v106m61-91v106" stroke="#a9bb9f" stroke-width="2"/><path d="m42 103 19-26 35 12 21-42 39 22 16-28" fill="none" stroke="#c18e4b" stroke-width="3" stroke-dasharray="5 5"/><circle cx="61" cy="77" r="5" fill="#23685a"/><path d="M168 27c-19 0-18 23 0 37 18-14 19-37 0-37" fill="#23685a"/><circle cx="168" cy="41" r="5" fill="#fffaf0"/><path d="m36 35 3 8 8 3-8 3-3 8-3-8-8-3 8-3Z" fill="#c5a064"/></svg></div></div>
+        <div class="stat-strip"><div><span class="stat-icon">◎</span><span><strong id="stat-points">—</strong><small>官方收集事件</small></span></div><div><span class="stat-icon">▦</span><span><strong id="stat-regions">—</strong><small>地图区域</small></span></div><div><span class="stat-icon">◇</span><span><strong id="stat-items">—</strong><small>图鉴条目</small></span></div><div><span class="stat-icon">✓</span><span><strong id="stat-progress">0</strong><small>我的已收集</small></span><a href="#collection" class="text-link stat-link">查看清单 →</a></div></div>
+        <div class="section-top"><div><h2>世界地图 <span class="tiny-label">WORLD MAP</span></h2><p class="muted">总览整个世界，或选择独立区域细看；“小镇周围”包含小镇、森林、学校和矿洞。</p></div><span class="map-note">示意地图 · 非游戏画面</span></div>
+        <div class="map-layout">
+          <div class="map-card">
+            <div class="map-view-heading"><div><p class="eyebrow">WORLD ATLAS</p><h2 id="map-heading">世界总览</h2></div></div>
+            <div class="map-filters"><div class="map-mode-field"><span>查看方式</span><div class="map-mode-switch" role="group" aria-label="地图查看方式"><button type="button" data-map-mode="overview" aria-pressed="true">世界总览</button><button type="button" data-map-mode="region" aria-pressed="false">分区查看</button></div><input id="map-mode" type="hidden" value="overview"></div><label hidden>地图状态<select id="map-page"></select></label><label>区域<select id="map-region"><option value="">全世界（16 区域）</option></select></label><label class="check-label"><input id="map-missing" type="checkbox">仅未收集</label><label class="check-label"><input id="map-connections" type="checkbox" checked>出口连线</label><label class="check-label"><input id="map-story" type="checkbox">剧情传送</label></div>
+            <div id="map-region-legend" class="region-legend" aria-label="区域颜色与分区入口"></div>
+            <div class="map-stage" id="map-stage"><div class="map-corner-label">NYARURU / EXPLORER’S MAP</div><svg id="map-svg" role="group" aria-label="世界地图。使用缩放按钮调整，拖动平移；方格可用 Tab 和 Enter 选择。"><defs><marker id="exit-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#755737"/></marker></defs><g id="map-drawing"></g><g id="map-links"></g><g id="map-labels"></g></svg><div id="map-empty" class="map-empty" hidden>当前选择暂无地图方格</div><div class="compass" aria-hidden="true">N<span>↑</span></div><div class="map-tools" aria-label="地图控制"><button id="map-zoom-in" aria-label="放大地图">＋</button><button id="map-zoom-out" aria-label="缩小地图">−</button><button id="map-fit" aria-label="完整显示当前地图">适应</button></div><span class="map-hint">拖动平移 · 滚轮缩放</span></div>
+            <p id="map-connection-note" class="map-connection-note"></p><div class="map-footer"><div id="map-legend" class="map-legend" aria-label="独立开关各类奖励标记"></div><span id="map-summary" class="muted"></span></div>
+          </div>
+          <aside class="detail-card"><div class="detail-heading"><svg class="icon"><use href="#icon-pin"/></svg><h3>地点手记</h3></div><div id="map-detail"><div class="detail-empty"><svg class="icon"><use href="#icon-map"/></svg><h3>从一个方格开始</h3><p>点选地图中的房间，<br>查看这里记录的物品与收集事件。</p></div></div><div class="detail-foot">勾选仅更新 Wiki 清单，不会修改游戏存档。</div></aside>
+        </div>
+        <p class="footnote">地图展示已导出的房间结构与来源点；未确认的获取条件统一标为“待核对”。灰色图标表示你已在本地清单中完成该事件。</p>
+      </section>
+      <section class="page" id="page-items" aria-labelledby="items-title" hidden>
+        <p class="eyebrow">A LITTLE SOMETHING TO KEEP</p><h1 id="items-title">物品图鉴</h1><p class="lead">用途、来源与地图位置，放在同一张卡片里。</p>
+        <div class="filter-bar"><label class="search-field"><span>搜索物品</span><input id="item-search" type="search" placeholder="物品名称、说明或编号…" autocomplete="off"></label><label>类型<select id="item-type"><option value="">全部类型</option></select></label><span id="item-count" class="muted" aria-live="polite"></span></div>
+        <div id="item-grid" class="item-grid"></div><div class="load-more-wrap"><button id="item-more" class="secondary" hidden>再显示 36 件</button></div>
+      </section>
+      <section class="page" id="page-collection" aria-labelledby="collection-title" hidden>
+        <p class="eyebrow">EVERY DISCOVERY COUNTS</p><h1 id="collection-title">我的全收集清单</h1><p class="lead">给每一次发现打个勾，把冒险一点点填满。</p>
+        <div class="collection-overview"><div><span class="muted">本地已记录</span><p><strong id="collection-done">0</strong><span id="collection-total"> / 0 个官方事件</span></p><progress id="collection-progress" value="0" max="1" aria-label="官方事件收集进度"></progress></div><div class="collection-actions"><button id="collection-export" class="primary">导出清单 ↓</button><label for="collection-import" class="button secondary">导入清单 ↑</label><input id="collection-import" type="file" accept=".json,application/json" class="file-input"></div></div>
+        <p class="notice">首次使用清单为空。按官方收集事件计数；同一事件的多件奖励会一起勾选。导入会合并已完成记录，不会清空现有清单。浏览器之间不自动同步。</p>
+        <div class="filter-bar"><label class="search-field">搜索地点或奖励<input id="collection-search" type="search" placeholder="区域、地图或物品名称…"></label><label>完成状态<select id="collection-status"><option value="all">全部事件</option><option value="missing">未收集</option><option value="done">已收集</option></select></label><span id="collection-count" class="muted" aria-live="polite"></span></div>
+        <div id="collection-list" class="collection-list"></div><div class="load-more-wrap"><button id="collection-more" class="secondary" hidden>再显示 60 个事件</button></div>
+      </section>
+      <section class="page" id="page-characters" aria-labelledby="characters-title" hidden>
+        <p class="eyebrow">FACES AND STORIES ALONG THE WAY</p><h1 id="characters-title">人物与剧情</h1><p class="lead">认识旅途中的伙伴，也为尚未发生的故事留一点惊喜。</p>
+        <section class="endings-section" aria-labelledby="endings-title"><div class="section-top"><div><h2 id="endings-title">结局一览</h2><p class="muted">选择一个结局，展开触发方式与剧情概括。</p></div><span class="tag gold">展开内容含剧透</span></div><div id="ending-grid" class="ending-grid"></div></section>
+        <div class="section-top character-section-heading"><div><h2>人物档案</h2><p class="muted">旅途中遇见的人物，和他们各自的故事。</p></div></div>
+        <div class="notice">默认展示人物基础档案。经历、隐藏身份与结局收在各自的“剧透档案”中，由你决定何时展开；原文链接可能含剧透。</div><div id="character-grid" class="character-grid"></div>
+      </section>
+      <section class="page" id="page-achievements" aria-labelledby="achievements-title" hidden>
+        <p class="eyebrow">MILESTONES OF YOUR ADVENTURE</p><h1 id="achievements-title">成就手册</h1><p class="lead">收好旅途中的每一枚纪念，也为未发生的故事留一点惊喜。</p>
+        <p class="notice">隐藏成就与结局内容默认遮挡，逐张展开后才显示名称、图标和条件。Steam 成就属于账号，普通游戏存档无法完整确认账号成就。</p>
+        <div class="paper save-picker"><div><h2>核对本地成就状态</h2><p>普通存档可在<a class="text-link" href="#save">存档分析</a>中读取；成就状态以已核实的本地来源为准，文件只在浏览器中处理，不会上传。</p><div id="achievement-source-picker" hidden><label>文件来源<select id="achievement-source"><option value="steam">Steam 本地成就缓存</option><option value="native">非 Steam 版配置</option></select></label><label for="achievement-file">成就状态文件<input id="achievement-file" type="file" accept=".bin"></label></div><p id="achievement-input-note" class="muted"></p></div><button id="achievement-clear" class="secondary" type="button">清空成就状态</button></div>
+        <p id="achievement-status" class="notice" role="status" aria-live="polite">尚未读取成就状态。彩色图标仅为资料展示，不代表已解锁。</p>
+        <div class="filter-bar"><label class="search-field">搜索已显示的成就<input id="achievement-search" type="search" placeholder="名称、说明；不会搜索未展开的剧透内容" autocomplete="off"></label><label>成就状态<select id="achievement-filter" disabled><option value="all">全部成就</option><option value="unlocked">已获得</option><option value="locked">未获得</option><option value="unknown">未能确认</option></select></label><span id="achievement-count" class="muted" aria-live="polite"></span></div>
+        <div id="achievement-grid" class="achievement-grid"></div><p id="achievement-source-note" class="footnote"></p>
+      </section>
+      <section class="page" id="page-assistant" aria-labelledby="assistant-title" hidden>
+        <div class="assistant-hero"><div><p class="eyebrow">YOUR COMPANION IN THE ADVENTURE</p><h1 id="assistant-title">咸鱼喵喵全能助手</h1><p class="lead">查漏、搭配、回看台词，让游戏里的探索更从容。</p><p>Wiki 用于查攻略、看人物资料和记录收集进度。全能助手连接正在运行的 Windows 版游戏，让地图、背包、战斗辅助和剧情工具集中在一个面板里。</p><div class="assistant-links"><a class="primary" href="https://github.com/Four-way-Xeon/Nyaruru_modifier" target="_blank" rel="noopener noreferrer">GitHub 项目主页 ↗</a><a class="secondary" href="https://git.serversalem.top/Kitasami_Nya/Nyaruru_modifier_public" target="_blank" rel="noopener noreferrer">备用项目入口 ↗</a></div><a class="text-link" href="https://www.serversalem.top/index.php/2026/10/03/the_best_nyaruru_modifiersnipping_tool/" target="_blank" rel="noopener noreferrer">阅读开发记录 ↗</a></div><div class="assistant-cover"><img src="assets/brand/header.jpg" width="460" height="215" alt="咸鱼喵喵 Steam 官方封面" loading="lazy" decoding="async"></div></div>
+        <div class="assistant-gallery">
+          <article class="assistant-feature"><a class="assistant-screenshot" href="assets/assistant/world-map.png" target="_blank" rel="noopener noreferrer" aria-label="打开全收集地图完整截图"><img src="assets/assistant/world-map.png" alt="全能助手的全收集世界地图，展示区域分布和收集标记" width="1452" height="801" loading="lazy"></a><div><span class="eyebrow">01 / FIND EVERY LAST DISCOVERY</span><h2>全收集地图，寻找漏掉的角落</h2><p>把区域、房间和收集点放在同一张地图上，查看收集状态并辅助前往目标附近。奖励仍需在游戏中实际取得，剧情条件跟随游戏进度。</p></div></article>
+          <article class="assistant-feature"><a class="assistant-screenshot" href="assets/assistant/encyclopedia.png" target="_blank" rel="noopener noreferrer" aria-label="打开收集百科完整截图"><img src="assets/assistant/encyclopedia.png" alt="全能助手的收集百科，按类别查看物品说明与收集情况" width="1452" height="673" loading="lazy"></a><div><span class="eyebrow">02 / KNOW WHAT YOU ARE LOOKING FOR</span><h2>收集百科，边玩边查</h2><p>按类别寻找食物、配饰和成长道具，结合物品说明与收集情况整理下一段路线。适合在游戏运行时快速核对目标。</p></div></article>
+          <article class="assistant-feature"><a class="assistant-screenshot" href="assets/assistant/inventory.png" target="_blank" rel="noopener noreferrer" aria-label="打开角色与背包完整截图"><img src="assets/assistant/inventory.png" alt="全能助手的角色与背包页面，展示物品数量和配饰管理工具" width="1437" height="885" loading="lazy"></a><div><span class="eyebrow">03 / TRY A DIFFERENT BUILD</span><h2>背包与配饰，试试新的搭配</h2><p>在角色与背包面板中管理物品数量和配饰，方便尝试不同组合。建议先用助手建立独立游戏副本，再进行数值与物品调整。</p></div></article>
+        </div>
+        <div class="assistant-extras"><article class="paper"><h2>更自在地移动与战斗</h2><p>悬停用于空中停留和取景；穿墙可单独开启。伤害与受击倍率分别调整，按需要改变战斗节奏。</p></article><article class="paper"><h2>回看剧情，慢慢截图</h2><p>按台词、说话人、地图或故事编号寻找对话。结合剧情回看和临时摆拍功能，重新捕捉喜欢的片段；只想看对白时可使用“只播台词”。</p></article></div>
+        <p class="footnote">以上为项目公开功能与真实界面截图。点击项目主页查看当前版本与使用说明；本页不会自动下载、连接或修改游戏。</p>
+      </section>
+      <section class="page" id="page-about" aria-labelledby="about-title" hidden><p class="eyebrow">NOTES BEHIND THE NOTEBOOK</p><h1 id="about-title">关于</h1><p class="lead">资料有出处，未知有标记，进度由你记录。</p><section id="site-note" class="site-note" aria-labelledby="site-note-title"><h2 id="site-note-title">站点说明</h2><p>这里将补充站点介绍与维护说明。</p></section><div class="about-grid"><article class="paper"><h2>资料与覆盖范围</h2><div id="data-coverage"></div><h3>阅读前的小提示</h3><ul><li>这是独立玩家 Wiki 第五版（0.5.0），与游戏运行状态没有连接。</li><li>清单以官方事件为单位；额外脚本来源会单独标明，不计入官方进度。</li><li>“商店标价”采用游戏数据库的基础价格；具体商店、库存与任务解锁条件仍需结合游戏进度核对。</li><li>有条件的来源如未核实，显示“获取条件待核对”。</li><li>地图是结构示意；道具图标来自游戏原版素材，图像权利归游戏权利人。</li></ul></article><article class="paper"><h2>本地清单怎么保存？</h2><p>勾选后，浏览器会使用本地存储（localStorage）记住已完成事件。清理浏览器数据、更换浏览器或移动文件，都可能导致记录不可见。</p><p>建议定期“导出清单”，保存 JSON 文件。导入只接受本 Wiki 的清单格式，并检查事件编号；验证通过后合并已完成记录。</p><h3>人物文字与授权</h3><p>萌娘百科来源文本按各卡片标注的 CC BY-NC-SA 4.0 授权整理，保留来源链接并说明是否改写。人物像素图与立绘来自本地游戏素材，图片来源与权利说明见人物数据与资料来源。人物文字的 CC 许可不适用于游戏图像。</p><div id="character-sources"></div></article></div></section>
+      <section class="page" id="page-save" aria-labelledby="save-title" hidden>
+        <p class="eyebrow">A NOTE FROM YOUR OWN ADVENTURE</p><h1 id="save-title">本地存档分析</h1><p class="lead">看看这一程走到了哪里，再把已确认的发现记进清单。</p>
+        <div class="paper save-picker"><div><h2>选择游戏存档</h2><p>选择原版游戏的 <code>.rmmzsave</code> 文件，最大 4 MiB。文件只在当前浏览器内读取，不会上传，也不会改写原文件。</p><label for="save-file">存档文件<input id="save-file" type="file" accept=".rmmzsave"></label></div><button id="save-clear" class="secondary" type="button">清空预览</button></div>
+        <p id="save-status" class="notice" role="status" aria-live="polite">尚未选择存档。支持当前已核实的原版存档格式。</p>
+        <div id="save-preview" hidden><div id="save-summary" class="save-summary"></div><section class="paper save-collection"><h2>存档中的收集记录</h2><p id="save-coverage"></p><p>仅把已确认完成的事件合并到 Wiki 本地清单。现有勾选会保留；背包数量不会被当成地图收集记录。</p><button id="save-merge" class="primary" type="button" disabled>将确认完成的项目合并到本地清单</button><a class="text-link" href="#collection">查看清单 →</a></section><section class="paper"><h2>背包与装备</h2><p id="save-inventory-note" class="muted"></p><div id="save-inventory" class="save-inventory"></div></section></div>
+      </section>
+      <footer class="site-footer"><span>咸鱼喵喵 Wiki <span class="footer-dot">·</span> 非官方玩家资料站</span><a href="#about">关于与资料来源 ↗</a></footer>
+    </main>
+  </div>
+  <dialog id="item-dialog" aria-labelledby="dialog-title"><div class="dialog-top"><span class="eyebrow">ITEM NOTEBOOK</span><button id="dialog-close" class="icon-button" aria-label="关闭物品详情">×</button></div><div id="item-dialog-content"></div></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>
+
+

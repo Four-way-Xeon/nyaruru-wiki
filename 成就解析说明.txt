@@ -1,0 +1,83 @@
+咸鱼喵喵 Wiki 第五版 · 0.5.0 · 成就解析技术说明
+资料核对日期：2026-10-24
+
+一、用途与状态含义
+此文档供维护者核对本地只读解析，不是游戏修改接口。玩家操作见《存档解析说明.txt》。
+每个成就状态为 unlocked（已获得）、locked（未获得）或 unknown（未能确认）。只有明确的 locked 才使网页图标变灰，unknown 保留彩色资料并显示未能确认。
+成就数据中的 hidden 是 Steam 公共定义的官方隐藏标志，spoiler 是 Wiki 的结局剧透分类，与解析状态分开。读取到解锁状态不会自动展开剧透内容。
+
+二、原版平台分支依据
+测试游戏/js/nya/nya_achieves.js 的 DataManager.activeAchievement 在 greenworks 存在时调用 Steam 的 getAchievement / activateAchievement；4399 分支调用 AndroidJsObject；其余分支才使用 ConfigManager 的本地记录。
+测试游戏/js/nya/nya_config.js 定义、保存与恢复 _achievementNative，hasAchievement 按 !!dictionary[id] 判断。Steam 分支不会靠这个字典维护 Steam 账号成就，因此 Steam 版 config 不能当作账号成就来源。
+测试游戏/js/nya/nya_game_system.js 的 _achievementShowing 是会被取出的通知队列，不是完整永久成就表。
+普通进度存档虽然有剧情开关、事件和结局分支，但既不能证明异步 Steam 解锁调用成功，也不能证明同一账号的其他存档未曾解锁。本版普通进度解析统一将 32 项成就返回 unknown。
+例如 switch167 会被游戏逻辑改回，variable27 是结局分支值；事件页条件不能保证事件已执行。这些字段和临时战斗/死亡状态都不作为全账号成就判断依据。
+
+三、非 Steam 配置规则
+使用者必须明确选择非 Steam 来源；程序不会仅凭扩展名把配置当作 Steam 记录。
+输入必须符合配置结构，普通进度存档被拒绝。只有 _achievementNative 为有效对象，且其中所有值均为布尔值，才按原游戏字典规则读取：true 为 unlocked，false 或该有效字典中缺少条目为 locked。
+整个字典缺失、为 null、数组或其他错误类型，或者任何值不是布尔值时，所有成就保持 unknown。有效空字典按原版规则表示本地均未获得。
+此来源只代表所选非 Steam 设置文件的本地记录，不代表 Steam 或 4399 账号成就。
+
+四、Steam 缓存公共格式依据
+以下是核对格式时采用的固定提交链接。仅参考数据布局与字段含义，浏览器解析器独立实现，没有复制这些项目的实现。
+
+SamRewritten：count_from_bits 使用 cache[group].data 的 32 位位掩码，并结合 schema bits 索引。
+https://github.com/PaulCombal/SamRewritten/blob/b63810aa40541cfcdac6bf5ee41160aedbfa4c44/src/backend/local_stats.rs
+
+Orbit：unlock_times 与合成测试使用根 cache 对象，组内 AchievementTimes[bit] 为整数时间戳。
+https://github.com/MarchTheDev/Orbit/blob/58aab0995d4b371b76149fe29075c823c6eeac0f/web/src-tauri/src/steam_stats.rs
+
+gse_fork：parse_ugs 使用根 cache，组内 data、AchievementTimes，以及 crc、PendingChanges 等附加字段。
+https://github.com/alex47exe/gse_fork/blob/8cf3f2efa1300ad7cdf5a60a9b9d0f1e942b7f5f/tools/steam_stats_converter/steam_stats_converter.py
+
+咸鱼喵喵的成就名与数值映射来自 Steam 公共文件 UserGameStatsSchema_1478160.bin；这是公共定义，不是账号状态。其树结构为 ['1478160'].stats[statId].bits[bit]，条目 name 对应游戏成就 ID，display.hidden 提供官方隐藏标志。
+原文与公共定义哈希记录在 dist/achievements.js 的 meta 中，每个条目提供 steam:{statId,bit}；导出与来源核验由 scripts/export-achievements.js 和 scripts/check-achievements.js 完成。
+
+五、Steam 缓存判定边界
+用户手动选择原始文件名 UserGameStats_数字_1478160.bin。数字部分只用于验证文件名形式，不作为结果输出或保存；原文件名不可更改。公共 schema、其他游戏文件名、路径字符串及未知文件名被拒绝。
+缓存本身没有 appid，游戏编号只能从原始文件名识别；程序不能验证人为改名文件的真实性、文件所属账号或缓存新鲜度。结果始终标注为 Steam 本地缓存，可能落后于在线状态，不保证云端实时进度。
+支持的二进制 KeyValues 布局为唯一根 cache 对象，分组键为 statId，data 为 32 位整数。整数按无符号值读取，最高位 31 也按位判断，不能当成负数后丢失。
+有效 data 的对应位为 1 时返回 unlocked，为 0 时返回 locked。缺分组、缺 data 或 data 类型错误时返回 unknown；仅有时间戳不能替代位掩码。若位为 0 却存在正的同位 AchievementTimes 时间戳，认为冲突并返回 unknown。
+忽略与成就判定无关的字段，不输出 crc、PendingChanges、解锁时间、账号信息或原始对象。公共资料中外部传入的 steam 映射不能覆盖解析器的已核验内部映射。
+
+当前公共映射（statId : bit = 成就 ID）
+1 : 0=N1，1=N2，2=N3，3=N4，4=N5，5=N6，6=N7，7=N8
+1 : 9=N9，10=N10，11=BR，12=BR_30star，13=BR_40star，14=BR_50star
+1 : 15=HIDDEN1，16=HIDDEN2，17=HIDDEN3，18=HIDDEN4，19=HIDDEN5，20=HIDDEN6
+1 : 21=HIDDEN7，22=HIDDEN8，23=HIDDEN9，24=HIDDEN10，25=N11，27=HIDDEN11
+1 : 29=ED1，30=ED2，31=ED3
+2 : 0=ED4，1=ED5，2=HIDDEN12
+第一组的位 8、26、28 为空，不可把条目数组下标当作位编号。
+
+六、程序接口与输出
+浏览器：
+  await NYARURU_SAVE.parse(bytes,{catalog,achievements:items})
+    普通进度文件；保留位置、背包、收集点等既有结果，新增成就未知列表。
+  await NYARURU_SAVE.parseConfig(bytes,{platform:'native',achievements:items})
+    明确的非 Steam 配置；platform 必须为 native。
+  NYARURU_ACHIEVEMENT_PARSE.parseSteam(bytes,{filename,achievements:items})
+    Steam 二进制缓存；同步纯函数，也可 await。
+Node.js 可分别 require('./dist/save-parser.js') 和 require('./dist/achievement-parser.js')，调用相同接口。bytes 为 Uint8Array 或 ArrayBuffer。
+
+成就来源成功结果：
+  {ok:true,achievements:[{id,status,source,label,basis}],coverage:{format,achievements:{total,unlocked,locked,unknown,source,label}},warnings}
+普通进度结果同时保留 summary、inventory、completed 等字段。失败结果仅为：
+  {ok:false,error:{code,message}}
+source 为 slot、native-config 或 steam-cache；basis 是固定判断依据代号，页面转为玩家说明。Steam format 为 steam-binary-vdf；配置沿用 desktop-xor-zlib 或 zlib。
+返回条目只来自固定的 32 项公共 ID 白名单，可按传入 achievements 选取子集；不会把输入中的未知私有字段混入结果。
+
+七、本地处理与边界
+程序只在用户主动选择文件后读取，不查找磁盘、不连接游戏或 Steam、不上传、不改写文件，也不持久存储成就状态或账号信息。页面清空、更换文件、切换来源或解析失败时清除旧状态并使旧异步结果失效。
+Steam 输入上限为 4 MiB，嵌套深度 48，节点数 50,000，单字符串 16,384 字节。拒绝截断、重复键、危险原型键、未知结构和不支持的编码，不执行文件内文本。
+非 Steam 配置沿用原存档解析的 4 MiB 输入、32 MiB 解压、深度 100 与节点数 500,000 上限；不恢复游戏对象原型，不运行脚本。
+所选成就文件和解析结果不写入原有收集清单，原清单仍仅由手动勾选或用户主动合并确认的收集点改变。
+
+八、复验方式
+在 Wiki初版 目录使用 PowerShell 7：
+  node scripts/check-achievement-parser.js
+  node scripts/check-save-parser.js
+  node scripts/check-achievements.js
+  node scripts/qa-browser.js
+解析检查用人工合成的 Steam 缓存和非 Steam 配置，不需要也不读取真实个人缓存。可持有原版资源和公共定义的维护者额外运行 node scripts/check-achievements.js --source。
+测试覆盖位 31、空位、第二分组、缺字段、冲突时间、错误文件名、异步页面状态、隐私白名单及输入限制等。本版检查结果见《验收记录.txt》。

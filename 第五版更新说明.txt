@@ -1,0 +1,26 @@
+咸鱼喵喵 Wiki 第五版 · 0.5.0
+
+人物与剧情
+导航中的“人物档案”改为“人物与剧情”，原有 16 位人物及其资料继续保留。
+页面最上方增加结局一览：结局 1—4 和隐藏结局。默认展示原版结局图标和名称，点击后显示触发方式、概括与资料出处；再次点击收起。
+结局文字依据萌娘百科《咸鱼喵喵》“故事”章节下的结局表整理改写，只选触发方式和剧情概括，保留引用、改写说明与 CC BY-NC-SA 4.0 授权，不收录作者评价。
+结局的折叠与人物剧透档案独立操作，收起后清空详细文字。
+
+助手推荐页与侧栏
+助手介绍右侧换成 Steam 官方中文宽幅封面，与用户选定图片一致；保留原图比例，手机端也可查看。
+图片使用本机 Steam 缓存中的 header_schinese.jpg，原样保存为 assets/brand/header.jpg，460×215；来源及哈希见 assets/brand/source.json。
+Logo 的 NYARURU WIKI 下增加“非官方百科，由爱好者维护”。
+
+关于页面
+导航名称改为“关于”。最上方增加横向“站点说明”框，现有资料范围、清单保存方式和来源许可放在其下。
+要替换占位文字，可在 dist/index.html 中搜索 id="site-note"，修改其中的标题与段落，保留标签结构即可。
+
+预览、部署与维护
+继续双击“先看Wiki.html”，或运行“本地预览.bat”。
+升级时上传完整 dist 文件夹内的内容，包含新增 endings.js、assets/brand/header.jpg 以及更新后的 index.html、app.js、styles.css。结局图标沿用 assets/achievements/，无需重复文件。
+结局资料在 dist/endings.js，字段说明见 DATA-CONTRACT.md，来源说明见“资料来源与许可.txt”。
+在 Wiki初版 目录中执行：
+  node scripts/check-project.js
+  node scripts/qa-browser.js
+单独检查结局资料可执行 node scripts/check-endings.js。
+本版检查结果见“验收记录.txt”；第四版资料和更新说明继续保留。
