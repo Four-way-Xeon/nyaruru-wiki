@@ -88,6 +88,11 @@ async function checkEndings(context, screenshot) {
     const panel=card.querySelector('.ending-details');return panel.hidden&&panel.childNodes.length===0;
   })`);
   assert.equal(await allConcealed(),true,context+' ending spoilers absent from initial DOM');
+  assert.equal(await evaluate(`[...document.querySelectorAll('#ending-grid .ending-toggle')].every(button=>{
+    const arrow=button.querySelector('svg.ending-chevron'),r=arrow?.getBoundingClientRect();
+    return button.querySelector('.ending-action-label')?.textContent==='展开'&&r?.width>=12&&r?.height>=12;
+  })`),true,context+' each closed ending has a visible arrow and explicit expand action');
+  if(screenshot)await capture(screenshot+'-closed');
   assert.equal(await evaluate(`[...document.querySelectorAll('#ending-grid .ending-card')].every(card=>{
     const item=NYARURU_ENDINGS.items.find(row=>row.id===card.dataset.ending),image=card.querySelector('img');
     return item&&image&&image.getAttribute('src')===item.icon.src&&card.querySelector('.ending-heading strong').textContent===item.name&&
@@ -101,6 +106,7 @@ async function checkEndings(context, screenshot) {
   })`),true,context+' ending images decode at original dimensions');
   for(const [index,row] of rows.entries()) {
     await evaluate(`document.querySelector('[data-ending="${row.id}"] [data-ending-toggle]').click()`);
+    assert.equal(await evaluate(`document.querySelector('[data-ending="${row.id}"] .ending-action-label').textContent`),'收起');
     assert.equal(await evaluate(`(() => {
       const item=NYARURU_ENDINGS.items.find(row=>row.id==='${row.id}'),card=document.querySelector('[data-ending="${row.id}"]'),panel=card.querySelector('.ending-details');
       const facts=[...panel.querySelectorAll('.ending-facts dd')].map(node=>node.textContent);
@@ -115,6 +121,7 @@ async function checkEndings(context, screenshot) {
     assert.equal(await evaluate('document.documentElement.scrollWidth>innerWidth'),false,context+' revealed ending causes no overflow');
     if(index===0&&screenshot){await evaluate('scrollTo(0,0)');await capture(screenshot);}
     await evaluate(`document.querySelector('[data-ending="${row.id}"] [data-ending-toggle]').click()`);
+    assert.equal(await evaluate(`document.querySelector('[data-ending="${row.id}"] .ending-action-label').textContent`),'展开');
     assert.equal(await allConcealed(),true,context+' collapsing removes all spoiler DOM: '+row.id);
   }
   assert.equal(await evaluate('document.querySelectorAll("#character-grid .character-card").length'),16,'ending cards preserve the 16 character dossiers');
@@ -133,6 +140,178 @@ async function checkAssistantCover(context) {
   assert.equal(cover.naturalWidth,460);assert.equal(cover.naturalHeight,215);
   assert.ok(cover.visible&&cover.width>0&&cover.height>0&&cover.left>=0&&cover.right<=cover.viewportWidth+1,context+' assistant original cover visible');
   assert.ok(cover.fit!=='cover'&&(cover.fit==='contain'||Math.abs(cover.width/cover.height-460/215)<0.025),context+' assistant cover preserves full image without cropping');
+}
+
+async function checkGuidePages(origin) {
+  const navigate=async url=>{await send('Page.navigate',{url});await waitFor(`location.href===${JSON.stringify(url)}&&document.readyState==='complete'`);};
+  const click=async selector=>{
+    const point=await evaluate(`(() => {const node=document.querySelector(${JSON.stringify(selector)});node.scrollIntoView({block:'center',behavior:'instant'});const r=node.getBoundingClientRect();return {x:r.left+r.width/2,y:r.top+r.height/2};})()`);
+    await send('Input.dispatchMouseEvent',{type:'mousePressed',...point,button:'left',clickCount:1});
+    await send('Input.dispatchMouseEvent',{type:'mouseReleased',...point,button:'left',clickCount:1});
+  };
+  const images=()=>waitFor('[...document.images].filter(img=>img.getClientRects().length).every(img=>img.complete&&img.naturalWidth>0)');
+  const fits=async label=>assert.equal(await evaluate('document.documentElement.scrollWidth>innerWidth'),false,label);
+  const navigation=async()=>{
+    const links=await evaluate(`[...document.querySelectorAll('.guide-nav a')].map(a=>({label:a.querySelector('span').textContent.trim(),target:new URL(a.href).pathname+new URL(a.href).hash}))`);
+    assert.deepEqual(links,[{label:'世界地图',target:'/index.html#map'},{label:'物品图鉴',target:'/index.html#items'},
+      {label:'全收集清单',target:'/index.html#collection'},{label:'人物与剧情',target:'/index.html#characters'},
+      {label:'成就手册',target:'/index.html#achievements'},{label:'全能助手',target:'/index.html#assistant'},
+      {label:'存档分析',target:'/index.html#save'},{label:'关于',target:'/index.html#about'}]);
+  };
+  const primaryAction=async label=>{
+    const state=await evaluate(`(() => {
+      const a=document.querySelector('.reader-heading-actions > a.primary');if(!a)return null;
+      const r=a.getBoundingClientRect(),h=document.querySelector('h1').getBoundingClientRect(),s=getComputedStyle(a);
+      const lum=value=>{const rgb=value.match(/[\\d.]+/g).slice(0,3).map(Number).map(v=>{v/=255;return v<=0.04045?v/12.92:((v+0.055)/1.055)**2.4});return rgb[0]*0.2126+rgb[1]*0.7152+rgb[2]*0.0722;};
+      const bg=lum(s.backgroundColor),fg=lum(s.color);
+      return {width:r.width,height:r.height,left:r.left,right:r.right,top:r.top,bottom:r.bottom,headingBottom:h.bottom,
+        font:parseFloat(s.fontSize),viewportWidth:innerWidth,viewportHeight:innerHeight,background:s.backgroundColor,
+        visible:s.display!=='none'&&s.visibility!=='hidden'&&Number(s.opacity)>0,contrast:(Math.max(bg,fg)+0.05)/(Math.min(bg,fg)+0.05)};
+    })()`);
+    assert.ok(state&&state.visible&&state.width>=110&&state.height>=44&&state.font>=14,label+' main action is a substantial readable button');
+    assert.ok(state.left>=0&&state.right<=state.viewportWidth+1&&state.top>=state.headingBottom&&state.top<state.viewportHeight,label+' main action is below heading and visible without horizontal scrolling');
+    assert.ok(!/rgba\([^)]*,\s*0\)/.test(state.background)&&state.contrast>=3,label+' primary action has an opaque contrasting background');
+  };
+  await viewport(1440,1000);await navigate(origin+'/index.html');
+  await waitFor('window.NYARURU_DATA&&window.NYARURU_CHARACTERS&&window.NYARURU_ACHIEVEMENTS');
+  const sample=await evaluate(`(() => {const source=NYARURU_DATA.locations.find(row=>row.official&&row.cellKey);return {source,item:NYARURU_DATA.items.find(row=>row.key===source.itemKey),character:NYARURU_CHARACTERS.characters.find(row=>row.identitySpoiler),achievement:NYARURU_ACHIEVEMENTS.items.find(row=>row.hidden),regionCells:NYARURU_DATA.cells.filter(cell=>cell.regionId===source.regionId).map(cell=>({key:cell.key,x:cell.x,y:cell.y})),regions:NYARURU_DATA.regions.map(region=>({id:region.id,cells:NYARURU_DATA.cells.filter(cell=>cell.regionId===region.id).length})),progress:localStorage.getItem('nyaruru-wiki.collection.v1')};})()`);
+  const itemPath='guide/items/'+sample.item.key.replace(':','-')+'.html';
+  await send('Emulation.setScriptExecutionDisabled',{value:true});
+  try{
+    await navigate(origin+'/guide/index.html');
+    assert.ok(await evaluate('document.querySelector("h1").textContent.trim().length>0'));
+    assert.equal(await evaluate('document.scripts.length'),0);assert.equal(await evaluate('typeof window.NYARURU_DATA'),'undefined');
+    await images();assert.ok(await evaluate('document.styleSheets.length>0'));await navigation();await primaryAction('Desktop guide');await capture('desktop-guide');
+    await navigate(origin+'/guide/regions/index.html');await navigation();await primaryAction('Desktop regions');
+    const previews=await evaluate(`[...document.querySelectorAll('.region-card[data-region-id]')].map(card=>{
+      const svg=card.querySelector('svg.region-preview'),r=svg.getBoundingClientRect(),cells=[...svg.querySelectorAll('.region-cell')];
+      return {id:Number(card.dataset.regionId),count:cells.length,width:r.width,height:r.height,visible:cells.every(cell=>getComputedStyle(cell).fill!=='none'),href:card.querySelector('.region-preview-link').href};
+    })`);
+    assert.equal(previews.length,16,'all 16 regional maps are previewed');
+    for(const preview of previews){assert.equal(preview.count,sample.regions.find(region=>region.id===preview.id).cells);assert.ok(preview.width>=150&&preview.height>=120&&preview.visible,'regional map has visible grid cells');assert.equal(new URL(preview.href).searchParams.get('region'),String(preview.id));}
+    const layout=await evaluate(`[...document.querySelectorAll('.region-card[data-region-id="${sample.source.regionId}"] .region-cell')].map(cell=>({key:cell.dataset.cellKey,x:Number(cell.getAttribute('x')),y:Number(cell.getAttribute('y'))}))`);
+    const first=layout[0],reference=sample.regionCells.find(cell=>cell.key===first.key);
+    assert.ok(layout.every(cell=>{const actual=sample.regionCells.find(row=>row.key===cell.key);return actual&&Math.sign(cell.x-first.x)===Math.sign(actual.x-reference.x)&&Math.sign(cell.y-first.y)===Math.sign(actual.y-reference.y);}), 'preview preserves the real relative map grid layout');
+    await capture('desktop-guide-regions');
+    await navigate(origin+'/guide/regions/'+sample.source.regionId+'.html');await primaryAction('Desktop region');await capture('desktop-guide-region');
+    await navigate(origin+'/guide/characters/index.html');await images();await navigation();await primaryAction('Desktop story guide');
+    assert.match(await evaluate('document.querySelector(".reader-heading-actions > a.primary").textContent'),/完整版.*人物与剧情/);
+    await capture('desktop-guide-story');
+    for(const part of ['image','blank']){
+      await navigate(origin+'/guide/characters/index.html');await images();
+      assert.equal(await evaluate('document.querySelectorAll(".ending-reader-grid > a.reader-card-link").length'),5);
+      const point=await evaluate(`(() => {
+        const card=document.querySelector('.ending-reader-grid > a.reader-card-link');card.scrollIntoView({block:'center',behavior:'instant'});
+        const r=(${JSON.stringify(part)}==='image'?card.querySelector('img'):card).getBoundingClientRect();
+        return ${JSON.stringify(part)}==='image'?{x:r.left+r.width/2,y:r.top+r.height/2}:{x:r.right-10,y:r.top+10};
+      })()`);
+      await send('Input.dispatchMouseEvent',{type:'mousePressed',...point,button:'left',clickCount:1});
+      await send('Input.dispatchMouseEvent',{type:'mouseReleased',...point,button:'left',clickCount:1});
+      await waitFor('location.pathname==="/index.html"&&new URLSearchParams(location.search).get("ending")==="ED1"&&location.hash==="#characters"');
+    }
+    await navigate(origin+'/guide/endings/ed1.html');
+    assert.equal(await evaluate('document.querySelector("details.spoiler-details").open'),false);
+    assert.equal(await evaluate('!!document.querySelector("details.spoiler-details").closest("div[data-nosnippet],span[data-nosnippet],section[data-nosnippet]") || !!document.querySelector("details.spoiler-details div[data-nosnippet],details.spoiler-details span[data-nosnippet],details.spoiler-details section[data-nosnippet]")'),true,'spoiler text uses supported nosnippet container');
+    await click('details.spoiler-details summary');
+    assert.equal(await evaluate('document.querySelector("details.spoiler-details").open'),true,'native ending expands without JavaScript');
+    assert.ok(await evaluate('document.querySelector("details.spoiler-details").innerText.length>50'));
+    await click('details.spoiler-details summary');assert.equal(await evaluate('document.querySelector("details.spoiler-details").open'),false);
+    await navigate(origin+'/'+itemPath);await images();assert.ok(await evaluate('document.styleSheets.length>0'));await fits('nested static item fits desktop');await primaryAction('Desktop item');await capture('desktop-guide-item');
+    await viewport(390,844,true);
+    for(const page of ['guide/index.html','guide/regions/index.html','guide/regions/'+sample.source.regionId+'.html',itemPath,'guide/characters/index.html','guide/endings/ed1.html']){
+      await navigate(origin+'/'+page);await fits('mobile '+page);await navigation();await primaryAction('Mobile '+page);
+      if(page.endsWith('/ed1.html')){await click('details.spoiler-details summary');await fits('expanded mobile ending');}
+      if(page==='guide/index.html')await capture('mobile-guide');
+      if(page===itemPath)await capture('mobile-guide-item');
+      if(page==='guide/regions/index.html')await capture('mobile-guide-regions');
+      if(page==='guide/characters/index.html'){await images();await capture('mobile-guide-story');}
+    }
+  }finally{await send('Emulation.setScriptExecutionDisabled',{value:false});}
+  checks.push('Static guides work without JavaScript: nested assets/styles, native reversible spoilers and desktop/mobile layouts');
+  checks.push('Static navigation matches the eight tools; desktop/mobile primary actions are visible, sized and contrasting; all 16 SVG previews preserve regional grids');
+  checks.push('Static ending artwork and blank card space link directly to the full app without an intermediate guide page or source-page JavaScript');
+  await viewport(1440,1000);
+  for(const key of ['map','items','collection','characters','achievements','assistant','save','about']){
+    await navigate(origin+'/guide/characters/index.html');await click('.guide-nav [data-nav="'+key+'"]');
+    await waitFor(`location.pathname==='/index.html'&&location.hash==='#${key}'&&window.NYARURU_DATA&&!document.querySelector('#page-${key}').hidden`);
+    assert.equal(await evaluate('localStorage.getItem("nyaruru-wiki.collection.v1")'),sample.progress);
+  }
+  await navigate(origin+'/guide/characters/index.html');await click('.reader-heading-actions > a.primary');
+  await waitFor('location.pathname==="/index.html"&&location.hash==="#characters"&&document.querySelectorAll("#ending-grid .ending-card").length===5');
+  assert.equal(await evaluate('[...document.querySelectorAll("#ending-grid .ending-details")].every(panel=>panel.hidden&&panel.childNodes.length===0)'),true);
+  checks.push('All eight static sidebar links and the clearly labelled full-version story button open the matching full app view without changing progress or revealing endings');
+  for(const [index,id]of ['ED1','ED2','ED3','ED4','ED5'].entries()){
+    await navigate(origin+'/guide/characters/index.html');await click('.ending-reader-grid > a:nth-child('+(index+1)+')');
+    await waitFor(`window.NYARURU_ENDINGS&&document.activeElement?.dataset.ending==='${id}'&&document.querySelector('[data-ending="${id}"] [data-ending-toggle]').getAttribute('aria-expanded')==='true'`);
+    assert.equal(await evaluate(`(() => {
+      const panels=[...document.querySelectorAll('#ending-grid .ending-details')],card=document.querySelector('[data-ending="${id}"]'),entry=NYARURU_ENDINGS.items.find(row=>row.id==='${id}');
+      return panels.filter(panel=>!panel.hidden&&panel.childNodes.length>0).length===1&&card.textContent.includes(entry.trigger)&&card.textContent.includes(entry.summary)&&
+        [...document.querySelectorAll('.character-spoilers')].every(panel=>panel.hidden&&panel.childNodes.length===0);
+    })()`),true,'only the clicked ending expands, with original facts and character spoilers concealed');
+    assert.equal(await evaluate('localStorage.getItem("nyaruru-wiki.collection.v1")'),sample.progress);
+    if(index===0)await capture('desktop-guide-ending-open');
+  }
+  await navigate(origin+'/guide/endings/ed1.html');await click('.reader-heading-actions > a.primary');
+  await waitFor('document.activeElement?.dataset.ending==="ED1"&&document.querySelector("[data-ending=ED1] [data-ending-toggle]").getAttribute("aria-expanded")==="true"');
+  checks.push('All five ending cards directly locate and expand only their own ending in the full app; legacy guide detail buttons use the same target and preserve progress');
+  await navigate(origin+'/guide/characters/index.html');
+  const characterTargets=await evaluate(`[...document.querySelectorAll('.character-reader-grid > a')].map(a=>new URL(a.href).searchParams.get('character'))`);
+  assert.equal(characterTargets.length,16);
+  for(const [index,id]of characterTargets.entries()){
+    await navigate(origin+'/guide/characters/index.html');await click('.character-reader-grid > a:nth-child('+(index+1)+') .reader-card-cta');
+    await waitFor(`window.NYARURU_CHARACTERS&&document.activeElement?.dataset.character===${JSON.stringify(id)}`);
+    assert.equal(await evaluate(`[...document.querySelectorAll('.character-spoilers,.ending-details')].every(panel=>panel.hidden&&panel.childNodes.length===0)`),true,'character navigation never reveals character or ending spoilers');
+    assert.equal(await evaluate('localStorage.getItem("nyaruru-wiki.collection.v1")'),sample.progress);
+    if(index===0)await capture('desktop-guide-character-target');
+  }
+  checks.push('All 16 static character cards open and focus their complete dossier while every character spoiler and ending remains concealed and progress is unchanged');
+  await viewport(1440,1000);await navigate(origin+'/guide/regions/index.html');
+  await click('.region-card[data-region-id="'+sample.source.regionId+'"] .region-preview-link');
+  await waitFor(`window.NYARURU_DATA&&!document.querySelector('#page-map').hidden&&document.querySelector('#map-region').value==='${sample.source.regionId}'`);
+  assert.equal(await evaluate('document.querySelectorAll("#map-drawing [data-cell]").length'),sample.regionCells.length);
+  assert.equal(await evaluate('localStorage.getItem("nyaruru-wiki.collection.v1")'),sample.progress);
+  await navigate(origin+'/guide/regions/'+sample.source.regionId+'.html');await click('.reader-heading-actions > a.primary');
+  await waitFor(`window.NYARURU_DATA&&document.querySelector('#map-region').value==='${sample.source.regionId}'`);
+  assert.equal(await evaluate('localStorage.getItem("nyaruru-wiki.collection.v1")'),sample.progress);
+  checks.push('Regional preview and region-detail primary action both open the intended map region without changing progress');
+  await viewport(1440,1000);await navigate(origin+'/'+itemPath);
+  const mainSource=await evaluate(`new URL(document.querySelector('.reader-heading-actions > a.primary').href).searchParams.get('source')`);
+  assert.ok(mainSource,'item main action provides a concrete source location');
+  await click('.reader-heading-actions > a.primary');
+  await waitFor(`window.NYARURU_DATA&&!document.querySelector('#page-map').hidden&&document.querySelector('#map-drawing [data-cell].selected')`);
+  assert.equal(await evaluate(`document.querySelector('#map-drawing [data-cell].selected').dataset.cell===NYARURU_DATA.locations.find(row=>row.key===${JSON.stringify(mainSource)}).cellKey`),true);
+  assert.equal(await evaluate('localStorage.getItem("nyaruru-wiki.collection.v1")'),sample.progress);
+  await navigate(origin+'/'+itemPath);
+  await click('.reader-location a[href*="?source='+encodeURIComponent(sample.source.key)+'"]');
+  await waitFor(`window.NYARURU_DATA&&!document.querySelector('#page-map').hidden&&!!document.querySelector('[data-cell="${sample.source.cellKey}"].selected')`);
+  assert.equal(await evaluate('document.querySelector("#map-page").value'),String(sample.source.page));
+  assert.equal(await evaluate('localStorage.getItem("nyaruru-wiki.collection.v1")'),sample.progress);
+  await navigate(origin+'/'+itemPath);await click('a[href*="?item="]');
+  await waitFor('window.NYARURU_DATA&&document.querySelector("#item-dialog")?.open');
+  assert.ok(await evaluate(`document.querySelector('#item-dialog').textContent.includes(${JSON.stringify(sample.item.name)})`));
+  checks.push('Static item links open the exact source map cell and item dialog without changing collection progress');
+  await navigate(origin+'/index.html?character='+encodeURIComponent(sample.character.id)+'#characters');
+  await waitFor('window.NYARURU_DATA&&!document.querySelector("#page-characters").hidden');
+  assert.equal(await evaluate(`document.querySelector('[data-character="${sample.character.id}"] .character-spoilers').hidden`),true);
+  assert.equal(await evaluate(`document.querySelector('[data-character="${sample.character.id}"] .character-spoilers').childElementCount`),0);
+  await click('[data-nav=map]');await waitFor('!document.querySelector("#page-map").hidden&&document.querySelectorAll("#map-drawing [data-cell]").length>0');await sleep(200);
+  assert.equal(await evaluate(`(() => {const map=document.querySelector('#map-svg').getBoundingClientRect(),r=document.querySelector('#map-drawing').getBoundingClientRect();return r.width>0&&r.height>0&&r.left>=map.left-2&&r.right<=map.right+2&&r.top>=map.top-2&&r.bottom<=map.bottom+2;})()`),true,'first map after character deep link fits');
+  await navigate(origin+'/index.html?achievement='+encodeURIComponent(sample.achievement.id)+'#achievements');
+  await waitFor('window.NYARURU_DATA&&!document.querySelector("#page-achievements").hidden');
+  assert.equal(await evaluate(`document.querySelector('[data-achievement="${sample.achievement.id}"] [data-achievement-toggle]').getAttribute('aria-expanded')`),'false');
+  for(const query of ['source=not-a-source','item=not-an-item','item=weapons%3A0&region=6','region=6&region=7','ending=not-an-ending','ending=ED1&ending=ED2','ending=ED1&character='+encodeURIComponent(sample.character.id)]){
+    await navigate(origin+'/index.html?'+query+'#map');await waitFor('window.NYARURU_DATA&&document.querySelector("#toast").textContent.includes("暂时无法定位")');
+    assert.equal(await evaluate('localStorage.getItem("nyaruru-wiki.collection.v1")'),sample.progress);
+  }
+  checks.push('Deep links preserve character/achievement spoilers, fit the first map view and safely reject invalid/conflicting parameters');
+  await navigate(pathToFileURL(path.join(root,'dist',itemPath)).href);await images();assert.ok(await evaluate('document.styleSheets.length>0&&document.querySelector("h1").textContent.length>0'));
+  await click('a[href*="?item="]');await waitFor('location.protocol==="file:"&&window.NYARURU_DATA&&document.querySelector("#item-dialog")?.open');
+  await navigate(pathToFileURL(path.join(root,'dist/guide/endings/index.html')).href);await click('.ending-reader-grid > a:first-child');
+  await waitFor('location.protocol==="file:"&&document.activeElement?.dataset.ending==="ED1"&&document.querySelector("[data-ending=ED1] [data-ending-toggle]").getAttribute("aria-expanded")==="true"');
+  await viewport(390,844,true);await navigate(origin+'/guide/endings/index.html');await click('.ending-reader-grid > a:first-child');
+  await waitFor('document.activeElement?.dataset.ending==="ED1"&&document.querySelector("[data-ending=ED1] [data-ending-toggle]").getAttribute("aria-expanded")==="true"');
+  await fits('mobile directly expanded ending');await capture('mobile-guide-ending-open');
+  checks.push('Direct file:// guides open the item dialog and the selected ending; mobile ending links expand and focus the target without overflow');
 }
 
 async function checkLocalSave(origin, view, storage, alreadyCompleted) {
@@ -517,10 +696,11 @@ async function run() {
 
   // Functional assertions are kept here so the complete prototype is checked together.
   await checkWiki(origin);
+  await checkGuidePages(origin);
 
   assert.deepEqual(errors, [], 'No uncaught JavaScript errors');
   const report = { ok: true, checks, javascriptErrors: errors.length, liveWebsiteChanged: false,
-    screenshots: ['desktop-map-header.png', 'desktop-overview.png', 'connection-detail.png', 'desktop-map.png', 'desktop-map-panned.png', 'desktop-items.png', 'desktop-story.png', 'desktop-characters.png', 'desktop-achievements.png', 'desktop-assistant.png', 'desktop-about.png', 'desktop-save.png', 'mobile-map-header.png', 'mobile-map.png', 'mobile-map-panned.png', 'mobile-story.png', 'mobile-characters.png', 'mobile-achievements.png', 'wordpress-embed.png'],
+    screenshots: ['desktop-map-header.png', 'desktop-overview.png', 'connection-detail.png', 'desktop-map.png', 'desktop-map-panned.png', 'desktop-items.png', 'desktop-story.png', 'desktop-story-closed.png', 'desktop-characters.png', 'desktop-achievements.png', 'desktop-assistant.png', 'desktop-about.png', 'desktop-save.png', 'mobile-map-header.png', 'mobile-map.png', 'mobile-map-panned.png', 'mobile-story.png', 'mobile-story-closed.png', 'mobile-characters.png', 'mobile-achievements.png', 'mobile-about.png', 'wordpress-embed.png', 'desktop-guide.png', 'mobile-guide.png', 'desktop-guide-regions.png', 'desktop-guide-region.png', 'desktop-guide-item.png', 'desktop-guide-story.png', 'mobile-guide-regions.png', 'mobile-guide-item.png', 'mobile-guide-story.png', 'desktop-guide-ending-open.png', 'desktop-guide-character-target.png', 'mobile-guide-ending-open.png'],
     syntheticFiles,
     completedAt: new Date().toISOString() };
   fs.writeFileSync(path.join(artifacts, 'report.json'), JSON.stringify(report, null, 2));
@@ -814,6 +994,7 @@ async function checkWiki(origin) {
     await view(name);
     await evaluate('scrollTo(0,0)');
     assert.equal(await evaluate('document.documentElement.scrollWidth > innerWidth'), false, name + ' mobile overflow');
+    if(name==='about')await capture('mobile-about');
   }
   await view('map');
   await checkBrandMaintainer('Mobile');

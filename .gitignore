@@ -9,3 +9,7 @@ node_modules/
 UserGameStats_*.bin
 Thumbs.db
 .DS_Store
+
+# Keep development notes in the private working copy.
+/第*版更新说明.txt
+/验收记录.txt

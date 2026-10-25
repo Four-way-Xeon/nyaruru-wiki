@@ -1,0 +1,653 @@
+{
+  "schemaVersion": 1,
+  "generator": "scripts/build-guides.js",
+  "version": "0.6.0",
+  "inputs": {
+    "dist/achievements.js": "79c98ab0d898c0f6076208725394dd5bcc600e7460e6c7046754057137aa6e8a",
+    "dist/assets/achievements/BR.png": "a269f32eb1ca5fe5da951186ecc636001486f240b9209c8c2713c2040d90b76a",
+    "dist/assets/achievements/BR_30star.png": "67b5d3825bac42fa5cf4a0e0b4957d690c4bd965193a241b173f321a905b4851",
+    "dist/assets/achievements/BR_40star.png": "e9d00e20e977aabd97fb32c2b8013e8bf8913d5430f2b3c3b98f78a6bd4c3962",
+    "dist/assets/achievements/BR_50star.png": "504410c06ee520a1713ba49159cd473f626626d356b4e38788488f32d4ef1142",
+    "dist/assets/achievements/ED1.png": "6f78f50250628685360978e6cc11793e9d75b45d2431d75b2073091052ef8a75",
+    "dist/assets/achievements/ED2.png": "99dc07dd3096c24bdfce57c3155aaf947da2be8bc6779705a1c40285b3cd4854",
+    "dist/assets/achievements/ED3.png": "3916da11e9b254ab115a236c5da75a20bbeeb2f098ab705eb9d05331b7aab1f5",
+    "dist/assets/achievements/ED4.png": "7818fa294226a03783e3d6add77b186067535c933eab26770f6b297511153255",
+    "dist/assets/achievements/ED5.png": "92102f40177a03bfa63b1dff149f80806fd122b06b7ccf198073d5e665f2f255",
+    "dist/assets/achievements/HIDDEN1.png": "87bb6331d6a8f630f26ce3de76e483979c1a8444365e4ffe576263e2f04a0605",
+    "dist/assets/achievements/HIDDEN10.png": "a5d603cfb10c3347375a1cebbb0049b04a9fda167ffa0610701c0e58166c2c3d",
+    "dist/assets/achievements/HIDDEN11.png": "ba36987addc63e44cb59a5c7eaa71f005fa6fa8f8c0530fa7c41e67d672aa021",
+    "dist/assets/achievements/HIDDEN12.png": "449a7a19ff4e42a482ae824048a728d27a470a5fd617bd19cde08e10b26b668b",
+    "dist/assets/achievements/HIDDEN2.png": "7a379614c1616d2ae2a510bc9adc42e941b1256ea40614fedf14efffc342388b",
+    "dist/assets/achievements/HIDDEN3.png": "54215a3d5c12dcc6f7a790f0042f3578d4cf23d79283a4ec812e24d3810d6b0b",
+    "dist/assets/achievements/HIDDEN4.png": "5b91c1d997449a47276e96c8c5006174489a3e04ad5596f9186087c8addac0b6",
+    "dist/assets/achievements/HIDDEN5.png": "958ddab18d4521aa2bc819f263230001ab5994d6c78e27c8c2772b8853863b11",
+    "dist/assets/achievements/HIDDEN6.png": "6160ff70b86121309b424bf9909be170f19132822224239fd7e6b5ad1a7207b5",
+    "dist/assets/achievements/HIDDEN7.png": "0d3486d60c9a545b7ee91c8f16e8cd339e9ec0dc6bade954beea5fbd1f985690",
+    "dist/assets/achievements/HIDDEN8.png": "09cb881933b7300f7a2c1dd4166c803b71b258e21b1827b328fd9bf05b171b44",
+    "dist/assets/achievements/HIDDEN9.png": "c6f1ff0571958cfef975f7c0737483aba226f659144d5f8f330e19df21f963b1",
+    "dist/assets/achievements/N1.png": "890cca6655da7c17298145077c7402b49fc74286ec32cb55687d10d18376ccee",
+    "dist/assets/achievements/N10.png": "fbdb4b2c7d0a2a0268ae20310bb638a9ab806faffed0f2a3b25f8dd3d3e95c56",
+    "dist/assets/achievements/N11.png": "d9a8a27fdd7b4e574639dc48044da5f4d90b7b5116b899868add9e31c6d846d1",
+    "dist/assets/achievements/N2.png": "3bde7c7f4194a2bfca906aedca9524f21a176e2dd7fd998f2a6e57c83543bf60",
+    "dist/assets/achievements/N3.png": "dd894f13d5e36d4b83ac89d6b645f9bc36955593269de1c7921addaa05a1532a",
+    "dist/assets/achievements/N4.png": "5ae0019f042ee1ba5bb9f9e59fa7d8b45e00f76f764e831429004f822c872503",
+    "dist/assets/achievements/N5.png": "d9136088fb238dd13b157cc2959cf9111f2021814fbead04780ac630be80c6fd",
+    "dist/assets/achievements/N6.png": "97c0ad929a7e6fb3f7ef07875c4fcbc9b65052b45263dcdfa41398ba51afc584",
+    "dist/assets/achievements/N7.png": "91b20a4b37bf8e2688c3ecce36579a2266d5fb237a549e85a18d784c2b9e2757",
+    "dist/assets/achievements/N8.png": "de55454dac80cba9fe3a2a5ecc354c5a3c02a37e80b5691d6367471f8258273f",
+    "dist/assets/achievements/N9.png": "7a977bdebd4bbb41364fdc3c99038918bb6c8f69a4fc5b3b791587db4acdcc6d",
+    "dist/assets/brand/icon.jpg": "bf165bf78c07c80f681d166e4b2c90df4feb53ed09a088e2280b718141084cc9",
+    "dist/assets/brand/logo.png": "3351ad9acb4f7af050c41fab9b2d707b9234d4cd2eaa5931e00c752dfe481b4e",
+    "dist/assets/characters/berries-pixel.png": "63a38b0568fc6b8aedd7b543a46411e3e7ab7e547ac0a297d0431e50dcb8c839",
+    "dist/assets/characters/berries-portrait.png": "3391ccc1b88394dabbcc65f8d064033393be4679f9efb2b04c61057d12d00d9d",
+    "dist/assets/characters/dracula-pixel.png": "b768425d2a1b7fbdef5409caef9a88af7f0d083c96d2569cf99c019c944f0ecc",
+    "dist/assets/characters/dracula-portrait.png": "eef168df6880e2021ce993cd5b571d5b078367b095975e1a93d2ebc1576740b5",
+    "dist/assets/characters/eliza-pixel.png": "76619730013d897a970455e3b1668524a80a4c1a0642fc00c6f00e14a62c2667",
+    "dist/assets/characters/eliza-portrait.png": "431dc54edc48651d9fc940130cf5b8c22503300a66f733e3811205dae735805c",
+    "dist/assets/characters/irin-pixel.png": "2a5b38f401d6bcd103f7775b95209f925795b247dc84c8ea2ca6478b86e319ff",
+    "dist/assets/characters/irin-portrait.png": "e4d1cfcb2ea43dbc45946d9e595dc343b006155b458fdd7feb742e2d39a5e559",
+    "dist/assets/characters/lianne-pixel.png": "6e33d06c899a067f34deb7ef63314784c34cbd0e08e828d74faed4abe7113716",
+    "dist/assets/characters/lianne-portrait.png": "e3ebe1417f932cc47566ae3126461814782770ef8bbd7d353d745dbbc303074a",
+    "dist/assets/characters/lily-pixel.png": "b44cc2ae3a5f690ca4afd013f1f373d3efdd355ca7cc44a59c119edcdb9e4d18",
+    "dist/assets/characters/lily-portrait.png": "ee4f6b6698ebb84eb7734858319c8d8c4e00b3cd5ce4968286a1e6cd71d5e935",
+    "dist/assets/characters/nyakori-pixel.png": "ce4c0739da18ea6f42d74958bae84cd00b5e9a15582219dd45f1f7708b27e87a",
+    "dist/assets/characters/nyakori-portrait.png": "9df502850373badbfdfc1521977e9d5a2c6102872afc7f8751c40346a9fd2d8a",
+    "dist/assets/characters/nyaruru-pixel.png": "82cbe435ac7f30bb11e23e8b016346ceee249a40c8277ec8f44c46c30b46cb5c",
+    "dist/assets/characters/nyaruru-portrait.png": "38c33f742ad0250f34722df2d247a57d864b6f1f2a193a8a5d71f76fd2f7ec61",
+    "dist/assets/characters/nyarutoru-pixel.png": "ab5512927285007eeaaf1f52c9fa887dfedda8eb7c861809cc497bd2e55c4190",
+    "dist/assets/characters/nyarutoru-portrait.png": "c95698b98da9425beb1ecd38ddd4c41d4c50233c453091bfa8c73020401b7aff",
+    "dist/assets/characters/orange-flower-pixel.png": "7f5c0a1d7084b05dc0846c4b080a02af2e47512773901603a8e62df3ee9132f5",
+    "dist/assets/characters/plague-witch-pixel.png": "df8d6d15d66f90fcb58d147f4e0bdec81d1be7de428c6f248b46842316167ce7",
+    "dist/assets/characters/plague-witch-portrait.png": "0675a65bf48807b684c728cf137d4d815593a8f23cc1b63a6a9b291f53475873",
+    "dist/assets/characters/sakura-pixel.png": "e4707af018e23bc83e820a5870c938b25296df6f8bacdbe6d7ace4d2e799b992",
+    "dist/assets/characters/sakura-portrait.png": "3e36de2cba6e936ca066b711bc12d01042be41c294873dc30f82555250a18de8",
+    "dist/assets/characters/strange-creature-pixel.png": "b2da205fe8e66cfc7ff51feeca3cbb0637b3cbad160e9f14f4d3103303619814",
+    "dist/assets/characters/theia-pixel.png": "424e77d66bd238b288a412b4911f0dde86993f28a834411869886fe3d878c2bc",
+    "dist/assets/characters/theia-portrait.png": "d3a1086a640bf835dffb9ba19b21ff6ebec758ac0242ce7471a7ec971ed7e6e6",
+    "dist/assets/characters/yuri-pixel.png": "698623630f7169d27e186e80c5c9464a0f94d7ee9557da4031c1671c15523b0c",
+    "dist/assets/characters/yuri-portrait.png": "2d21fcee78874aef4f27e522e7b3d5819cd10a5d69fed20ea126afe2f8b757f5",
+    "dist/assets/items/bell-0.png": "ad2e3f3ee14a7c7160af5037ca0a2352dc28f21c99d4bfd134ccb608b49b4913",
+    "dist/assets/items/coin-0.png": "d0a88e58737b164d3206545e1dd649c9bbbc36ca3d349a6a36167caec3838719",
+    "dist/assets/items/consumables-0.png": "644f26ced88ba7764048236d463ba8f761da37ffb9effff72dc4edacc26bee72",
+    "dist/assets/items/consumables-1.png": "d8f0ef77f2ef81e28e79a6524948d466348c143740c39f4b31b2cb159f079d38",
+    "dist/assets/items/consumables-2.png": "dc1c6a1d5812a31b422501a8c2d28a7dfadce8b32df0126699317487b1e22630",
+    "dist/assets/items/consumables-3.png": "4de9f33ba27488ea613651388560be6e66888b34f47243ee65e226426a9fdb47",
+    "dist/assets/items/consumables-4.png": "3d74e9d5a5fea1a5fc7d4398aab095697d658da930a4494e644126f54b53d370",
+    "dist/assets/items/consumables-5.png": "3d6286410c952e3b15d3d56ff7603c4fcc5556cc0650d6278f4997b34af292c2",
+    "dist/assets/items/hpst-0.png": "d559bf863f6bc508b6e1851abe1b47d703a41c0f2e90cb59cdd895317fa02b0e",
+    "dist/assets/items/joycoin-0.png": "5d0b9d2e083a8481301bc94ed04bb5c13e77732b5492468e01d5ca74d87d2767",
+    "dist/assets/items/ornaments-0.png": "f0dc69672c2d87e5c9f31d76e1b21efe6631f9ebbd8431955be86e85afd0aaf7",
+    "dist/assets/items/ornaments-1.png": "617d97191bdf56ade372795e8eaac40e87617f59a57423dc1e6c053a0b21eefe",
+    "dist/assets/items/ornaments-10.png": "fe03b554b7bbe7b96e8d0011abcfb9646fd35e49f38e4e99f4292e5515dc17a7",
+    "dist/assets/items/ornaments-11.png": "60da5d8298431217055d3d92c580ca83490f5583ab7c04de9f2ab0af008bb4b1",
+    "dist/assets/items/ornaments-12.png": "394e65f50c28bfcd240a5943a0a0252d6b35a47b7c6bf271b2479b3c99e767e9",
+    "dist/assets/items/ornaments-13.png": "c5158c4dd37ab1d1a65a0a383fa41ea352ec1ef77ad1bf3d6770cda77977e099",
+    "dist/assets/items/ornaments-14.png": "953235c5c839e107bc00b9467051a79c32624f24bdc792502e41d3327c0f7e79",
+    "dist/assets/items/ornaments-15.png": "72830d7c5ff73fe9866d8c3ff9cd026e254b84d2084ebcddbe1830e8de763cae",
+    "dist/assets/items/ornaments-16.png": "a3bfb08cbc1b956ee67f9b4595207ce2b11e3bf616c2cee0f1ce262b1f30350d",
+    "dist/assets/items/ornaments-17.png": "7230768d2fad78088fc1cc8a71731cdf43817ce8ca1d6ad0fc75845213236b94",
+    "dist/assets/items/ornaments-18.png": "0d3263e703139991d2cce43fc57802a69ebfb11a1ae884361e44b456c18d9736",
+    "dist/assets/items/ornaments-19.png": "305431bc540f18184ccaa2db81484e349f3fee3658ced9afb70a21e81e535617",
+    "dist/assets/items/ornaments-2.png": "755c788a03f046d6c84f858f4f4ea66356fc770fb4752d1aee7bdde095d77301",
+    "dist/assets/items/ornaments-20.png": "3032311e2a8d279d01e8c182d4e083010ee129c6754dfd24072355901f54524f",
+    "dist/assets/items/ornaments-21.png": "cb83c738b22a8fca834d0f2592fd53c883bfd35e8249da8fb16f6a2a5849cbaf",
+    "dist/assets/items/ornaments-22.png": "af6b1edc8057124c5ec0830563b993019b2bea1dac1a4ce84dbbac0e89e19652",
+    "dist/assets/items/ornaments-23.png": "5bf9586994f1f3ad957c93c375c778b5b2cdbb96035ea127a5c89b9d04be967d",
+    "dist/assets/items/ornaments-24.png": "6b8d814cc2e0ccc7f22965e117484b27b50b8e83eb635167cbed6a11ac5f3618",
+    "dist/assets/items/ornaments-25.png": "fdb8051b99eb9219106f97619a2181a6868a9996f8dc7288f9ede3058d953169",
+    "dist/assets/items/ornaments-3.png": "477a16e94a22542ea4b8c2694694f2f15140d49111f1e2e5702dacc4333d5479",
+    "dist/assets/items/ornaments-4.png": "908a0f03442a44976f178bef3d26551e98623bb439bc25aef50077f534c6ed80",
+    "dist/assets/items/ornaments-5.png": "a8a744cb4cb1ad0b3fd01c1b16623e0b4e51c0e9cb5b6ad307d2d2e4130a4bec",
+    "dist/assets/items/ornaments-6.png": "350196737b597be0cd75e23a3cf3c8b785938a779ddcdc56a137e8ad2fc69ff5",
+    "dist/assets/items/ornaments-7.png": "0208484c9f1a7701610c370ea95da10f1179d28928630dd04f7427e9f3a398c3",
+    "dist/assets/items/ornaments-8.png": "c85c9e8891a1a42076abc6b4a942c736453c4278bd9ec4538b9f01b1561f3b7a",
+    "dist/assets/items/ornaments-9.png": "29753b961bf43c95d0e6ef7ff028f7527da64007e184f67581cde8bcac83fcce",
+    "dist/assets/items/skillst-0.png": "457ecff490e7c3344e48ba446f91cb84f94f379c8f853a9f07b7ab7afc75070f",
+    "dist/assets/items/stones-0.png": "1318b37ba2e0177259adff6cbf5d9de1601ef25e0b6d89be27ecf48b9065c5ae",
+    "dist/assets/items/stones-1.png": "dd2c014c091714b3606ac8c1e6439edf0a9d634648ad6eb934f23aed00a3a270",
+    "dist/assets/items/stones-2.png": "80c02945a4279c6ac0ec6debd3ae0a7e3108efa7e0b417ad89295865257baf13",
+    "dist/assets/items/stones-3.png": "dbeb58ce19303fadab7e7b36485221a067f2a64f3b35b0d1ec37ba3b21c6143b",
+    "dist/assets/items/stones-4.png": "41623db30db7908c5d7bfa71c04dca055367a002815807844e6b69adcdf82851",
+    "dist/assets/items/stones-5.png": "12a0231dfd335788b9fa41bcb9c994d48175483e6f58abd47541ab46a86f1572",
+    "dist/assets/items/stones-6.png": "5e0abf4d9f6c617a8a1f1e0dfae08e406c9958a44b720a3a67339ceab0b5fb04",
+    "dist/assets/items/stones-7.png": "fabdceacf6194d84151e569e81c6891f864345a680a03f63b314b812cee9634a",
+    "dist/assets/items/weapons-0.png": "51bec2ff55e1cf4546aad07e25854c49951105da674222e3a2ec1b821a27b961",
+    "dist/assets/items/weapons-1.png": "368348a0d7c0ebe15ce7b1583768107220f4bd8836bfd8ff0ded8bec66e61435",
+    "dist/assets/items/weapons-2.png": "f9852ad2375b5ea4e9d15c7bf1222d41f74946331173690d465a6634141d044a",
+    "dist/assets/items/weapons-3.png": "8988b23aba620b4675eb861bded2cc162103ebc8600ec532bb30e4220f380da1",
+    "dist/characters.js": "118c56985b122bf618278d609ab0dbc0d323156ab63208166d8e600a2dea18d3",
+    "dist/data.js": "a280e2322ee0ce07e751402f438399776cddff5d85743ab67489301a08582460",
+    "dist/endings.js": "378054c0bb959cf1ac3ea322fbe3ffe67966d81978cc8947c23cba9331a9f991",
+    "dist/icons.js": "d2a954faf754a26dce2eeaff83c3d29c440b95c853ae4098ba18d72c1cc22627",
+    "dist/world-overview.js": "95927002c748ce842d733c0f306b738cfa1da2093b57b3b5664efbf7000afd86",
+    "package.json": "7603ab3806848c67c624948b8e98bfb4e58bfd3177d14344a58e8102645a965a",
+    "scripts/build-guides.js": "4fa2e4cb94d9dcb0b88c2b2b737f00f7ac785df3312d2ce96fd99ce64505d62f",
+    "scripts/lib/guide-map-preview.js": "12940dd08fda7fcdcc87041410dd75620ebd06fcddfce6bb20c341e6b6cf70d1",
+    "scripts/lib/guide-model.js": "3f493ec845c0817430e9dddc5cb3f4e5f92a4c6b40a9989907d999d83ce56db6",
+    "scripts/lib/guide-template.js": "3f5e30643cf63327659ff693aa401a35d37de4757d63d20723db80c6ce333c03",
+    "scripts/lib/guide.css": "a14a44440bc495194b5eb8742286c4f02e99e197b48b75a86cb718e391edb0ff",
+    "site.config.json": "119f9cebfe408a51d9770c5523390e6594b3049a0c684ec014150a9c577f1257"
+  },
+  "config": {
+    "siteUrl": "https://www.serversalem.top/nyaruru-wiki/",
+    "blogUrl": "https://www.serversalem.top/",
+    "siteName": "咸鱼喵喵非官方百科"
+  },
+  "modelSha256": "8b16b34b2b46dbe1c91e9c14a1ac239977b6f63e495a0ceede9bd62617bd7e96",
+  "counts": {
+    "items": 49,
+    "characters": 16,
+    "endings": 5,
+    "achievements": 32,
+    "regions": 16,
+    "cells": 996,
+    "officialEvents": 411,
+    "html": 124
+  },
+  "files": [
+    {
+      "path": "achievements/br-30star.html",
+      "sha256": "7ec4bd5bfa102dc824f3d1a0136255962657ccb140f6b54cfa8c8b043b0bb183"
+    },
+    {
+      "path": "achievements/br-40star.html",
+      "sha256": "4c85e7e14edc47860e77b3835aba46d7542411cff5ecce7d34fe27be69a77775"
+    },
+    {
+      "path": "achievements/br-50star.html",
+      "sha256": "cb46e9b2d7889db934340b8eda59aaa6da82f69252e5ec39a4a9c8229aa3909d"
+    },
+    {
+      "path": "achievements/br.html",
+      "sha256": "be2e3c9f5c84e0ca64dea302b0b371104add6e0e3bba0f7143b32678f95e2e83"
+    },
+    {
+      "path": "achievements/ed1.html",
+      "sha256": "d679aec283ca6da090b88434f7e5501594669a08c59056b854938d49eaf19269"
+    },
+    {
+      "path": "achievements/ed2.html",
+      "sha256": "794baba24a8242848d918feb52e8d11dc27cc2de16a3e9c1f8e854f0c8b5fb3f"
+    },
+    {
+      "path": "achievements/ed3.html",
+      "sha256": "7417ebaea68f728ab11a5c7fda47e30aa81c9a6534b2030cf85269f9d1db5efc"
+    },
+    {
+      "path": "achievements/ed4.html",
+      "sha256": "e3ad4b568a4531c0b1ffff0777673036de66f57fc66fb1b636e5e835fc01e431"
+    },
+    {
+      "path": "achievements/ed5.html",
+      "sha256": "4379c40f571e55d3ae74e929b4b54330b0634e0b6619ac30147526eebb100130"
+    },
+    {
+      "path": "achievements/hidden1.html",
+      "sha256": "ee5d3ed77627e691f3441f06d94e6115b4048f09ac50c99c420aefe60b8b65b9"
+    },
+    {
+      "path": "achievements/hidden10.html",
+      "sha256": "c943ddc3fe93cfd7850caa64adf4d648af9ba9623906db2f523d19651333025c"
+    },
+    {
+      "path": "achievements/hidden11.html",
+      "sha256": "aaab29f39bb277e4f073a96c9dab224a106fdf6251c7fd1694aa4de8063fe32c"
+    },
+    {
+      "path": "achievements/hidden12.html",
+      "sha256": "ee451c4e56461167836ce691097d71b1e249d632c4af7f5421a151481127cd68"
+    },
+    {
+      "path": "achievements/hidden2.html",
+      "sha256": "4cb26016938ac11030bcf6a5f1e8d35a8119525c22cc44e4b3976df0973dae34"
+    },
+    {
+      "path": "achievements/hidden3.html",
+      "sha256": "f1eff9b008c62dbc9770047d90f5dfd7e04b8fdb3d5faf7485cfcf3162420c6d"
+    },
+    {
+      "path": "achievements/hidden4.html",
+      "sha256": "4f7de38a8faf64517a04561ffc07a4834a374fcd1a4c5735a1310670fd1bb15b"
+    },
+    {
+      "path": "achievements/hidden5.html",
+      "sha256": "15a402974dacffb459e10104497ee1238a9a0b7b9861b7ab85f492ffc54da3cb"
+    },
+    {
+      "path": "achievements/hidden6.html",
+      "sha256": "6804a32fa8332bc996a4cc5acb28648ca89565df89ed6c76c0f7634dd29bb8c1"
+    },
+    {
+      "path": "achievements/hidden7.html",
+      "sha256": "0da1314fce4616bbc660bdca359d3819e25d3a6856eae6adb01e4e5bdd4a94db"
+    },
+    {
+      "path": "achievements/hidden8.html",
+      "sha256": "bec1f7ac32d0403e7887dc526dc13d5e9027308795cbba4dc0c6102bcf775312"
+    },
+    {
+      "path": "achievements/hidden9.html",
+      "sha256": "5e12b152725c1065a819570a421f8726425de8dda0ff1deba99a4a07e8e49bab"
+    },
+    {
+      "path": "achievements/index.html",
+      "sha256": "45f4d34d9420a1784c15a1f6fdf539e8b3ed09ec80fe464e90428c69054ba509"
+    },
+    {
+      "path": "achievements/n1.html",
+      "sha256": "61b240af7c552527fbaf19ca89ad51669eea8dc672c36fe2ede19da632fdbf5c"
+    },
+    {
+      "path": "achievements/n10.html",
+      "sha256": "9d79ab08eff250032183fb57238324d5b3a5d40928d6abbd0c1575a5e505627e"
+    },
+    {
+      "path": "achievements/n11.html",
+      "sha256": "887285a65179dfa7f06abe24f64ce29af6dbd28df39de3f17123769dbdafc583"
+    },
+    {
+      "path": "achievements/n2.html",
+      "sha256": "fb1f9ff74401e34712e39bce208e7aeae237e684f6dcdb374cf8dc4c4c9131a8"
+    },
+    {
+      "path": "achievements/n3.html",
+      "sha256": "fc42c073ea88d33259780715f041ca2a61d5677b043ac018308701988c47441e"
+    },
+    {
+      "path": "achievements/n4.html",
+      "sha256": "ebf18fce472013cee92e6aa9c1a650fe822bdd35da7d828603fb7a90a7542a26"
+    },
+    {
+      "path": "achievements/n5.html",
+      "sha256": "754f246fa63657ac8fd03c1091025a3570eea07c48f160eee8256738fa422af6"
+    },
+    {
+      "path": "achievements/n6.html",
+      "sha256": "58a1c8257a2fb88139d12d6a4989abcacc273fb78ba55c76732be8298da23807"
+    },
+    {
+      "path": "achievements/n7.html",
+      "sha256": "68823f65fd22415dfddcf73d203f6fd8562cb5e9546be5a25fb9620360bf6ec5"
+    },
+    {
+      "path": "achievements/n8.html",
+      "sha256": "300b30b8c07079602bc144ec240f2da0983381a27dc93b559d6b9cee4eadd713"
+    },
+    {
+      "path": "achievements/n9.html",
+      "sha256": "a9dcc2de76201bce0a2600b846aa880a34b526645fa76e7ae60769c915063307"
+    },
+    {
+      "path": "characters/berries.html",
+      "sha256": "e3a3424576612a31e4f55efae07f871c4fd5816a9975ca453d20b1b27d06edf0"
+    },
+    {
+      "path": "characters/dracula.html",
+      "sha256": "2495805b9e969e9a3aababefe6ce78c6472633ae7ababf34996c197bb93b2e17"
+    },
+    {
+      "path": "characters/eliza.html",
+      "sha256": "0c5cab999222fdfafd0a968a157693472edc990f6c391e27c9161ac03d7afcc5"
+    },
+    {
+      "path": "characters/index.html",
+      "sha256": "3c4d29ca3757919fb2fa3a624e8c99da43294d396e761c571679fe9d6c3eb4a6"
+    },
+    {
+      "path": "characters/irin.html",
+      "sha256": "8c4be884b89ccb67adfd1cc72657c154017d4f13863457f48c3fe6f77c3b1fed"
+    },
+    {
+      "path": "characters/lianne.html",
+      "sha256": "f16436bb2db04447d8703007090ff4d59da0829a960ffa64812f90654dc7a398"
+    },
+    {
+      "path": "characters/lilong.html",
+      "sha256": "27700b28613513f57b2c9a88a155e6acceed9b7eb20659023cccebfbea82c36d"
+    },
+    {
+      "path": "characters/lily.html",
+      "sha256": "07074e50fc9bbaf6d58c6e8c5c19fe5cbdf4c78c6422882ea115e143bc1aaa97"
+    },
+    {
+      "path": "characters/nyakori.html",
+      "sha256": "07ab386b436a08946bac32d8e0c3d2ea6739a9623f6debea6bb764cb8fbed979"
+    },
+    {
+      "path": "characters/nyaruru.html",
+      "sha256": "9f00dd9ad6fa3564298f3d1197da4b16e72c95e6284ff6207b23ad97efebe428"
+    },
+    {
+      "path": "characters/orange-flower.html",
+      "sha256": "5c808427974681214ea98f249586e61720e5043572ea17b3f504e9173022bf6e"
+    },
+    {
+      "path": "characters/plague-witch.html",
+      "sha256": "eb23f1e7e87258447e322b4833d666d12477c2c976eac2fb95604fc5421c0bca"
+    },
+    {
+      "path": "characters/sakura.html",
+      "sha256": "0783aeec27b639d8d41d7555a14e4cefa847847dba8f2eb704abab3542fd25b2"
+    },
+    {
+      "path": "characters/strange-creature.html",
+      "sha256": "2ac47639a9c956ea802194d9c0d99300c31ed3fce777531d5be23ad333f90923"
+    },
+    {
+      "path": "characters/theia.html",
+      "sha256": "2968336ae36583f52927fd1115576ff818734b8d705d87eee252bb9a9810677b"
+    },
+    {
+      "path": "characters/unrevealed-13.html",
+      "sha256": "1e1334d6903454541cf200dfe808c2695af9467971c647f0488195402853624a"
+    },
+    {
+      "path": "characters/yuri.html",
+      "sha256": "521abfadb8093b3f51dcb48f89c8c085c9ea1a341addcef50678a5d50f642309"
+    },
+    {
+      "path": "endings/ed1.html",
+      "sha256": "f4cce700cfc328bd73b8c3dafa7211599bf8ac869c887e5d567bc4b5a2ddba4e"
+    },
+    {
+      "path": "endings/ed2.html",
+      "sha256": "8a8f32fc2a2c0aeb356df20eb4316c8fa921b678057dd549cb6788479e667375"
+    },
+    {
+      "path": "endings/ed3.html",
+      "sha256": "edf18c74d4feb749f3494514839646d54901952516988438843cf5943230fb43"
+    },
+    {
+      "path": "endings/ed4.html",
+      "sha256": "9f01850f42a9b39b7ba1855021e483e35634aa04043226c0bcdb0ba48152bc86"
+    },
+    {
+      "path": "endings/ed5.html",
+      "sha256": "ea0f31ac3e42a8c1d3ce3f433640ab2183461b649d81fe0223839266615565f5"
+    },
+    {
+      "path": "endings/index.html",
+      "sha256": "5c778ec63d285d53a340f13d4eb0d1137078b248ddcf8b20d9ff7a790977854d"
+    },
+    {
+      "path": "guide.css",
+      "sha256": "a14a44440bc495194b5eb8742286c4f02e99e197b48b75a86cb718e391edb0ff"
+    },
+    {
+      "path": "index.html",
+      "sha256": "4a2141071113a055d58297b3ee56794fce51d51dabd960c3c8fb3c36a65805d4"
+    },
+    {
+      "path": "items/bell-0.html",
+      "sha256": "06d971d398971e72c450dd938b4bbc453f199b95ffb88db21af24c1a22591a2b"
+    },
+    {
+      "path": "items/coin-0.html",
+      "sha256": "f01c15f062f1e73c827bd206272010767f6457af6cd0028ce0932902128ad9d0"
+    },
+    {
+      "path": "items/consumables-0.html",
+      "sha256": "dbb1d88314fe58cc799216361221f22c1414d1442e35a9b0aead26eca9746308"
+    },
+    {
+      "path": "items/consumables-1.html",
+      "sha256": "2556a1032c8bbf0c5db56262b5d966ce0654f7a6033f14235425295e383e7cae"
+    },
+    {
+      "path": "items/consumables-2.html",
+      "sha256": "a85be8d2143168c89c233cae026d2290c3a1ac73f4d08e15ba1631ae70b0232f"
+    },
+    {
+      "path": "items/consumables-3.html",
+      "sha256": "07f1294e6409006eb304d9fe690c19e2fc854bb80bdeba303251201982131ec6"
+    },
+    {
+      "path": "items/consumables-4.html",
+      "sha256": "3f4c1389dfffa4205784cf7c15171921a3638a927d3627c795ff9ef9014caf94"
+    },
+    {
+      "path": "items/consumables-5.html",
+      "sha256": "81140fcffa0df3531ab152300a46865d0b57435c3c2c11e0f0b0ad20cbf5df24"
+    },
+    {
+      "path": "items/hpst-0.html",
+      "sha256": "3c23bb2b75cacea0458e942a7bc38c8068af8c2cdc18e860274454effd6dea2e"
+    },
+    {
+      "path": "items/index.html",
+      "sha256": "039cc5e1bc3f1e3a1b0145441009f83b9e427669755edd251b617ca44bca3b44"
+    },
+    {
+      "path": "items/joycoin-0.html",
+      "sha256": "28973ae0e69990cbc78f35b0cd755a30f80162740eaa9d1507397df7c4ab4cd4"
+    },
+    {
+      "path": "items/ornaments-0.html",
+      "sha256": "12942aae18c8aa735705fa5996880150f331d2d94e99a04888c0d44d6acb6634"
+    },
+    {
+      "path": "items/ornaments-1.html",
+      "sha256": "1a3db9f7a8b7e46e6973bf97871518b8099770749e47c82aea4a7b5d23da83ef"
+    },
+    {
+      "path": "items/ornaments-10.html",
+      "sha256": "85f87642f35def546d6555362b34f5a98cd5afbca9b2e88b068dc862665d4b02"
+    },
+    {
+      "path": "items/ornaments-11.html",
+      "sha256": "f01f4936ae1b337a2ad8ce324a4d38a08ee11ec1bb8afef1487e6ea3040d95f6"
+    },
+    {
+      "path": "items/ornaments-12.html",
+      "sha256": "e0e220534f72cde07b07b0083517317764fb519aa1764442f0daa4c00ac8bf41"
+    },
+    {
+      "path": "items/ornaments-13.html",
+      "sha256": "6746165fbab76f4cd2fe9b4901acae3c3d54d1f12aad53cec2a238d3e4e6a45e"
+    },
+    {
+      "path": "items/ornaments-14.html",
+      "sha256": "162b8058dba25f15c2a727b09bf26fa3000daf9d80b4f696248a537209ba15b4"
+    },
+    {
+      "path": "items/ornaments-15.html",
+      "sha256": "145d32afed90de434c02af3628384e2dd82212783e1b6c2df5432074185a6bc4"
+    },
+    {
+      "path": "items/ornaments-16.html",
+      "sha256": "05e1aa7a1f1739ecc3ac0f6d464ea193619b36d24acd186aba6d7cd8b091e087"
+    },
+    {
+      "path": "items/ornaments-17.html",
+      "sha256": "fef6eba44b5636bb5b88feda747516290067c107a3d109b0ea0f3746213f3b6c"
+    },
+    {
+      "path": "items/ornaments-18.html",
+      "sha256": "8517ebf16cab33f7ac1286844698e699eecdfe8d81052fb94aa4347cea63399e"
+    },
+    {
+      "path": "items/ornaments-19.html",
+      "sha256": "5baec3fb748f5c0a31a377febd9523d86c0225bd517c5efc2bf95f4cf05fad59"
+    },
+    {
+      "path": "items/ornaments-2.html",
+      "sha256": "7b1a78416b7ba9c2f90c0a30d2f43e393c54ad8fc17f7f0baa76e35b60336314"
+    },
+    {
+      "path": "items/ornaments-20.html",
+      "sha256": "84060813b39a7d9d57d2f27f5be6132fbe2dd1d157f0418ae6dfa292ff9e51ad"
+    },
+    {
+      "path": "items/ornaments-21.html",
+      "sha256": "abb8e7e3eeada8c85aad2518b5f5b778c4eff418642d0a8b2b847673c2c5690a"
+    },
+    {
+      "path": "items/ornaments-22.html",
+      "sha256": "939dab99ae685837f2ec47883ff820caf08e7b81642650c01510b01f13acdc37"
+    },
+    {
+      "path": "items/ornaments-23.html",
+      "sha256": "6c1dda4bbbf3cf8664b12597ee9ff687c953c0e7867171b020a1b08ac6032669"
+    },
+    {
+      "path": "items/ornaments-24.html",
+      "sha256": "209b25c0e31a7b170f09e71135b3734c2f2a382392811da6fb0968993e6577bd"
+    },
+    {
+      "path": "items/ornaments-25.html",
+      "sha256": "173329f47f8538dbe69e312292eac31e989c57ab34f59eeffa46cfbe29a7268b"
+    },
+    {
+      "path": "items/ornaments-3.html",
+      "sha256": "4e353dd13ee07b890d949206153714c4e8407f21cd4f040f932dc603085a1768"
+    },
+    {
+      "path": "items/ornaments-4.html",
+      "sha256": "c6dbafc6a0e044ee02359f48d8337c5d6fe7a448d5b82b5812fb24d7981b6e56"
+    },
+    {
+      "path": "items/ornaments-5.html",
+      "sha256": "ad0b03abdf40297e4ea7fa94ceed3f79fbc2e383c01906cd82a00e6d64f03187"
+    },
+    {
+      "path": "items/ornaments-6.html",
+      "sha256": "490e28aeaa60940c4fe2a3869d0a7587fb257bfe662acb5a32d600920899f1f6"
+    },
+    {
+      "path": "items/ornaments-7.html",
+      "sha256": "d0ce68e75c8b4483fd3bbdde199ec305be98d004b7895dfe7ca7fe39c1204224"
+    },
+    {
+      "path": "items/ornaments-8.html",
+      "sha256": "c73afdc898e0cd25a53da7543d200a206f79f0c61d1baa7b38a5a5868edc0696"
+    },
+    {
+      "path": "items/ornaments-9.html",
+      "sha256": "a59ff6cd66347830a5a8d558caa3c6dea2d8b70f4b46cf405702de633e2564c0"
+    },
+    {
+      "path": "items/skillst-0.html",
+      "sha256": "5281270f3e20e09ccf675ffc1c2d87a591b3b4f542b56672af61793ce9188df2"
+    },
+    {
+      "path": "items/stones-0.html",
+      "sha256": "e38061a6edbba7a1dd16f09e1f93ecb02d90f76e6e9c2d90e4f7c42ae31c0039"
+    },
+    {
+      "path": "items/stones-1.html",
+      "sha256": "5659ab38394d5801bea1a517307479306384dee4d877a651691cb5f8a58d2743"
+    },
+    {
+      "path": "items/stones-2.html",
+      "sha256": "db1d99d3dee7569a75b9a9da332fe0bc00a751bdd38262f6dbbf4b13c3b56c13"
+    },
+    {
+      "path": "items/stones-3.html",
+      "sha256": "e3ba39e9f722d97692584e823347f2c799c1b061e7a68c121a32be4bb5b3b1b7"
+    },
+    {
+      "path": "items/stones-4.html",
+      "sha256": "3cf2d9898c4af337c26e88005c11e1885bef1375e9b78b3c16b08c6e410c0bb0"
+    },
+    {
+      "path": "items/stones-5.html",
+      "sha256": "7935a7c040e83a1cb57c9838dffce0afdbefe7cfe99f220a942e61200c5fd286"
+    },
+    {
+      "path": "items/stones-6.html",
+      "sha256": "42be158321a4f7433615aeb43dc8b60981e2ace91ee8ac08ebb413c85f80386f"
+    },
+    {
+      "path": "items/stones-7.html",
+      "sha256": "45cd32bfabd0cd41e4067b76020597584174a67d44d36d4fb8bc06c1e6ccfe71"
+    },
+    {
+      "path": "items/weapons-0.html",
+      "sha256": "dc5f290e58dec963a92ad3e605e994f83cbdc7eba40a5969ee171b63b36a1ad4"
+    },
+    {
+      "path": "items/weapons-1.html",
+      "sha256": "810bc23514f47ea5d8243b0bbf4027dd9ee2f5ce213ca71a4e67a54989da75aa"
+    },
+    {
+      "path": "items/weapons-2.html",
+      "sha256": "eb266c66e244bdd3195348c4f1a0b377faa6539b6e83b7613050d7de11ef54f3"
+    },
+    {
+      "path": "items/weapons-3.html",
+      "sha256": "bb37a35cdbb97e57cb198502715e632615ce9630ef4bf0eaeff7d16483f9bf67"
+    },
+    {
+      "path": "regions/1.html",
+      "sha256": "fc2d00ee56a4580b45910bdfc08104c776b9c545fb71b6fa650e0ad875b7ee84"
+    },
+    {
+      "path": "regions/10.html",
+      "sha256": "7e470878b3bfdd1d05c5d3c0100c3b079660a9d959b587253c5e3271fb927811"
+    },
+    {
+      "path": "regions/11.html",
+      "sha256": "2f6171b79266cb5709768011b760034aaf5f9cc9b8b221265db22bba929b00ec"
+    },
+    {
+      "path": "regions/12.html",
+      "sha256": "790dfe36a79cab372670973871f4ebfe4920e8434cc95b6c39d69811886f22aa"
+    },
+    {
+      "path": "regions/13.html",
+      "sha256": "c160e42b4220a85f20b891669405636dae5642256c29dea132923c4a0c5e8ddf"
+    },
+    {
+      "path": "regions/14.html",
+      "sha256": "5d9f8b1d0e0cbe09940374940ca777989ed2a19034dcf662801ebab0a9b8d751"
+    },
+    {
+      "path": "regions/15.html",
+      "sha256": "8a3037d84d74bfd5584955cfc463e6263ce4c9b0f15a5c8119f2bf563fd951bb"
+    },
+    {
+      "path": "regions/2.html",
+      "sha256": "e141ca7544ede86bab760629799beb52245c4a69357a3fdff890179ba7e5531c"
+    },
+    {
+      "path": "regions/3.html",
+      "sha256": "6f15919f744103ed161a7ccfd229da043c44dab0a894372795a28e766bb42a8a"
+    },
+    {
+      "path": "regions/4.html",
+      "sha256": "4675f91331c7ec8237d8a35ff33abc2d42f1b29a9e59eaaf4cc10b024740be73"
+    },
+    {
+      "path": "regions/5.html",
+      "sha256": "ea49ae7994f612e495a218654350b061adab76808fca2f6c871f6f3de6d8b62f"
+    },
+    {
+      "path": "regions/6.html",
+      "sha256": "df52f2d289c6e5c32cecb1d15dc02d8e74f1a5b0dc13e1ecc7a31d6f063f9c74"
+    },
+    {
+      "path": "regions/7.html",
+      "sha256": "344611391e7f135226075454b15edded9beec51e0bc5ebaf6bd8e0e5fddd18c3"
+    },
+    {
+      "path": "regions/8.html",
+      "sha256": "a5d75f891af9eeb068d47d503b52e9a7a14e31c27a6f0c2c2c77df539bfc1ef9"
+    },
+    {
+      "path": "regions/9.html",
+      "sha256": "4dac306a924e46728bfe2256b0d40afa770502721a6e987d1c4a00a05b362ca9"
+    },
+    {
+      "path": "regions/92.html",
+      "sha256": "93aa7fc70cb593d2d68e6a5b8a1bb37a6b5ee5289e325102645eab9d28204788"
+    },
+    {
+      "path": "regions/index.html",
+      "sha256": "66136f762d31e54290133e40e04659b712e820672c63b723d06d48b901073477"
+    },
+    {
+      "path": "sitemap.xml",
+      "sha256": "a2ad70926bb707a3cec1662105527779b4588ce37bab5dea49e59b08839d748b"
+    }
+  ]
+}

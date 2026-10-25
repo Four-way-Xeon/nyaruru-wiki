@@ -7,6 +7,7 @@
   <meta name="description" content="咸鱼喵喵非官方百科：物品图鉴、全收集地图、人物与剧情、结局触发方式、成就手册与本地存档分析，由爱好者维护。">
   <title>咸鱼喵喵 Wiki · 旅行手记</title>
   <link rel="icon" href="assets/brand/icon.jpg" type="image/jpeg">
+  <link rel="canonical" href="index.html">
   <link rel="stylesheet" href="styles.css">
   <script src="data.js" defer></script>
   <script src="characters.js" defer></script>
@@ -53,7 +54,7 @@
       <a href="#save" data-nav="save"><svg class="icon"><use href="#icon-board"/></svg>存档分析</a>
       <a href="#about" data-nav="about"><svg class="icon"><use href="#icon-info"/></svg>关于</a>
     </nav>
-    <div class="sidebar-bottom"><span class="status-dot"></span> 独立玩家资料站<p>一张地图，一份清单。<br>把每一次发现，慢慢记下来。</p><span class="edition">第五版 · 故事余韵</span></div>
+    <div class="sidebar-bottom"><span class="status-dot"></span> 独立玩家资料站<p>一张地图，一份清单。<br>把每一次发现，慢慢记下来。</p><span class="edition">第六版 · 资料与探索</span></div>
   </aside>
   <div class="workspace">
     <header class="topbar"><span>玩家资料库 <span class="slash">/</span> <span id="breadcrumb">世界地图</span></span><span class="local-badge"><span class="status-dot"></span>进度仅存本机</span></header>
@@ -111,14 +112,38 @@
         <div class="assistant-extras"><article class="paper"><h2>更自在地移动与战斗</h2><p>悬停用于空中停留和取景；穿墙可单独开启。伤害与受击倍率分别调整，按需要改变战斗节奏。</p></article><article class="paper"><h2>回看剧情，慢慢截图</h2><p>按台词、说话人、地图或故事编号寻找对话。结合剧情回看和临时摆拍功能，重新捕捉喜欢的片段；只想看对白时可使用“只播台词”。</p></article></div>
         <p class="footnote">以上为项目公开功能与真实界面截图。点击项目主页查看当前版本与使用说明；本页不会自动下载、连接或修改游戏。</p>
       </section>
-      <section class="page" id="page-about" aria-labelledby="about-title" hidden><p class="eyebrow">NOTES BEHIND THE NOTEBOOK</p><h1 id="about-title">关于</h1><p class="lead">资料有出处，未知有标记，进度由你记录。</p><section id="site-note" class="site-note" aria-labelledby="site-note-title"><h2 id="site-note-title">站点说明</h2><p>这里将补充站点介绍与维护说明。</p></section><div class="about-grid"><article class="paper"><h2>资料与覆盖范围</h2><div id="data-coverage"></div><h3>阅读前的小提示</h3><ul><li>这是独立玩家 Wiki 第五版（0.5.0），与游戏运行状态没有连接。</li><li>清单以官方事件为单位；额外脚本来源会单独标明，不计入官方进度。</li><li>“商店标价”采用游戏数据库的基础价格；具体商店、库存与任务解锁条件仍需结合游戏进度核对。</li><li>有条件的来源如未核实，显示“获取条件待核对”。</li><li>地图是结构示意；道具图标来自游戏原版素材，图像权利归游戏权利人。</li></ul></article><article class="paper"><h2>本地清单怎么保存？</h2><p>勾选后，浏览器会使用本地存储（localStorage）记住已完成事件。清理浏览器数据、更换浏览器或移动文件，都可能导致记录不可见。</p><p>建议定期“导出清单”，保存 JSON 文件。导入只接受本 Wiki 的清单格式，并检查事件编号；验证通过后合并已完成记录。</p><h3>人物文字与授权</h3><p>萌娘百科来源文本按各卡片标注的 CC BY-NC-SA 4.0 授权整理，保留来源链接并说明是否改写。人物像素图与立绘来自本地游戏素材，图片来源与权利说明见人物数据与资料来源。人物文字的 CC 许可不适用于游戏图像。</p><div id="character-sources"></div></article></div></section>
+      <section class="page" id="page-about" aria-labelledby="about-title" hidden>
+        <p class="eyebrow">NOTES BEHIND THE NOTEBOOK</p><h1 id="about-title">关于</h1><p class="lead">资料有出处，未知有标记，进度由你记录。</p>
+        <section id="site-note" class="site-note" aria-labelledby="site-note-title">
+          <div class="site-note-intro">
+            <h2 id="site-note-title">关于咸鱼喵喵 Wiki</h2>
+            <p>这是一个由爱好者整理、维护的非官方百科。想把《咸鱼喵喵》的地图、物品、全收集、人物剧情和成就放到一起，让大家查东西方便一点。</p>
+            <p>资料会继续补充和修正。如果发现错误，或者有想补充的内容，欢迎到 GitHub 反馈。</p>
+            <div class="site-note-links">
+              <div><a class="primary" href="https://www.serversalem.top/" target="_blank" rel="noopener noreferrer">Kitasami_Nya 的博客 ↗</a><p>开发过程、更新记录，还有其他折腾的东西，都会放在这里。</p></div>
+              <div><a class="secondary" href="https://github.com/Four-way-Xeon/nyaruru-wiki" target="_blank" rel="noopener noreferrer">百科 GitHub 仓库 ↗</a><p>网页源码与资料整理放在这里，欢迎查看、反馈和参与完善。</p></div>
+            </div>
+          </div>
+          <div class="site-note-credits">
+            <section aria-labelledby="site-note-text-license">
+              <h3 id="site-note-text-license">文字来源与许可</h3>
+              <p>人物与剧情等文字摘编、整理自萌娘百科及其贡献者，具体出处保留在对应条目中。这部分整理和改写内容沿用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" target="_blank" rel="noopener noreferrer">CC BY-NC-SA 4.0</a>（署名—非商业性使用—相同方式共享）协议。转载或改编时，请保留原作者与整理者的署名、来源链接和许可说明，并遵守相同协议。</p>
+            </section>
+            <section aria-labelledby="site-note-image-source">
+              <h3 id="site-note-image-source">图片来源</h3>
+              <p>游戏图标、像素图、立绘和 Logo 等图片来自《咸鱼喵喵》官方游戏素材，相关权利归原权利人所有。上述文字协议不适用于这些图片。</p>
+            </section>
+          </div>
+        </section>
+        <div class="about-grid"><article class="paper"><h2>资料与覆盖范围</h2><div id="data-coverage"></div><h3>阅读前的小提示</h3><ul><li>这是独立玩家 Wiki 第六版（0.6.0），与游戏运行状态没有连接。</li><li>清单以官方事件为单位；额外脚本来源会单独标明，不计入官方进度。</li><li>“商店标价”采用游戏数据库的基础价格；具体商店、库存与任务解锁条件仍需结合游戏进度核对。</li><li>有条件的来源如未核实，显示“获取条件待核对”。</li><li>地图是结构示意；道具图标来自游戏原版素材，图像权利归游戏权利人。</li></ul></article><article class="paper"><h2>本地清单怎么保存？</h2><p>勾选后，浏览器会使用本地存储（localStorage）记住已完成事件。清理浏览器数据、更换浏览器或移动文件，都可能导致记录不可见。</p><p>建议定期“导出清单”，保存 JSON 文件。导入只接受本 Wiki 的清单格式，并检查事件编号；验证通过后合并已完成记录。</p><h3>人物文字与授权</h3><p>萌娘百科来源文本按各卡片标注的 CC BY-NC-SA 4.0 授权整理，保留来源链接并说明是否改写。人物像素图与立绘来自本地游戏素材，图片来源与权利说明见人物数据与资料来源。人物文字的 CC 许可不适用于游戏图像。</p><div id="character-sources"></div></article></div>
+      </section>
       <section class="page" id="page-save" aria-labelledby="save-title" hidden>
         <p class="eyebrow">A NOTE FROM YOUR OWN ADVENTURE</p><h1 id="save-title">本地存档分析</h1><p class="lead">看看这一程走到了哪里，再把已确认的发现记进清单。</p>
         <div class="paper save-picker"><div><h2>选择游戏存档</h2><p>选择原版游戏的 <code>.rmmzsave</code> 文件，最大 4 MiB。文件只在当前浏览器内读取，不会上传，也不会改写原文件。</p><label for="save-file">存档文件<input id="save-file" type="file" accept=".rmmzsave"></label></div><button id="save-clear" class="secondary" type="button">清空预览</button></div>
         <p id="save-status" class="notice" role="status" aria-live="polite">尚未选择存档。支持当前已核实的原版存档格式。</p>
         <div id="save-preview" hidden><div id="save-summary" class="save-summary"></div><section class="paper save-collection"><h2>存档中的收集记录</h2><p id="save-coverage"></p><p>仅把已确认完成的事件合并到 Wiki 本地清单。现有勾选会保留；背包数量不会被当成地图收集记录。</p><button id="save-merge" class="primary" type="button" disabled>将确认完成的项目合并到本地清单</button><a class="text-link" href="#collection">查看清单 →</a></section><section class="paper"><h2>背包与装备</h2><p id="save-inventory-note" class="muted"></p><div id="save-inventory" class="save-inventory"></div></section></div>
       </section>
-      <footer class="site-footer"><span>咸鱼喵喵 Wiki <span class="footer-dot">·</span> 非官方玩家资料站</span><a href="#about">关于与资料来源 ↗</a></footer>
+      <footer class="site-footer"><span>咸鱼喵喵 Wiki <span class="footer-dot">·</span> 非官方玩家资料站</span><a href="guide/index.html">资料阅读 ↗</a><a href="#about">关于与资料来源 ↗</a></footer>
     </main>
   </div>
   <dialog id="item-dialog" aria-labelledby="dialog-title"><div class="dialog-top"><span class="eyebrow">ITEM NOTEBOOK</span><button id="dialog-close" class="icon-button" aria-label="关闭物品详情">×</button></div><div id="item-dialog-content"></div></dialog>

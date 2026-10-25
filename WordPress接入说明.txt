@@ -1,55 +1,83 @@
-咸鱼喵喵 Wiki → WordPress（Ashe 主题）接入说明
+咸鱼喵喵 Wiki · 放到博客上的方法
 
-本目录是待预览的静态第五版（0.5.0），本次没有上传服务器、修改 WordPress 或发布页面。
-建议网址：https://www.serversalem.top/nyaruru-wiki/
+推荐入口：https://www.serversalem.top/nyaruru-wiki/
+资料阅读：https://www.serversalem.top/nyaruru-wiki/guide/index.html
 
-1. 上传静态文件
-   用主机控制面板的文件管理器或你已有的文件上传方式，在 www.serversalem.top 的网站根目录内新建 nyaruru-wiki 文件夹。
-   将 dist 内的全部文件及子目录原样上传进去，使 index.html 位于 nyaruru-wiki/index.html；不是再套一层 dist。
-   第二版新增 icons.js、world-overview.js 和 assets/items/ 原版图标，请一同上传；升级后如仍显示旧外观，刷新浏览器与网站静态缓存。
-   第三版另有 save-parser.js 和 assets/characters、assets/brand、assets/assistant，请上传完整 dist，勿遗漏这些文件。
-   第四版新增 achievements.js、achievement-parser.js 和 assets/achievements/，并更新 save-parser.js；需要上传完整 dist，避免新页面使用旧解析程序。
-   第五版新增 endings.js 和 assets/brand/header.jpg，请一并上传；原版结局图标沿用 assets/achievements/。
-   通常 nyaruru-wiki 与 wp-admin、wp-content 等目录并列；不要覆盖网站根目录已有的 index.php 或 index.html。
-   不要上传整个项目、游戏目录、存档、.site-diagnostic 或 DATA-CONTRACT.md。
-   不需要修改 WordPress 核心文件，也不要将 HTML/JS 文件上传到 WordPress 媒体库。
-   若服务器已有同名目录，先检查并备份原内容，避免覆盖其他页面。
+一、用现有网站服务就行
 
-2. 先验证独立页面
-   用浏览器打开上述 HTTPS 网址，确认物品、地图、人物和成就手册都能显示。成就默认展示 15 项普通资料，另有 17 项隐藏或结局内容逐卡折叠；未展开时不应提前显示真名、说明或图片。
-   分区地图默认“小镇周围”，包含小镇、森林、学校和矿洞；菜单另有全部 16 个独立区域。
-   若显示 404，先核对网站根目录和 index.html 所在层级；若只有页面外壳，检查是否遗漏 JS、CSS 或其他静态文件。
-   静态目录应使用与 WordPress 实际访问地址相同的协议和域名；如果站点最终跳转到不带 www 的域名，请将示例中的两处网址一起改成实际地址。
+Wiki 是一套静态网页，上传后由浏览器直接运行。WordPress 负责博客文章、导航和介绍；现有 Nginx 负责把 Wiki 的 HTML、脚本、样式和图片发给访客。
+不需要另开一个 Nginx、端口、容器、数据库或 Node.js 常驻服务。生成资料页需要本机 Node.js，访客和服务器不需要运行生成器。
 
-3. 在 WordPress 插入
-   新建或编辑用于 Wiki 的页面，添加“自定义 HTML”区块。
-   将同目录的《WordPress自定义HTML示例.html》内容粘贴到区块，预览后再按你的发布流程处理。
-   iframe 是“在网页里打开另一张网页的窗口”，里面的 Wiki 页面与外面的 Ashe 主题样式相互隔离。
-   这不保证 Ashe 的文章区域本身很宽；如果当前主题提供全宽页面或关闭侧栏选项，可优先选择，手机端则按现有页面宽度显示。
-   不推荐把整个 index.html、样式及脚本粘进编辑器：WordPress 可能过滤脚本，且样式容易与主题互相影响。
+建议放在博客同域名的 /nyaruru-wiki/ 子目录。博客和 Wiki 都使用 www.serversalem.top，访客可以直接打开完整页面，文章里也可以嵌入展示。
 
-4. 嵌入限制与处理
-   示例用 100% 宽度、最小约 960 像素高度，内容较长时在嵌入窗口内滚动。可根据实际预览调整 height/min-height。
-   不需要跨域通信或自动调整高度的脚本。
-   WordPress 的账户权限、多站点规则或安全插件可能删除 iframe。保存后重新打开区块检查；如被删除，请由站点管理员通过支持的嵌入方式或插件，仅允许本 Wiki 的地址。
-   如果页面提示“拒绝连接”，请管理员核查该静态目录的嵌入响应头，只允许本站所需的同源嵌入，不要全站取消安全策略。
-   保留“独立打开”链接，访客始终可以直接使用 Wiki。
-   file://、localhost 和 127.0.0.1 仅适合本机预览，不能作为访客的正式 iframe 地址。
+二、上传文件
 
-5. 清单数据与使用范围
-   勾选记录存放在当前浏览器的 localStorage（浏览器本地储存），不是游戏存档，也不会与游戏或 WordPress 账号同步。
-   换设备、换浏览器、清理站点数据后记录不会自动跟随；请使用 Wiki 的清单导出/导入功能备份。
-   隐私模式、嵌入限制或禁用储存设置可能使 localStorage 不可用；可先独立打开，并以导出的清单文件保留记录。
-   存档分析使用浏览器本地文件与解压功能。只有访客主动选择 .rmmzsave 文件时才会读取，不向服务器发送文件；分析结果也不会自动合并清单。
-   第四版成就手册还支持访客主动选择原名为 UserGameStats_数字_1478160.bin 的 Steam 本地缓存，或明确选择非 Steam 版 config.rmmzsave；文件仍只在浏览器本地读取。文件名不能改，缓存不保证账号实时状态。
-   普通进度存档不能确认 Steam 账号成就。仅明确未获得的成就变灰，未知状态保留；成就记录和账号信息不上传、不持久存储，也不自动合并收集清单。
-   第三版曾用合成文件检查本地同源 iframe、独立页面与 file:// 解析；第四版及实际服务器环境应按《第四版更新说明.txt》重新运行检查，完成情况以相应版本的验收记录为准。
-   如浏览器缺少本地解压功能，可使用新版 Edge 或 Chrome。具体范围见《存档解析说明.txt》。
-   本站仍不连接正在运行的游戏，也不提供实时传送操作。
+1. 在主机面板中找到 www.serversalem.top 当前的网站根目录。通常可以看到 wp-admin、wp-content、wp-includes 和 index.php。
+2. 在这个根目录内新建 nyaruru-wiki 文件夹。
+3. 把本项目 dist 内的全部文件及子目录上传进去。最终层级应当是：
 
-6. 发布前保留的资料说明
-   人物文字摘编自萌娘百科，适用 CC BY-NC-SA 4.0（署名、非商业性使用、相同方式共享）。
-   人物卡片和“关于资料”中的原文链接、许可、改写说明应随页面保留。
-   带广告、付费访问或商业推广的页面可能涉及非商业限制，请在发布这些摘编文字前确认适用许可或取得额外授权；无法确认时可先仅保留原文链接。
-   游戏素材和第三方图片的权利不因文字许可而一并开放。当前版本包含从游戏资源提取的人物像素图、立绘和成就图标，没有复制萌娘百科的人物图片；图源和权利说明须一并保留。
-   具体来源见《资料来源与许可.txt》。
+   网站根目录/
+     index.php
+     wp-admin/
+     wp-content/
+     nyaruru-wiki/
+       index.html
+       app.js
+       styles.css
+       data.js 及其他资料脚本
+       assets/
+       guide/
+
+不要再套一层 dist，不要覆盖博客根目录的 index.php。上传现成的站点压缩包时，先确认压缩包根部直接是 index.html、assets/、guide/ 等文件。
+
+如果从 GitHub 下载源码压缩包，解压后只上传其中 dist 内的内容；scripts、说明文档和项目根目录的其他文件留在本机即可。
+
+当前 site.config.json 已按推荐地址设置，资料页也已生成。只有实际部署目录或域名变化时，才需要修改 siteUrl 并在本机重新运行：
+
+   node scripts/build-guides.js
+
+三、先直接打开 Wiki
+
+上传完先访问：https://www.serversalem.top/nyaruru-wiki/
+再访问：https://www.serversalem.top/nyaruru-wiki/guide/index.html
+
+正常情况下，现有网站配置就能提供这些文件。先确认地图、物品图标、人物与剧情、关于都显示正常，再往 WordPress 放入口。
+
+如果已有目录仍被 WordPress 接管，或目录地址找不到 index.html，可以在现有 www.serversalem.top 的 Nginx server 配置块内补充以下 location。它继承这个站点已有的 root，不需要另写服务器路径：
+
+   location ^~ /nyaruru-wiki/ {
+       index index.html;
+       try_files $uri $uri/ =404;
+   }
+
+这段只用于网站根目录里确实存在 nyaruru-wiki 文件夹的情况。保留原有 WordPress 和 PHP 配置，先用主机面板检测配置，通过后再重载 Nginx。
+
+四、在 WordPress 放入口或嵌入
+
+最推荐：在博客菜单或一篇介绍文章里放“打开咸鱼喵喵 Wiki”按钮，链接到 /nyaruru-wiki/。完整地图有更充足的宽度，手机上也更好操作。
+
+如果想在博客文章里直接展示 Wiki，就添加“自定义 HTML”区块，粘贴同目录 WordPress自定义HTML示例.html 的内容。它使用 iframe，也就是在文章里放一扇打开 Wiki 的窗口。
+Wiki 文件仍由 /nyaruru-wiki/ 提供，iframe 不会代替上传文件。保留示例中的“独立打开”入口；主题能选择全宽或关闭侧栏时，可以使用这些选项。
+
+不要把整份 index.html 和所有脚本、样式直接粘进 WordPress 编辑器，也不要通过媒体库上传这些程序文件。
+
+如果保存后 iframe 被删除，检查账户权限和相关插件的嵌入设置；如果提示拒绝连接，检查本站是否允许同源嵌入。也可以直接使用上面的普通链接入口。
+
+五、让搜索引擎找到资料页
+
+资料页有各自独立的网址，点地图、结局或完整人物档案时会进入完整版的对应位置。
+博客介绍文章可以链接资料首页，也可以直接链接某个物品或剧情资料页。
+
+WordPress 的站点地图通常不会自动收录这个独立目录。可以在 Google Search Console、必应站长工具等后台另外提交：
+
+   https://www.serversalem.top/nyaruru-wiki/guide/sitemap.xml
+
+同域名目录方便博客与 Wiki 相互链接，不保证搜索排名会自动提升。
+
+六、以后更新
+
+保留完整项目作为维护源。资料、模板或样式变化后，按需要重新生成资料页，在本机检查，再更新服务器上 nyaruru-wiki 目录的文件。
+上传时保留目录结构，避免新旧脚本混用。如果界面仍显示旧内容，清理对应网页的浏览器和网站静态缓存，再刷新查看。
+
+保留“关于”、条目来源和许可说明。相关摘编文字遵循 CC BY-NC-SA 4.0，游戏图片的权利不随文字协议一并开放。
+收集清单保存在访客浏览器，所选存档和成就缓存也只在浏览器处理；网站不需要增加上传存档的后端接口。

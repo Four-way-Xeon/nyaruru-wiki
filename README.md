@@ -1,13 +1,14 @@
 # 咸鱼喵喵 Wiki
 
-一个由爱好者维护的非官方《咸鱼喵喵》资料站。查地图、找物品、记录收集进度，也可以看看人物档案、结局和成就。当前版本为 **0.5.0**。
+一个由爱好者维护的非官方《咸鱼喵喵》资料站。查地图、找物品、记录收集进度，也可以看看人物档案、结局和成就。当前版本为 **0.6.0**。
 
-[作者博客](https://www.serversalem.top/) · [全能助手 / 修改器](https://github.com/Four-way-Xeon/Nyaruru_modifier) · [开发记录](https://www.serversalem.top/index.php/2026/10/03/the_best_nyaruru_modifiersnipping_tool/)
+[Kitasami_Nya 的博客](https://www.serversalem.top/) · [全能助手 / 修改器](https://github.com/Four-way-Xeon/Nyaruru_modifier) · [开发记录](https://www.serversalem.top/index.php/2026/10/03/the_best_nyaruru_modifiersnipping_tool/)
 
 本仓库提供静态网页文件与源码，**未启用 GitHub Pages**。博客上的正式 Wiki 尚待上线，目前可以下载后在本地使用。
 
 **可以查看什么**
 
+- **独立资料页**：用同一份数据生成物品、人物、结局、成就和区域页面。沿用 Wiki 的导航，区域卡片配上地图缩略图，查资料时也能方便地打开对应地图。
 - **全收集地图**：996 个地图格、16 个区域、411 个官方收集事件。支持世界总览、分区查看、缩放拖动、出口连线与收集点定位。
 - **物品图鉴**：49 项物品，其中有 26 项配饰；使用原版图标，展示说明、已核实的来源和基础商店标价。
 - **人物与剧情**：16 位人物、5 个结局。身份揭秘与结局详情默认折叠，主动展开后再阅读。
@@ -18,6 +19,8 @@
 ![世界地图预览](docs/screenshots/map.png)
 
 ![物品图鉴与配饰预览](docs/screenshots/items.png)
+
+![独立资料阅读页预览](docs/screenshots/guide.png)
 
 **下载后怎么打开**
 
@@ -39,6 +42,16 @@ node scripts/preview-server.js
 
 这是本机预览地址。关闭预览窗口即可停止服务；直接打开网页和启动本地预览都不需要执行 `npm install`。
 
+**一键生成资料页**
+
+双击 **先看资料页.html** 可打开随项目提供的阅读版，原交互版仍用 **先看Wiki.html** 打开。更新数据后，在已安装 Node.js 22 及以上版本的电脑上双击 **一键生成资料页.bat**，或在仓库目录运行：
+
+```powershell
+node scripts/build-guides.js
+```
+
+正式网址配置在 `site.config.json`；当前预设博客的 `/nyaruru-wiki/` 目录。生成只写入本地 `dist/guide/`，不会上传网站或启用 Pages。部署时上传完整 `dist`。详细用法见 [静态资料生成说明](静态资料生成说明.txt)。
+
 **进度与存档**
 
 收集清单保存在当前浏览器的 `localStorage`（浏览器本地存储），不会自动跟随游戏或账号同步。换浏览器、换设备或清理站点数据前，可以先导出清单，再在新环境中导入。
@@ -47,7 +60,7 @@ node scripts/preview-server.js
 
 普通 `.rmmzsave` 进度存档不能确认 Steam 账号成就。需要核对时，请在成就手册选择原名为 `UserGameStats_数字_1478160.bin` 的 Steam 本地成就缓存；不要改名，缓存也可能落后于账号在线状态。非 Steam 版可以明确选择对应的 `config.rmmzsave`。只有确认未获得的成就才变灰，未知状态保留为未能确认。成就状态与账号信息不持久保存。
 
-具体操作与范围见 [先读我](先读我.txt)、[存档解析说明](存档解析说明.txt) 和 [成就解析说明](成就解析说明.txt)。维护资料见 [数据约定](DATA-CONTRACT.md)，版本检查结果见 [验收记录](验收记录.txt)。
+具体操作与范围见 [先读我](先读我.txt)、[存档解析说明](存档解析说明.txt) 和 [成就解析说明](成就解析说明.txt)。维护资料见 [数据约定](DATA-CONTRACT.md)，上传到博客的步骤见 [WordPress 接入说明](WordPress接入说明.txt)。
 
 维护者可在仓库目录运行 `node scripts/check-project.js`，检查随仓库提供的数据和解析程序。`node scripts/qa-browser.js` 使用独立的无界面 Microsoft Edge 检查交互，需要本机安装 Edge；也可通过环境变量 `WIKI_EDGE_PATH` 指定浏览器。两项检查都不需要真实存档。资料导出脚本及带 `--source` 的原文核对另需维护者持有对应原始资料。
 

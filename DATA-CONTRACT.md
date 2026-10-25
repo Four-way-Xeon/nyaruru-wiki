@@ -1,6 +1,6 @@
 # Wiki 数据约定
 
-当前版本为第五版 `0.5.0`。这是独立静态原型，不调用游戏操作接口。页面文件放在 `dist/`，可直接打开 `dist/index.html`，也可用本地静态服务预览。
+当前版本为第六版 `0.6.0`。这是独立静态原型，不调用游戏操作接口。页面文件放在 `dist/`，可直接打开 `dist/index.html`，也可用本地静态服务预览。
 
 ## 公共资料
 
@@ -31,7 +31,7 @@
 
 ## 第二版扩展
 
-保持 `data.js` 与既有清单格式、localStorage key 兼容；第一版源文件备份在 `.history/v0.1.0/`。
+保持 `data.js` 与既有清单格式、localStorage key 兼容。
 
 `dist/icons.js` 设置 `window.NYARURU_ICONS = {schemaVersion:1,items:{'type:id':{src:'assets/items/type-id.png',width,height}},types:{type:'type:id'},source:{note}}`。PNG 必须使用原版图标映射机械裁切，包含全部 49 个条目，地图、物品卡片、详情与分类按钮复用这些原图。原版图像权利归游戏权利人，人物引用文本的 CC 许可不适用于图像。
 
@@ -57,7 +57,7 @@
 
 模块使用浏览器原生解压与数据解析，不执行存档代码、不恢复游戏类，不包含上传或持久存储接口。页面只在用户选择文件后读取；新文件、错误或清空会取消旧预览。只有用户主动点击合并，才将 `completed` 并入原有清单；原文件和完整解析数据均不持久化。
 
-导航增加 `#save` 与 `#assistant`。地图的左右模式按钮使用 `[data-map-mode]`，隐藏 `#map-mode` 保留统一模式值；原生可见下拉已移除。第三版备份前一版本于 `.history/v0.2.0/`。
+导航包含 `#save` 与 `#assistant`。地图的左右模式按钮使用 `[data-map-mode]`，隐藏 `#map-mode` 保留统一模式值。
 
 ## 第四版地图选择
 
@@ -100,7 +100,7 @@ Steam 输入上限 4 MiB、深度上限 48、节点上限 50,000、字符串上�
 
 ## 第四版维护入口
 
-在项目目录使用 PowerShell 7 执行 `node scripts/check-achievements.js` 检查成就资料，执行 `node scripts/check-achievement-parser.js` 使用合成输入检查成就解析；`node scripts/check-save-parser.js` 复验原有存档解析，`node scripts/check-project.js` 和 `node scripts/qa-browser.js` 用于项目与浏览器检查。维护者持有原游戏和公共 schema 时，可加 `--source` 运行成就资料检查。上述命令为运行方法，实际完成情况以对应版本的验收记录为准。
+在项目目录使用 PowerShell 7 执行 `node scripts/check-achievements.js` 检查成就资料，执行 `node scripts/check-achievement-parser.js` 使用合成输入检查成就解析；`node scripts/check-save-parser.js` 复验原有存档解析，`node scripts/check-project.js` 和 `node scripts/qa-browser.js` 用于项目与浏览器检查。维护者持有原游戏和公共 schema 时，可加 `--source` 运行成就资料检查。命令会输出检查结果，浏览器报告与截图位于 `.qa/`。
 
 ## 第五版人物与剧情
 
@@ -116,4 +116,49 @@ Steam 输入上限 4 MiB、深度上限 48、节点上限 50,000、字符串上�
 
 助手介绍使用 `assets/brand/header.jpg`，来自 Steam 中文 `header_schinese.jpg`，460×215，保留原始字节及比例；`assets/brand/source.json` 记录文件名、字节数和 SHA-256。
 
-品牌区在 `NYARURU WIKI` 下显示“非官方百科，由爱好者维护”。`#about` 导航名为“关于”，顶部 `#site-note` 为可直接修改 HTML 文本的站点说明占位区，下方保留既有资料与授权内容。
+品牌区在 `NYARURU WIKI` 下显示“非官方百科，由爱好者维护”。`#about` 导航名为“关于”，顶部 `#site-note` 是可直接维护 HTML 的站点说明区，第六版已填入百科介绍、“Kitasami_Nya 的博客”（https://www.serversalem.top/）、百科仓库（https://github.com/Four-way-Xeon/nyaruru-wiki）、相关文字的 CC BY-NC-SA 4.0 许可和官方游戏图片权利说明。桌面分栏，手机上下排布，下方保留既有资料与授权内容。
+
+## 第六版静态资料生成（0.6.0）
+
+生成器 `scripts/build-guides.js` 从现有公开导出生成 `dist/guide/`，不读取玩家存档、账号缓存或浏览器清单。数据输入为 `dist/data.js`、`icons.js`、`characters.js`、`endings.js`、`achievements.js`、`world-overview.js`；`scripts/lib/guide-model.js` 读取对应 `window.NYARURU_*` 数据并建立公开资料模型。图片继续引用 `dist/assets/`，原交互站及其数据格式保留。
+
+当前页面数量为 `1 + 5 + 49 + 16 + 5 + 32 + 16 = 124`：资料首页、五类目录，以及物品、人物、结局、成就、区域各自的详情。目录为 `items/`、`characters/`、`endings/`、`achievements/`、`regions/`；首页与目录入口均显式使用 `index.html`，详情使用 `<slug>.html`。模型以稳定公开编号生成 slug，隐藏身份人物使用通用路径，如 `characters/unrevealed-13.html`，不以真实名称暴露身份。
+
+`site.config.json` 包含 `siteUrl`、`blogUrl`、`siteName`。当前 `siteUrl` 为计划根地址 `https://www.serversalem.top/nyaruru-wiki/`，不是发布状态声明；canonical 与 `guide/sitemap.xml` 中的绝对地址由此生成。本地资源、目录及交互站链接为相对路径，支持直接以 `file://` 阅读。`siteUrl` 必须为无账号密码、查询和片段的 HTTP(S) 基地址。
+
+在项目目录执行 `node scripts/build-guides.js` 或双击 `一键生成资料页.bat` 生成；要求 Node.js 22 及以上，不需要安装 npm 依赖或后端。`--site-url URL` 仅覆盖本次基地址，不改配置文件。`--check` 只比较计划与现有产物，不写入、创建或删除文件；存在差异时退出码非零。用临时地址生成的产物需以相同 `--site-url` 检查。
+
+Node.js 接口为 `buildGuides({projectRoot,outDir,siteUrl,check,model})` 与 `planGuides(options)`。默认项目根为生成器所在项目，默认输出目录为 `dist/guide`；`model`、`outDir` 可供隔离检查注入，CLI 不提供 `--out-dir`。`planGuides` 返回 `{files:Map,manifest,model}`；`buildGuides` 返回 `{ok,outputDir,htmlCount,counts,files,differences,removed,changed}`，检查模式遇到差异时 `ok:false`。产物除 HTML 外还包含 `guide.css`、`sitemap.xml`、`build-manifest.json`。
+
+`build-manifest.json` 为 `{schemaVersion:1,generator,version:'0.6.0',inputs,config,modelSha256,counts,files:[{path,sha256}]}`。`inputs` 记录配置、生成代码、模板、样式、公开资料及条目图像的输入哈希；`modelSha256` 为序列化公开资料模型的 SHA-256。`files` 记录相对于 guide 目录的生成路径及内容哈希，不含清单自身。
+
+生成器先验证计划和旧清单的路径，再更新产物；只逐一删除旧清单中存在、此次计划已移除的允许路径，不递归清空目录。路径必须位于输出目录内，并拒绝符号链接、重复清单项和异常文件类型。清单外的自建文件不会作为过期产物删除；用户文件仍应避开计划输出的同名路径，因为生成目标会被更新。原交互页面、原图和用户进度不属于清理范围。
+
+模板接口为 `renderPage({title,description,body,canonical,assetRoot,guideRoot,interactiveRoot,activeNav,breadcrumbs,siteName,blogUrl})`，由 `scripts/lib/guide-template.js` 导出。`body` 是构建器已转义的可信正文 HTML，并提供唯一 `h1`；模板转义其余文本与属性，提供导航、面包屑、标题、摘要及明确传入的 canonical。`assetRoot` 指向 dist，`guideRoot` 指向 guide，`interactiveRoot` 是主站 `index.html` 的相对路径；`breadcrumbs` 为 `{label,href?}[]`。`scripts/lib/guide.css` 复制为 `dist/guide/guide.css`，资料页不加载原交互 `app.js` 或数据脚本。
+
+资料导航沿用交互版八个栏目，侧栏全部链接至主 `index.html` 的对应 fragment。`endings` 页归入“人物与剧情”，`regions` 页归入“世界地图”；各资料目录与详情 URL 保留，仍可通过原网址和 sitemap 访问。结局和人物目录的 `.reader-card-link` 使用单个原生链接包住整张卡片，不包含嵌套链接；结局直接链接 `?ending=<id>#characters`，人物直接链接 `?character=<id>#characters`。链接不依赖资料页脚本，自动展开与定位由完整版执行。区域地图预览使用对应 `regionId` 的现有地图格生成内联 SVG，保持格子相对位置，不加入推测地形、出口或收集状态；预览点击进入交互版对应区域，收集列表另有静态入口。
+
+### 静态资料的剧情保护
+
+静态正文采用默认不带 `open` 的原生 `details/summary`；隐藏人物、隐藏成就和结局剧情由读者主动展开。标题、description、目录标签等未折叠位置保留通用名称。折叠正文已在 HTML 源码中，可能被浏览器加载其中图片，不等同于原交互站“点击前正文为空、点击后才注入”的保护；默认阅读时的视觉折叠继续保留。
+
+剧透正文包在 `div.reader-prose[data-nosnippet]` 中。Google 支持 `div`、`span`、`section` 的此属性，不能仅依赖 `details[data-nosnippet]`；该属性约束搜索摘要，不是禁止索引或访问控制。参考：[Google robots meta tag 与 data-nosnippet](https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag#data-nosnippet-attr)。
+
+### 主交互站深链接
+
+主 `index.html` 支持以下目标参数；值使用 `encodeURIComponent`，fragment 表示对应页面：
+
+| 参数 | 资料键 | 对应 fragment | 行为 |
+| --- | --- | --- | --- |
+| `source` | `location.key` | `#map` | 定位具体来源对应方格 |
+| `item` | `item.key` | `#items` | 打开物品详情 |
+| `region` | `region.id` | `#map` | 选择独立区域 |
+| `character` | 人物原始 `id` | `#characters` | 定位人物档案卡 |
+| `achievement` | 成就原始 `id` | `#achievements` | 定位成就卡 |
+| `ending` | 结局原始 `id`，`ED1`—`ED5` | `#characters` | 定位并展开对应结局，其他结局与人物剧透保持收起 |
+
+例如来源链接形如 `../../index.html?source=<编码后的location.key>#map`；`source` 不接受 `collectionKey` 代替。隐藏人物静态 slug 与交互人物原始 `id` 分别用于文件路径和卡片定位，不能混用。
+
+六类已识别目标参数中只接受一个且仅出现一次；空值、超过 200 字符、多目标、重复目标、不在公开资料索引中的值或无地图格的来源均拒绝定位。合法目标进入相应页面；参数不能改变清单、不触发存档合并，也不自动展开人物或成就剧透。有效 `ending` 链接复用原结局开关展开选中卡片，并滚动聚焦该卡；普通 `#characters` 入口仍保持全部结局收起。
+
+正式上传应包含完整 `dist/` 内容，保持 `assets/`、`guide/` 与原交互入口的相对位置；站点地图位于 `dist/guide/sitemap.xml`。生成命令只更新本地产物，上传方法见 `WordPress接入说明.txt`。

@@ -1,0 +1,117 @@
+咸鱼喵喵 Wiki 静态资料生成说明
+适用版本：0.6.0
+
+一、生成与打开
+
+生成需要 Node.js 22 或更新版本，不需要安装 npm 依赖、数据库或后端服务。生成后的页面只需浏览器即可阅读。
+
+在 Wiki初版 目录双击“一键生成资料页.bat”。批处理会进入自身所在目录、检查 Node.js 版本，然后运行 scripts/build-guides.js。完成后打开 dist\guide\index.html；根目录“先看资料页.html”也指向这个入口。
+
+命令行方式：在 Wiki初版 目录打开 PowerShell 7，执行：
+
+  node scripts/build-guides.js
+
+只检查当前产物是否与数据、模板和配置一致：
+
+  node scripts/build-guides.js --check
+
+--check 不创建、改写或删除文件。发现缺失、内容变化或过期的生成文件时，会列出差异并返回非零退出码；需要更新时再运行不带 --check 的生成命令。
+
+二、地址配置
+
+site.config.json 包含三个配置项：
+
+  siteUrl：计划上传的 Wiki 根目录地址，当前为
+           https://www.serversalem.top/nyaruru-wiki/
+  blogUrl：博客入口，当前为 https://www.serversalem.top/
+  siteName：页面中的站点名称，当前为“咸鱼喵喵非官方百科”
+
+siteUrl 指向 dist 内容未来所在的目录，不是 guide 子目录，也不是 WordPress 文章地址。生成器据此写入每页 canonical（标准页面地址）和 sitemap.xml；本地页面及图片链接仍使用相对路径。此配置是计划地址，不代表已经上传。
+
+临时按另一正式目录生成，可在 PowerShell 中执行：
+
+  node scripts/build-guides.js --site-url "https://example.com/nyaruru-wiki/"
+
+--site-url 只覆盖本次生成，不修改 site.config.json。检查这次生成结果时也要使用相同地址：
+
+  node scripts/build-guides.js --check --site-url "https://example.com/nyaruru-wiki/"
+
+siteUrl 只接受 HTTP/HTTPS 地址，不包含账号密码、查询参数或 #片段。未填写末尾斜杠时，生成器会补齐。
+
+三、生成范围与源文件
+
+所有产物位于 dist\guide\。当前共 124 个 HTML 页面：
+
+  guide/index.html                    资料首页，1 页
+  guide/items/index.html              物品目录 + 49 个详情，共 50 页
+  guide/characters/index.html         人物目录 + 16 个详情，共 17 页
+  guide/endings/index.html            结局目录 + 5 个详情，共 6 页
+  guide/achievements/index.html       成就目录 + 32 个详情，共 33 页
+  guide/regions/index.html            区域目录 + 16 个详情，共 17 页
+
+另生成 guide.css、sitemap.xml 和 build-manifest.json。页面链接明确写出 .html 或 index.html，因此直接从磁盘打开（file://）也能使用，不依赖服务器改写地址。
+
+生成器读取这些已有公开资料：
+
+  dist/data.js              物品、地图格、区域和来源记录
+  dist/icons.js             物品原图映射
+  dist/characters.js        人物文字、图像与来源许可
+  dist/endings.js           结局触发方式、概括与来源许可
+  dist/achievements.js      成就原文、分类和图标
+  dist/world-overview.js    世界地图公开资料
+
+模板与样式源分别为 scripts/lib/guide-template.js、scripts/lib/guide.css；数据整理逻辑位于 scripts/lib/guide-model.js，地图缩略图由 scripts/lib/guide-map-preview.js 绘制，生成入口为 scripts/build-guides.js。需要调整资料或外观时修改相应源文件，再重新生成。
+
+静态页直接引用 dist/assets/ 下的现有原图，不另造图标，也不复制一套图片。页面不载入主站 app.js，不记录个人进度，不读取游戏存档或 Steam 账号文件。原交互入口 dist/index.html 继续提供地图、清单和用户主动选择的本地文件分析。
+
+资料页沿用交互版的栏目名称和顺序，侧栏八个栏目均直接打开完整版 Wiki 的对应功能。标题旁的主要入口明确标出“完整版”。物品图鉴、人物与剧情和成就手册的资料目录继续保留，可通过资料首页及面包屑访问。结局卡片直接打开完整版，定位并展开选中的结局；人物卡片的“查看完整档案”直接定位人物，身份与剧情剧透保持收起。原有 endings/ 和 characters/ 详情网址仍可阅读，方便搜索结果与旧链接继续访问。
+区域卡片中的地图缩略图按现有地图格的位置生成，点击预览或主要按钮进入对应区域的交互地图；“查看收集列表”保留本页资料入口。物品与来源的地图按钮放在明显位置，不再只依赖右上角的地图入口。
+
+四、生成清单与自建文件
+
+dist/guide/build-manifest.json 记录版本、输入文件的 SHA-256、配置、数据模型摘要、数量以及各生成文件的相对路径和 SHA-256。files 数组不记录清单自身。
+
+重新生成时，生成器只删除“旧清单记录、这次已不再生成”的指定文件；不会递归清空 guide 目录，也不会把清单之外的其他文件当作过期产物删除。写入和删除前会检查允许的路径、目录范围和符号链接。
+若准备移除的旧生成页已被手工修改，内容与旧清单的 SHA-256 不符，生成器会在任何写入或删除前停止，提示先处理该文件。
+
+生成路径内的同名文件会由本次产物更新，旧清单中的生成文件也可能被移除。因此不要手工维护生成的 HTML、guide.css 或清单；用户自建内容请使用不与生成路径重名的文件或目录。原交互页面、原图、存档和浏览器收集清单不属于生成清理范围。
+
+五、剧情折叠与搜索摘要
+
+静态资料页使用原生 HTML details/summary，默认不带 open 属性。人物身份、剧情、结局正文和隐藏成就资料需要读者主动展开；隐藏条目的页面标题、目录名和摘要使用通用名称，不在这些位置提前揭晓。
+
+静态 HTML 已包含折叠正文，可通过源代码查看；浏览器也可能加载折叠区内的图片。这与原交互站在点击前保持空正文、点击后再插入内容的方式不同。默认折叠保留阅读时的视觉保护，不是访问控制。
+
+需要排除搜索结果摘要的正文放在 div.reader-prose[data-nosnippet] 内。Google 的 data-nosnippet 适用于 div、span、section，不应只放在 details 上；它用于控制摘要展示，不保证页面不被索引，也不能阻止查看源码。
+
+Google 官方参考：
+https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag#data-nosnippet-attr
+
+六、返回交互站的定位链接
+
+资料页可通过 index.html 的一个查询参数和对应 #页面定位原交互站：
+
+  ?source=<来源 key>#map              location.key，对应具体收集来源
+  ?item=<物品 key>#items              item.key，打开物品详情
+  ?region=<区域 id>#map               region.id，选择独立区域
+  ?character=<人物 id>#characters     人物原始 id，定位档案卡
+  ?achievement=<成就 id>#achievements 成就原始 id，定位成就卡
+  ?ending=<结局 id>#characters        ED1—ED5，定位并展开指定结局
+
+参数值按 URL 编码生成。source 使用来源记录的 key，不是 collectionKey，也不是地图编号。隐藏人物的静态详情路径使用通用名，例如 characters/unrevealed-13.html；返回交互站时仍使用资料中的人物原始 id。
+
+六种目标参数中只能出现一个，重复或同时指定多个、空值、超过 200 字符、未知编号或无法定位的来源都会被拒绝，并提示改用页面搜索或地图。合法链接会进入匹配的页面；ending 参数只展开对应结局，character 与 achievement 定位不会自动展开剧透。普通 #characters 入口也不展开结局。定位不勾选收集、不合并存档、不改变已保存的清单。
+
+七、正式上传与检查
+
+确认最终 siteUrl 后重新生成，正式上传完整 dist 目录的内容，保留 index.html、各资料脚本、assets/、guide/ 及相对位置；不要只上传 guide/，否则图片和交互入口会缺失。
+
+默认计划地址下：
+
+  交互站入口：https://www.serversalem.top/nyaruru-wiki/index.html
+  资料页入口：https://www.serversalem.top/nyaruru-wiki/guide/index.html
+  站点地图：  https://www.serversalem.top/nyaruru-wiki/guide/sitemap.xml
+
+本地站点地图文件为 dist/guide/sitemap.xml，列出 124 个资料页面。生成命令不会上传文件、修改 WordPress、部署网站或推送代码，也不会改动“关于”中的站点说明。
+
+项目检查可运行 node scripts/check-guides.js、node scripts/check-project.js 和 node scripts/qa-browser.js。命令会打印检查结果，浏览器报告和截图保存在 .qa/。

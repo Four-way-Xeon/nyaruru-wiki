@@ -149,7 +149,7 @@
     });
     $('#breadcrumb').textContent = titles[active];
     document.title = `${titles[active]} · 咸鱼喵喵 Wiki`;
-    if (active === 'map') requestAnimationFrame(() => { if (!mapCells.length) renderMap(true); });
+    if (active === 'map') requestAnimationFrame(() => { if (!$('#page-map').hidden && !mapCells.length) renderMap(true); });
     if (active === 'collection') renderCollection();
   }
   window.addEventListener('hashchange', showPage);
@@ -714,7 +714,7 @@
   function renderEndings() {
     $('#ending-grid').innerHTML = (endingData.items || []).map((ending,index) => {
       const panelId = `ending-details-${index}`;
-      return `<article class="ending-card" data-ending="${esc(ending.id)}"><button class="ending-toggle" type="button" data-ending-toggle="${esc(ending.id)}" aria-expanded="false" aria-controls="${panelId}">${characterImage(ending.icon,'ending-icon')}<span class="ending-heading"><strong>${esc(ending.name || `结局${index+1}`)}</strong><span class="ending-toggle-label">展开触发方式与概括</span></span><span class="ending-chevron" aria-hidden="true">＋</span></button><div class="ending-details" id="${panelId}" hidden></div></article>`;
+      return `<article class="ending-card" data-ending="${esc(ending.id)}"><button class="ending-toggle" type="button" data-ending-toggle="${esc(ending.id)}" aria-expanded="false" aria-controls="${panelId}">${characterImage(ending.icon,'ending-icon')}<span class="ending-heading"><strong>${esc(ending.name || `结局${index+1}`)}</strong><span class="ending-toggle-label">触发方式与剧情概括</span></span><span class="ending-action"><span class="ending-action-label">展开</span><svg class="ending-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span></button><div class="ending-details" id="${panelId}" hidden></div></article>`;
     }).join('') || '<p class="empty-state">结局资料暂未加载，请确认 endings.js 与页面位于同一目录。</p>';
   }
   $('#ending-grid').addEventListener('click', event => {
@@ -732,8 +732,7 @@
     } else panel.replaceChildren();
     panel.hidden = !expanded;
     button.setAttribute('aria-expanded', String(expanded));
-    $('.ending-toggle-label',button).textContent = expanded ? '收起结局内容' : '展开触发方式与概括';
-    $('.ending-chevron',button).textContent = expanded ? '−' : '＋';
+    $('.ending-action-label',button).textContent = expanded ? '收起' : '展开';
   });
   function renderCharacters() {
     $('#character-grid').innerHTML = (characterData.characters || []).map((character, index) => {
@@ -767,6 +766,45 @@
   });
   const coverage = typeof meta.coverage === 'string' ? meta.coverage : JSON.stringify(meta.coverage || '资料覆盖范围待补充');
   $('#data-coverage').innerHTML = `<p>${esc(coverage)}</p><p>${esc(meta.sourceNote || '资料来自项目已导出的游戏数据库与地图事件记录。')}</p><p>已导出 ${items.length} 件图鉴物品、${locations.length} 条来源记录、${officialEvents.size} 个官方收集事件、${cells.length} 个地图方格、${pages.length} 个地图页。</p><p>资料生成时间：${esc(meta.generatedAt || '未标注')}<br>数据格式版本：${esc(DATA.schemaVersion || 1)}${meta.game ? `<br>游戏：${esc(meta.game)}` : ''}</p>${meta.officialTotal != null ? `<p>数据标注官方事件总数：${esc(meta.officialTotal)}；可定位官方事件：${esc(meta.mappedOfficial ?? '待核对')}。本站进度分母采用当前导出记录中去重后的官方事件数。</p>` : ''}`;
+  function openEntryTarget() {
+    const params = new URLSearchParams(location.search);
+    const targets = ['source','item','region','character','achievement','ending'].flatMap(kind => params.getAll(kind).map(value => ({ kind,value })));
+    if (!targets.length) return;
+    const invalid = () => notify('这个资料链接暂时无法定位，可以继续使用页面中的搜索和地图。');
+    if (targets.length !== 1 || !targets[0].value || targets[0].value.length > 200) { invalid(); return; }
+    const { kind,value } = targets[0];
+    const show = name => { location.hash = name; showPage(); };
+    const focusCard = (selector, key, id) => requestAnimationFrame(() => {
+      const card = $$(selector).find(node => node.dataset[key] === id);
+      if (!card) return;
+      card.tabIndex = -1;
+      card.scrollIntoView({ block:'start', behavior:'auto' });
+      card.focus({ preventScroll:true });
+    });
+    if (kind === 'source') {
+      const source = locationsByKey.get(value);
+      if (!source || !cellsByKey.has(source.cellKey)) { invalid(); return; }
+      locateSource(value);
+    } else if (kind === 'item') {
+      if (!itemsByKey.has(value)) { invalid(); return; }
+      show('items'); showItem(value);
+    } else if (kind === 'region') {
+      if (!regionsById.has(value)) { invalid(); return; }
+      show('map'); selectRegion(value);
+    } else if (kind === 'character') {
+      if (!(characterData.characters || []).some(entry => entry.id === value)) { invalid(); return; }
+      show('characters'); focusCard('#character-grid [data-character]', 'character', value);
+    } else if (kind === 'ending') {
+      if (!(endingData.items || []).some(entry => entry.id === value)) { invalid(); return; }
+      show('characters');
+      const button = $$('#ending-grid [data-ending-toggle]').find(node => node.dataset.endingToggle === value);
+      if (button && button.getAttribute('aria-expanded') !== 'true') button.click();
+      focusCard('#ending-grid [data-ending]', 'ending', value);
+    } else {
+      if (!achievementItems.some(entry => String(entry.id) === value)) { invalid(); return; }
+      show('achievements'); focusCard('#achievement-grid [data-achievement]', 'achievement', value);
+    }
+  }
   populatePages();
-  renderItems(); renderEndings(); renderCharacters(); renderAchievements(); updateProgress(); showPage();
+  renderItems(); renderEndings(); renderCharacters(); renderAchievements(); updateProgress(); showPage(); openEntryTarget();
 })();
