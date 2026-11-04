@@ -1,6 +1,7 @@
 # 咸鱼喵喵交互式 Wiki
 
 一个由爱好者维护的非官方《咸鱼喵喵》资料站。查地图、找物品、记录收集进度，也可以看看人物档案、结局和成就。当前版本为 **0.6.0**。
+[Wiki在线阅读](www.serversalem.top/nyaruru-wiki/)
 
 [Kitasami_Nya 的博客](https://www.serversalem.top/) · [全能助手 / 修改器](https://github.com/Four-way-Xeon/Nyaruru_modifier) · [开发记录](https://www.serversalem.top/index.php/2026/10/03/the_best_nyaruru_modifiersnipping_tool/)
 
