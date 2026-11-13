@@ -1,6 +1,20 @@
 # Wiki 数据约定
 
-当前版本为第六版 `0.6.0`。这是独立静态原型，不调用游戏操作接口。页面文件放在 `dist/`，可直接打开 `dist/index.html`，也可用本地静态服务预览。
+当前版本为第七版 `0.7.0`。这是独立静态原型，不调用游戏操作接口。页面文件放在 `dist/`，可直接打开 `dist/index.html`，也可用本地静态服务预览。
+
+## Boss 档案与战斗数值
+
+公开页面源码与已核验数据位于 `dist/boss-atlas/`。原 Wiki 通过 `#bosses` 入口嵌入；18 个原版像素按钮、招式深链和本地 GIF 保留。独立游戏沙盒、原始游戏脚本和采集研究目录不随公开包分发。
+
+`combat-data.js` 设置 `window.ATLAS_COMBAT = {version,difficulties,damageBasis,challengeDamageBasis,encounters}`。`encounters[id]` 含 `health:{rows,variants,notes}` 与 `moves[attackId]:{unit,rows,challengeAvailable,summary,notes}`；每行含面向玩家的 `label`、以难度值为键的 `values` 和简短 `notes`。支持挑战切换的招式额外保存每行的 `challengeValues`。难度按原版新版菜单为简单 `-1`、普通 `0`、困难 `0.5`、噩梦 `1`。数值允许精确数字、条件范围文字或表示不适用的 `null`；不得将未知或纯召唤动作当作零伤害。
+
+血量按生命池与阶段分别列出；通关挑战仅展示与剧情战不同的数值。伤害注明一次命中、持续伤害或其他实际口径，不把多段判定直接相加成必吃总伤害。`combat-view.js` 在选择 Boss 或招式时更新右侧表格，原始脚本编号与研究证据不进入玩家页面。
+
+单场挑战与“头目连战”血量相同的表合并显示；角色生命或任一技能已强化时，使用有强化条件。伤害默认显示不含剧情成长与玩家减伤的基础值；可用招式提供“挑战有强化”切换，直接读取预计算值，不对已舍入的基础数值再次乘倍率。剧情专属动作不提供挑战切换。斜杠表示 Boss 自身攻击强化前后；与角色是否强化是两个独立条件。
+
+战斗数值来自原版运行与脚本核对：18 个战斗版本、152 项动作、243 行伤害说明。血量已核对 356 个运行案例，伤害通过 12,287 次原版表达式计算校验。公开数据不包含原始游戏表、源码行号或研究用本地路径。
+
+在项目根目录运行 `node scripts/qa-boss-atlas.cjs --combat` 检查全部数值表、实际切换、电脑/手机布局与本地入口。页面是普通静态 HTML/CSS/JavaScript，无须运行采集工具即可使用。
 
 ## 公共资料
 
@@ -118,7 +132,7 @@ Steam 输入上限 4 MiB、深度上限 48、节点上限 50,000、字符串上�
 
 品牌区在 `NYARURU WIKI` 下显示“非官方百科，由爱好者维护”。`#about` 导航名为“关于”，顶部 `#site-note` 是可直接维护 HTML 的站点说明区，第六版已填入百科介绍、“Kitasami_Nya 的博客”（https://www.serversalem.top/）、百科仓库（https://github.com/Four-way-Xeon/nyaruru-wiki）、相关文字的 CC BY-NC-SA 4.0 许可和官方游戏图片权利说明。桌面分栏，手机上下排布，下方保留既有资料与授权内容。
 
-## 第六版静态资料生成（0.6.0）
+## 静态资料生成
 
 生成器 `scripts/build-guides.js` 从现有公开导出生成 `dist/guide/`，不读取玩家存档、账号缓存或浏览器清单。数据输入为 `dist/data.js`、`icons.js`、`characters.js`、`endings.js`、`achievements.js`、`world-overview.js`；`scripts/lib/guide-model.js` 读取对应 `window.NYARURU_*` 数据并建立公开资料模型。图片继续引用 `dist/assets/`，原交互站及其数据格式保留。
 
@@ -130,7 +144,7 @@ Steam 输入上限 4 MiB、深度上限 48、节点上限 50,000、字符串上�
 
 Node.js 接口为 `buildGuides({projectRoot,outDir,siteUrl,check,model})` 与 `planGuides(options)`。默认项目根为生成器所在项目，默认输出目录为 `dist/guide`；`model`、`outDir` 可供隔离检查注入，CLI 不提供 `--out-dir`。`planGuides` 返回 `{files:Map,manifest,model}`；`buildGuides` 返回 `{ok,outputDir,htmlCount,counts,files,differences,removed,changed}`，检查模式遇到差异时 `ok:false`。产物除 HTML 外还包含 `guide.css`、`sitemap.xml`、`build-manifest.json`。
 
-`build-manifest.json` 为 `{schemaVersion:1,generator,version:'0.6.0',inputs,config,modelSha256,counts,files:[{path,sha256}]}`。`inputs` 记录配置、生成代码、模板、样式、公开资料及条目图像的输入哈希；`modelSha256` 为序列化公开资料模型的 SHA-256。`files` 记录相对于 guide 目录的生成路径及内容哈希，不含清单自身。
+`build-manifest.json` 为 `{schemaVersion:1,generator,version:'0.7.0',inputs,config,modelSha256,counts,files:[{path,sha256}]}`。`inputs` 记录配置、生成代码、模板、样式、公开资料及条目图像的输入哈希；`modelSha256` 为序列化公开资料模型的 SHA-256。`files` 记录相对于 guide 目录的生成路径及内容哈希，不含清单自身。
 
 生成器先验证计划和旧清单的路径，再更新产物；只逐一删除旧清单中存在、此次计划已移除的允许路径，不递归清空目录。路径必须位于输出目录内，并拒绝符号链接、重复清单项和异常文件类型。清单外的自建文件不会作为过期产物删除；用户文件仍应避开计划输出的同名路径，因为生成目标会被更新。原交互页面、原图和用户进度不属于清理范围。
 

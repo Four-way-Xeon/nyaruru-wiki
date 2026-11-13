@@ -4,11 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#23685a">
-  <meta name="description" content="咸鱼喵喵非官方百科：物品图鉴、全收集地图、人物与剧情、结局触发方式、成就手册与本地存档分析，由爱好者维护。">
-  <title>咸鱼喵喵 Wiki · 旅行手记</title>
+  <meta name="description" content="咸鱼喵喵非官方交互式 Wiki：收录全收集地图、物品图鉴、人物与剧情、结局触发方式、成就解析和本地存档分析，支持收集进度记录，由爱好者维护。">
+  <title>咸鱼喵喵百科｜地图、物品、人物与成就攻略</title>
   <link rel="icon" href="assets/brand/icon.jpg" type="image/jpeg">
-  <link rel="canonical" href="index.html">
+  <link rel="canonical" href="https://www.serversalem.top/nyaruru-wiki/">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="boss-shell.css">
   <script src="data.js" defer></script>
   <script src="characters.js" defer></script>
   <script src="endings.js" defer></script>
@@ -18,6 +19,7 @@
   <script src="save-parser.js" defer></script>
   <script src="achievement-parser.js" defer></script>
   <script src="app.js" defer></script>
+  <script src="boss-shell.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">跳到主要内容</a>
@@ -49,19 +51,20 @@
       <a href="#items" data-nav="items"><svg class="icon"><use href="#icon-box"/></svg>物品图鉴</a>
       <a href="#collection" data-nav="collection"><svg class="icon"><use href="#icon-check"/></svg>全收集清单<span id="nav-count" class="nav-count">0</span></a>
       <a href="#characters" data-nav="characters"><svg class="icon"><use href="#icon-cat"/></svg>人物与剧情</a>
+      <a href="#bosses" data-nav="bosses"><svg class="icon"><use href="#icon-sword"/></svg>Boss 档案</a>
       <a href="#achievements" data-nav="achievements"><svg class="icon"><use href="#icon-gem"/></svg>成就手册</a>
       <a href="#assistant" data-nav="assistant"><svg class="icon"><use href="#icon-wand"/></svg>全能助手</a>
       <a href="#save" data-nav="save"><svg class="icon"><use href="#icon-board"/></svg>存档分析</a>
       <a href="#about" data-nav="about"><svg class="icon"><use href="#icon-info"/></svg>关于</a>
     </nav>
-    <div class="sidebar-bottom"><span class="status-dot"></span> 独立玩家资料站<p>一张地图，一份清单。<br>把每一次发现，慢慢记下来。</p><span class="edition">第六版 · 资料与探索</span></div>
+    <div class="sidebar-bottom"><span class="status-dot"></span> 独立玩家资料站<p>一张地图，一份清单。<br>把每一次发现，慢慢记下来。</p><span class="edition">第七版 · 0.7.0</span></div>
   </aside>
   <div class="workspace">
     <header class="topbar"><span>玩家资料库 <span class="slash">/</span> <span id="breadcrumb">世界地图</span></span><span class="local-badge"><span class="status-dot"></span>进度仅存本机</span></header>
     <main id="main" tabindex="-1">
       <div id="data-error" class="notice" hidden>资料文件未加载。请将 index.html、styles.css、app.js、data.js、characters.js、icons.js 和 world-overview.js 放在同一目录，再打开页面。</div>
       <section class="page" id="page-map" aria-labelledby="map-title">
-        <div class="hero"><div><p class="eyebrow">EXPLORE AT YOUR OWN PACE</p><h1 id="map-title">下一站，去哪里？</h1><p class="lead">展开世界地图，找到藏在角落里的小小惊喜。</p><div class="hero-tags"><span>房间结构示意</span><span>收集点定位</span><span>本地进度记录</span></div></div><div class="hero-art" aria-hidden="true"><svg viewBox="0 0 210 150"><path d="m20 34 55-17 61 15 53-16v105l-53 17-61-15-55 17Z" fill="#e6ede0" stroke="#769888" stroke-width="2"/><path d="M75 17v106m61-91v106" stroke="#a9bb9f" stroke-width="2"/><path d="m42 103 19-26 35 12 21-42 39 22 16-28" fill="none" stroke="#c18e4b" stroke-width="3" stroke-dasharray="5 5"/><circle cx="61" cy="77" r="5" fill="#23685a"/><path d="M168 27c-19 0-18 23 0 37 18-14 19-37 0-37" fill="#23685a"/><circle cx="168" cy="41" r="5" fill="#fffaf0"/><path d="m36 35 3 8 8 3-8 3-3 8-3-8-8-3 8-3Z" fill="#c5a064"/></svg></div></div>
+        <div class="hero"><div><p class="eyebrow">EXPLORE AT YOUR OWN PACE</p><h1 id="map-title">咸鱼喵喵非官方百科</h1><p class="lead">由爱好者整理维护，收录物品图鉴、全收集地图、人物与剧情、结局触发方式和成就攻略，支持本地存档分析与收集进度记录。</p><div class="hero-tags"><span>房间结构示意</span><span>收集点定位</span><span>本地进度记录</span></div></div><div class="hero-art" aria-hidden="true"><svg viewBox="0 0 210 150"><path d="m20 34 55-17 61 15 53-16v105l-53 17-61-15-55 17Z" fill="#e6ede0" stroke="#769888" stroke-width="2"/><path d="M75 17v106m61-91v106" stroke="#a9bb9f" stroke-width="2"/><path d="m42 103 19-26 35 12 21-42 39 22 16-28" fill="none" stroke="#c18e4b" stroke-width="3" stroke-dasharray="5 5"/><circle cx="61" cy="77" r="5" fill="#23685a"/><path d="M168 27c-19 0-18 23 0 37 18-14 19-37 0-37" fill="#23685a"/><circle cx="168" cy="41" r="5" fill="#fffaf0"/><path d="m36 35 3 8 8 3-8 3-3 8-3-8-8-3 8-3Z" fill="#c5a064"/></svg></div></div>
         <div class="stat-strip"><div><span class="stat-icon">◎</span><span><strong id="stat-points">—</strong><small>官方收集事件</small></span></div><div><span class="stat-icon">▦</span><span><strong id="stat-regions">—</strong><small>地图区域</small></span></div><div><span class="stat-icon">◇</span><span><strong id="stat-items">—</strong><small>图鉴条目</small></span></div><div><span class="stat-icon">✓</span><span><strong id="stat-progress">0</strong><small>我的已收集</small></span><a href="#collection" class="text-link stat-link">查看清单 →</a></div></div>
         <div class="section-top"><div><h2>世界地图 <span class="tiny-label">WORLD MAP</span></h2><p class="muted">总览整个世界，或选择独立区域细看；“小镇周围”包含小镇、森林、学校和矿洞。</p></div><span class="map-note">示意地图 · 非游戏画面</span></div>
         <div class="map-layout">
@@ -76,6 +79,7 @@
         </div>
         <p class="footnote">地图展示已导出的房间结构与来源点；未确认的获取条件统一标为“待核对”。灰色图标表示你已在本地清单中完成该事件。</p>
       </section>
+      <section class="page" id="page-bosses" aria-label="Boss 档案" hidden><iframe id="boss-atlas-frame" title="Boss 档案与招式实拍"></iframe></section>
       <section class="page" id="page-items" aria-labelledby="items-title" hidden>
         <p class="eyebrow">A LITTLE SOMETHING TO KEEP</p><h1 id="items-title">物品图鉴</h1><p class="lead">用途、来源与地图位置，放在同一张卡片里。</p>
         <div class="filter-bar"><label class="search-field"><span>搜索物品</span><input id="item-search" type="search" placeholder="物品名称、说明或编号…" autocomplete="off"></label><label>类型<select id="item-type"><option value="">全部类型</option></select></label><span id="item-count" class="muted" aria-live="polite"></span></div>
@@ -135,7 +139,7 @@
             </section>
           </div>
         </section>
-        <div class="about-grid"><article class="paper"><h2>资料与覆盖范围</h2><div id="data-coverage"></div><h3>阅读前的小提示</h3><ul><li>这是独立玩家 Wiki 第六版（0.6.0），与游戏运行状态没有连接。</li><li>清单以官方事件为单位；额外脚本来源会单独标明，不计入官方进度。</li><li>“商店标价”采用游戏数据库的基础价格；具体商店、库存与任务解锁条件仍需结合游戏进度核对。</li><li>有条件的来源如未核实，显示“获取条件待核对”。</li><li>地图是结构示意；道具图标来自游戏原版素材，图像权利归游戏权利人。</li></ul></article><article class="paper"><h2>本地清单怎么保存？</h2><p>勾选后，浏览器会使用本地存储（localStorage）记住已完成事件。清理浏览器数据、更换浏览器或移动文件，都可能导致记录不可见。</p><p>建议定期“导出清单”，保存 JSON 文件。导入只接受本 Wiki 的清单格式，并检查事件编号；验证通过后合并已完成记录。</p><h3>人物文字与授权</h3><p>萌娘百科来源文本按各卡片标注的 CC BY-NC-SA 4.0 授权整理，保留来源链接并说明是否改写。人物像素图与立绘来自本地游戏素材，图片来源与权利说明见人物数据与资料来源。人物文字的 CC 许可不适用于游戏图像。</p><div id="character-sources"></div></article></div>
+        <div class="about-grid"><article class="paper"><h2>资料与覆盖范围</h2><div id="data-coverage"></div><h3>阅读前的小提示</h3><ul><li>这是独立玩家 Wiki 第七版（0.7.0），与游戏运行状态没有连接。</li><li>清单以官方事件为单位；额外脚本来源会单独标明，不计入官方进度。</li><li>“商店标价”采用游戏数据库的基础价格；具体商店、库存与任务解锁条件仍需结合游戏进度核对。</li><li>有条件的来源如未核实，显示“获取条件待核对”。</li><li>地图是结构示意；道具图标来自游戏原版素材，图像权利归游戏权利人。</li></ul></article><article class="paper"><div data-nosnippet><h2>本地清单怎么保存？</h2><p>勾选后，浏览器会使用本地存储（localStorage）记住已完成事件。清理浏览器数据、更换浏览器或移动文件，都可能导致记录不可见。</p><p>建议定期“导出清单”，保存 JSON 文件。导入只接受本 Wiki 的清单格式，并检查事件编号；验证通过后合并已完成记录。</p></div><h3>人物文字与授权</h3><p>萌娘百科来源文本按各卡片标注的 CC BY-NC-SA 4.0 授权整理，保留来源链接并说明是否改写。人物像素图与立绘来自本地游戏素材，图片来源与权利说明见人物数据与资料来源。人物文字的 CC 许可不适用于游戏图像。</p><div id="character-sources"></div></article></div>
       </section>
       <section class="page" id="page-save" aria-labelledby="save-title" hidden>
         <p class="eyebrow">A NOTE FROM YOUR OWN ADVENTURE</p><h1 id="save-title">本地存档分析</h1><p class="lead">看看这一程走到了哪里，再把已确认的发现记进清单。</p>

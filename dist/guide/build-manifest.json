@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "generator": "scripts/build-guides.js",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "inputs": {
     "dist/achievements.js": "79c98ab0d898c0f6076208725394dd5bcc600e7460e6c7046754057137aa6e8a",
     "dist/assets/achievements/BR.png": "a269f32eb1ca5fe5da951186ecc636001486f240b9209c8c2713c2040d90b76a",
@@ -120,12 +120,12 @@
     "dist/endings.js": "378054c0bb959cf1ac3ea322fbe3ffe67966d81978cc8947c23cba9331a9f991",
     "dist/icons.js": "d2a954faf754a26dce2eeaff83c3d29c440b95c853ae4098ba18d72c1cc22627",
     "dist/world-overview.js": "95927002c748ce842d733c0f306b738cfa1da2093b57b3b5664efbf7000afd86",
-    "package.json": "7603ab3806848c67c624948b8e98bfb4e58bfd3177d14344a58e8102645a965a",
-    "scripts/build-guides.js": "4fa2e4cb94d9dcb0b88c2b2b737f00f7ac785df3312d2ce96fd99ce64505d62f",
+    "package.json": "f79a430af4ac5d6f4e01b5e8a52d306f5123f185fb03b6ca3c264cf575e6f48e",
+    "scripts/build-guides.js": "9e6fc9682fec604a1beed900db04abf09d1428bc2cc08b73574cee1c177b4286",
     "scripts/lib/guide-map-preview.js": "12940dd08fda7fcdcc87041410dd75620ebd06fcddfce6bb20c341e6b6cf70d1",
     "scripts/lib/guide-model.js": "3f493ec845c0817430e9dddc5cb3f4e5f92a4c6b40a9989907d999d83ce56db6",
     "scripts/lib/guide-template.js": "3f5e30643cf63327659ff693aa401a35d37de4757d63d20723db80c6ce333c03",
-    "scripts/lib/guide.css": "a14a44440bc495194b5eb8742286c4f02e99e197b48b75a86cb718e391edb0ff",
+    "scripts/lib/guide.css": "1b4d5327a4cb26bcb91a188d7f0c03ff88cda1b4a6edaf51d1364f8de560e4ae",
     "site.config.json": "119f9cebfe408a51d9770c5523390e6594b3049a0c684ec014150a9c577f1257"
   },
   "config": {
@@ -371,7 +371,7 @@
     },
     {
       "path": "guide.css",
-      "sha256": "a14a44440bc495194b5eb8742286c4f02e99e197b48b75a86cb718e391edb0ff"
+      "sha256": "1b4d5327a4cb26bcb91a188d7f0c03ff88cda1b4a6edaf51d1364f8de560e4ae"
     },
     {
       "path": "index.html",

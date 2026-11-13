@@ -1023,7 +1023,7 @@ async function checkWiki(origin) {
   checks.push('Desktop and mobile assistant hero show the complete original 460x215 cover while repository destinations and screenshot guide remain available');
   await view('achievements');
   await capture('mobile-achievements');
-  assert.equal(await evaluate('document.querySelectorAll("nav [data-nav]").length'),8);
+  assert.equal(await evaluate('document.querySelectorAll("nav [data-nav]").length'),9);
   assert.equal(await evaluate(`(() => {const nav=document.querySelector('.sidebar nav');nav.scrollLeft=nav.scrollWidth;return nav.scrollLeft>0&&nav.scrollWidth>nav.clientWidth;})()`),true,'Mobile navigation scrolls inside its own container');
   await evaluate('document.querySelector(".sidebar nav").scrollLeft=0');
   checks.push('All eight views fit a 390px mobile viewport; navigation scrolls horizontally without widening the document');

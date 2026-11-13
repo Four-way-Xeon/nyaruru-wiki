@@ -139,16 +139,17 @@
     }
   });
 
-  const titles = { map:'世界地图', items:'物品图鉴', collection:'全收集清单', characters:'人物与剧情', achievements:'成就手册', assistant:'全能助手', save:'存档分析', about:'关于' };
+  const homeTitle = document.title;
+  const titles = { map:'世界地图', items:'物品图鉴', collection:'全收集清单', characters:'人物与剧情', bosses:'Boss 档案', achievements:'成就手册', assistant:'全能助手', save:'存档分析', about:'关于' };
   function showPage() {
-    const requested = location.hash.slice(1), active = Object.hasOwn(titles, requested) ? requested : 'map';
+    const requested = location.hash.startsWith('#bosses/') ? 'bosses' : location.hash.slice(1), active = Object.hasOwn(titles, requested) ? requested : 'map';
     $$('.page').forEach(page => { page.hidden = page.id !== `page-${active}`; });
     $$('[data-nav]').forEach(link => {
       if (link.dataset.nav === active) link.setAttribute('aria-current', 'page');
       else link.removeAttribute('aria-current');
     });
     $('#breadcrumb').textContent = titles[active];
-    document.title = `${titles[active]} · 咸鱼喵喵 Wiki`;
+    document.title = active === 'map' ? homeTitle : `${titles[active]} · 咸鱼喵喵 Wiki`;
     if (active === 'map') requestAnimationFrame(() => { if (!$('#page-map').hidden && !mapCells.length) renderMap(true); });
     if (active === 'collection') renderCollection();
   }

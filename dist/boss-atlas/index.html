@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="咸鱼喵喵 Boss 动作图鉴实验页：原版动作动画、逐帧查看、主要招式解析与沙盒实拍。">
+  <meta name="color-scheme" content="light">
+  <title>敌人图鉴 · 咸鱼喵喵</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">跳至图鉴内容</a>
+  <aside class="sidebar" aria-label="图鉴导航">
+    <a class="brand" href="#" aria-label="敌人图鉴首页">
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M6 12 5 5l8 5a15 15 0 0 1 6 0l8-5-1 7c3 3 3 10-1 13-5 4-13 4-18 0-4-3-4-10-1-13Z"/><path d="M10 17v2m12-2v2m-8 2 2 2 2-2M5 20H1m26 0h4"/></svg></span>
+      <span>咸鱼喵喵<small>NYARURU · FIELD NOTES</small></span>
+    </a>
+    <div class="sidebar-section"><span>战斗档案</span><span id="nav-count">18</span></div>
+    <label class="search-box"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="search" type="search" placeholder="搜索 Boss 或招式" aria-label="搜索所有 Boss 或招式" autocomplete="off"></label>
+    <nav id="boss-nav" aria-label="选择 Boss"><p class="loading-note">正在读取图鉴…</p></nav>
+    <div class="sidebar-footer"><span class="status-dot"></span>独立预览<p>先看动作，再读招式。<br>非官方资料，由爱好者整理。</p></div>
+  </aside>
+  <div class="workspace">
+    <header class="topbar"><span>咸鱼喵喵 <span class="slash">/</span> <strong>敌人图鉴</strong></span><span class="edition">Boss 档案 · 0.7.0</span></header>
+    <main id="main">
+      <div class="page-heading"><div><p class="eyebrow">KNOW YOUR OPPONENT</p><h1>敌人图鉴</h1><p class="page-lead">看清每一次出手，从认识前摇开始。</p></div><div class="page-stats"><div><strong id="encounter-count">18</strong><span>战斗版本</span></div><div><strong id="move-count">152</strong><span>动作条目</span></div></div></div>
+      <div class="scope-note"><span class="scope-icon" aria-hidden="true">i</span><div><strong>沙盒实拍 × 原版动作动画</strong><p>在战场画面中辨认出招，再切换素材逐帧观察。实拍在保护玩家、指定出招的条件下采集；当前收录主要动作、阶段变体与连段，尚未覆盖完整自然战斗。</p></div><span class="spoiler-note">含后期 Boss</span></div>
+      <section id="boss-picker" class="boss-picker" aria-label="选择战斗档案" hidden><div class="boss-picker-heading"><span>选择 Boss</span><div id="boss-search-slot"></div></div><div id="boss-buttons" class="boss-buttons" role="group" aria-label="选择 Boss"></div></section>
+      <section id="search-results" class="search-results" aria-labelledby="search-title" hidden><div class="section-heading"><h2 id="search-title">搜索结果</h2><button id="clear-search" class="text-button" type="button">清除搜索</button></div><p id="search-summary" aria-live="polite"></p><div id="search-grid" class="search-grid"></div></section>
+      <div id="atlas-content">
+        <section class="boss-heading" aria-labelledby="boss-name"><div class="boss-number" id="boss-number">01</div><div class="boss-heading-text"><p class="eyebrow" id="boss-kicker">BOSS DOSSIER / 01</p><h2 id="boss-name">载入战斗档案</h2><p id="boss-summary"></p></div><span class="boss-move-count" id="boss-move-count"></span></section>
+        <section id="battle-capture" class="battle-capture" hidden aria-labelledby="capture-heading"><details><summary><span id="capture-heading">查看这场战斗的沙盒实拍</span><span class="capture-badge">原游戏画面</span></summary><figure><img id="battle-poster" alt="" loading="lazy"><figcaption id="battle-caption"></figcaption></figure></details></section>
+        <section class="move-workbench" aria-labelledby="move-title">
+          <div class="viewer-panel">
+            <div class="viewer-toolbar"><div class="mode-tabs" role="tablist" aria-label="画面来源"><button id="mode-capture" type="button" role="tab" aria-selected="false" aria-controls="viewer-stage" disabled>战斗实拍</button><button id="mode-material" type="button" role="tab" aria-selected="true" aria-controls="viewer-stage">角色素材</button></div><span id="mode-status">仅角色动作</span></div>
+            <div id="viewer-stage" class="viewer-stage" tabindex="0" role="group" aria-label="动作查看器，空格播放暂停，左右方向键逐帧">
+              <span class="stage-label" id="stage-label">ORIGINAL SPRITE ANIMATION</span>
+              <canvas id="animation-canvas" width="800" height="410" aria-label="当前招式的原版动画"></canvas>
+              <img id="capture-image" class="capture-image" alt="当前招式的沙盒实拍" hidden>
+              <video id="capture-video" class="capture-video" muted loop playsinline preload="metadata" hidden></video>
+              <p id="stage-message" class="stage-message" hidden></p>
+              <span id="stage-bottom" class="stage-bottom">原版素材 · 固定位置展示</span>
+            </div>
+            <div class="player-controls"><button id="play" class="play-button" type="button" aria-label="暂停动画"><span id="play-symbol" aria-hidden="true">Ⅱ</span><span id="play-label">暂停</span></button><div class="step-buttons"><button id="previous-frame" type="button" aria-label="上一帧" title="上一帧">‹</button><button id="next-frame" type="button" aria-label="下一帧" title="下一帧">›</button></div><output id="frame-label" aria-live="off">1 / 1 帧</output><div class="speed-controls" role="group" aria-label="播放速度"><button type="button" data-speed="0.5" aria-pressed="false">0.5×</button><button type="button" data-speed="1" aria-pressed="true">1×</button></div></div>
+            <div class="timeline"><input id="frame-slider" type="range" min="0" max="0" value="0" step="1" aria-label="选择动画帧"><span id="duration-label"></span></div>
+            <div id="capture-tools" class="capture-tools" hidden><div id="capture-thumbnails" class="capture-thumbnails" role="group" aria-label="选择实拍关键画面"></div><a id="download-capture" download>↓ 保存选中实拍 PNG</a></div>
+            <div class="viewer-footnote"><span id="viewer-note">仅播放角色动作，保留原表帧间停顿。</span><span id="keyboard-note" class="keyboard-note">空格播放 · ← → 逐帧</span></div>
+          </div>
+          <article class="move-analysis"><div class="move-index"><span id="move-order">招式 01</span><span id="move-phase" class="phase-tag"></span></div><h3 id="move-title"></h3><p id="move-description"></p><div class="download-area"><p class="download-heading">保存招式演示</p><div class="download-links"><a id="download-capture-gif" class="battle-download" download hidden>↓ 战斗实拍 GIF</a><a id="download-gif" download>↓ 角色素材 GIF</a><a id="download-png" download>↓ 角色静帧 PNG</a><a id="download-strip" download>↓ 角色三帧图</a></div><p id="download-note" class="download-note">角色素材仅用于观察本体动作。</p></div><section id="combat-stats" class="combat-stats" aria-label="当前 Boss 血量与招式伤害"></section></article>
+        </section>
+        <section class="moves-section" aria-labelledby="moves-heading"><div class="section-heading"><div><p class="eyebrow">MOVE LIBRARY</p><h2 id="moves-heading">主要招式</h2></div><span class="section-hint">选择一招，放大查看</span></div><div id="move-grid" class="move-grid"></div></section>
+        <details class="coverage-details"><summary>这一版收录了什么？</summary><div><p>本页按战斗版本整理 <span id="coverage-catalogue"></span></p><p id="coverage-counts"></p><p id="coverage-gaps"></p><p>战斗实拍保留原版引擎渲染，采用指定出招与保护玩家的条件；它展示本次触发的攻击过程，不代表全部难度、自然连招或无伤路线。角色素材只展示本体姿势，不含完整弹幕。</p><p>游戏图像与设定的权利归原游戏权利人。本页仅供本地研究试作，尚未发布。</p></div></details>
+      </div>
+      <p id="fatal-error" class="fatal-error" role="alert" hidden></p>
+      <noscript><p class="fatal-error">请在浏览器中启用 JavaScript，以选择 Boss 和播放动作。</p></noscript>
+      <footer class="page-footer"><span>咸鱼喵喵 · 敌人图鉴实验室</span><span>用原版素材，慢慢看清每一招。</span></footer>
+    </main>
+  </div>
+  <script src="bosses.js"></script>
+  <script src="boss-icons.js"></script>
+  <script src="animation-data.js"></script>
+  <script src="media.js"></script>
+  <script src="captures.js"></script>
+  <script src="combat-data.js"></script>
+  <script src="combat-view.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

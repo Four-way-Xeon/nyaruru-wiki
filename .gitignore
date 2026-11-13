@@ -10,6 +10,9 @@ UserGameStats_*.bin
 Thumbs.db
 .DS_Store
 
-# Keep development notes in the private working copy.
+# Keep development records, game data, and capture tools out of the public repository.
 /第*版更新说明.txt
 /验收记录.txt
+/Boss档案合并说明.txt
+/boss-atlas-lab/
+/temp/

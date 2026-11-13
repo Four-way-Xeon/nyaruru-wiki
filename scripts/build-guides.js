@@ -158,7 +158,7 @@ function achievementBody(ctx, entry) {
     section('资料来源', paragraph(entry.source?.text || '原版成就简体中文表') + paragraph(entry.hiddenSource) + paragraph('图标直接采用原版游戏成就图像，权利归相应权利人。'), 'reader-source');
 }
 
-function makePages(model, config, renderPage) {
+function makePages(model, config, renderPage, version) {
   const pages = new Map();
   function add(file, title, description, activeNav, body, breadcrumbLabel) {
     const ctx = pageContext(file, config);
@@ -169,7 +169,7 @@ function makePages(model, config, renderPage) {
       if (breadcrumbLabel) breadcrumbs.push({ label: breadcrumbLabel });
     }
     const heading = '<header class="reader-heading"><p class="reader-meta">咸鱼喵喵 · 查资料，找位置</p><h1>' + esc(title) + '</h1>' + paragraph(description) + headingActions(model, ctx, file, activeNav) + '</header>';
-    const html = renderPage({ ...ctx, title, description: title + '：' + description, activeNav, breadcrumbs, body: heading + body(ctx), siteName: config.siteName, blogUrl: config.blogUrl, version: '0.6.0' });
+    const html = renderPage({ ...ctx, title, description: title + '：' + description, activeNav, breadcrumbs, body: heading + body(ctx), siteName: config.siteName, blogUrl: config.blogUrl, version });
     assert.equal(typeof html, 'string'); assert.ok(!pages.has(file), 'Unique page ' + file); pages.set(file, html);
   }
   add('index.html', '咸鱼喵喵百科', '查物品、看人物与剧情，或点击下方区域，打开地图寻找收集点。', 'home', ctx =>
@@ -239,9 +239,10 @@ function makePages(model, config, renderPage) {
 function planGuides(options = {}) {
   const projectRoot = path.resolve(options.projectRoot || defaultRoot);
   const config = readConfig(projectRoot, options.siteUrl);
+  const version = JSON.parse(fs.readFileSync(path.join(projectRoot, 'package.json'), 'utf8')).version;
   const model = options.model || loadGuideModel(projectRoot);
   const { renderPage } = require(path.join(projectRoot, 'scripts/lib/guide-template.js'));
-  const files = makePages(model, config, renderPage);
+  const files = makePages(model, config, renderPage, version);
   const htmlFiles = [...files.keys()];
   files.set('guide.css', fs.readFileSync(path.join(projectRoot, 'scripts/lib/guide.css'), 'utf8'));
   files.set('sitemap.xml', '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
@@ -257,7 +258,7 @@ function planGuides(options = {}) {
   }
   for (const file of [...new Set(sourceFiles)].sort()) inputs[file] = hash(fs.readFileSync(path.join(projectRoot, file)));
   const manifest = {
-    schemaVersion: 1, generator: 'scripts/build-guides.js', version: '0.6.0', inputs, config,
+    schemaVersion: 1, generator: 'scripts/build-guides.js', version, inputs, config,
     modelSha256: hash(JSON.stringify(model)), counts: model.counts,
     files: [...files].sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0).map(([file, content]) => ({ path: file, sha256: hash(content) }))
   };

@@ -1,8 +1,8 @@
 {
   "name": "nyaruru-player-wiki",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "private": true,
-  "description": "咸鱼喵喵 Wiki 第六版：一键生成资料页、全收集地图、人物剧情与本地存档分析",
+  "description": "咸鱼喵喵 Wiki 第七版：Boss 档案、战斗数值、全收集地图与本地资料页",
   "engines": {
     "node": ">=22"
   },
